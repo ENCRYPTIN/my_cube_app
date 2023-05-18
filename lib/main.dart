@@ -1,6 +1,7 @@
 //import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:my_cube/homepage.dart';
 import 'package:my_cube/otp.dart';
 import 'package:my_cube/register_account.dart';
 import 'package:my_cube/request_otp.dart';
@@ -20,6 +21,7 @@ void main() async{
   '/register_account':(context)=>RegisterAccount(),
    '/request_otp':(context)=>RequestOtp(),
    '/otp':(context)=>Otp(),
+   '/homepage':(context)=>HomePage(),
   },
   ));
   await Firebase.initializeApp(

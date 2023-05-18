@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_cube/main.dart';
 class RegisterAccount extends StatelessWidget {
   const RegisterAccount({Key? key}) : super(key: key);
 
@@ -167,7 +168,7 @@ class RegisterAccount extends StatelessWidget {
                 ),
                 child: ElevatedButton(
                   onPressed: () {
-                    // Add your button press logic here
+                    Navigator.pushNamed(context, '/homepage');
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
