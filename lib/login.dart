@@ -8,6 +8,7 @@ class SignInPage2 extends StatelessWidget {
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
+      appBar: AppBar(),
         body: Center(
             child: isSmallScreen
                 ? Column(

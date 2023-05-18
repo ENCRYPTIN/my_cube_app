@@ -53,6 +53,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    namespace 'com.mycube.my_cube'
 }
 
 flutter {

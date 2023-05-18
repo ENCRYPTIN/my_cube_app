@@ -1,8 +1,13 @@
+//import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:my_cube/otp.dart';
+import 'package:my_cube/register_account.dart';
+import 'package:my_cube/request_otp.dart';
 import 'firebase_options.dart';
 import 'login.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
 
 void main() async{
   runApp(MaterialApp(
@@ -12,6 +17,9 @@ void main() async{
   '/': (context) => MyCube(),
  // '/home': (context) => const HomePage(),
   '/login': (context) => SignInPage2(),
+  '/register_account':(context)=>RegisterAccount(),
+   '/request_otp':(context)=>RequestOtp(),
+   '/otp':(context)=>Otp(),
   },
   ));
   await Firebase.initializeApp(
@@ -68,7 +76,9 @@ class MyCube extends StatelessWidget{
          letterSpacing:  0.08,
          color:  Color(0xffffffff),
        ),),
-       onPressed: () {},
+       onPressed: () {
+         Navigator.pushNamed(context, '/request_otp');
+       },
       ),
     ),
           Container(
@@ -83,7 +93,7 @@ class MyCube extends StatelessWidget{
     Center(
     child: TextButton(
     onPressed: () {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.pushNamed(context, '/login');
     },
       child:
     Text('Login ',
