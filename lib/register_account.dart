@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:my_cube/main.dart';
 class RegisterAccount extends StatelessWidget {
   const RegisterAccount({Key? key}) : super(key: key);
 
