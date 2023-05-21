@@ -46,7 +46,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       borderRadius:  BorderRadius.circular(100,)
                   ),
                   child: TextButton(
-                    child: Text('Register',
+                    child: const Text('Register',
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize:  16,
@@ -69,21 +69,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       borderRadius:  BorderRadius.circular(100,)
                   ),
                   child:
-                  Center(
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/login');
-                      },
-                      child:
-                      Text('Login ',
-                        style: TextStyle (
-                          fontFamily: 'Poppins',
-                          fontSize:  16,
-                          fontWeight:  FontWeight.w700,
-                          height:  1.2125,
-                          letterSpacing:  0.08,
-                          color:  const Color(0xffffffff),
-                        ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    child:
+                    Text('Login ',
+                      style: TextStyle (
+                        fontFamily: 'Poppins',
+                        fontSize:  16,
+                        fontWeight:  FontWeight.w700,
+                        height:  1.2125,
+                        letterSpacing:  0.08,
+                        color:  const Color(0xffffffff),
                       ),
                     ),
                   ),

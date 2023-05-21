@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:my_cube/request_otp.dart';
-
+import 'package:pinput/pinput.dart';
 class Otp extends StatefulWidget {
   const Otp({Key? key}) : super(key: key);
   @override
@@ -17,6 +17,10 @@ class _OtpState extends State<Otp> {
   final TextEditingController _digit4Controller = TextEditingController();
   final TextEditingController _digit5Controller = TextEditingController();
   final TextEditingController _digit6Controller = TextEditingController();
+
+  final TextEditingController _pinController=TextEditingController();
+
+
   void showOtpErrorDialog(BuildContext context, String errorMessage) {
     showDialog(
       context: context,
@@ -51,145 +55,48 @@ class _OtpState extends State<Otp> {
 
   @override
   Widget build(BuildContext context) {
+    final defaultPinTheme = PinTheme(
+      width: 56,
+      height: 56,
+      textStyle: TextStyle(fontSize: 20, color: Color.fromRGBO(30, 60, 87, 1), fontWeight: FontWeight.w600),
+      decoration: BoxDecoration(
+        border: Border.all(color: Color.fromRGBO(234, 239, 243, 1)),
+        borderRadius: BorderRadius.circular(20),
+      ),
+    );
+
+    final focusedPinTheme = defaultPinTheme.copyDecorationWith(
+      border: Border.all(color: Color.fromRGBO(114, 178, 238, 1)),
+      borderRadius: BorderRadius.circular(8),
+    );
+
+    final submittedPinTheme = defaultPinTheme.copyWith(
+      decoration: defaultPinTheme.decoration?.copyWith(
+        color: Color.fromRGBO(234, 239, 243, 1),
+      ),
+    );
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-        Container(
-          padding: const EdgeInsets.only(left: 15,right: 15),
-          // child: TextField(
-          //   onChanged: (value){
-          //     code=value;
-          //   },
-          //   textAlign: TextAlign.left,
-          //   decoration: InputDecoration(
-          //     border: InputBorder.none,
-          //     hintText: 'Name',
-          //   ),
-          // ),
-          child: Form(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [SizedBox(
-                height: 40,
-                width: 30,
-                child: TextFormField(
-                  controller: _digit1Controller,
-                  onChanged: (value){
-                    if(value.length==1){
-                      FocusScope.of(context).nextFocus();
-                      _digit1Controller.text=value;
-                    }
-                  },
-                  style: Theme.of(context).textTheme.headlineMedium,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(1),
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                ),
-              ),SizedBox(
-                height: 40,
-                width: 30,
-                child: TextFormField(
-                  controller: _digit2Controller,
-                  onChanged: (value){
-                    if(value.length==1){
-                      FocusScope.of(context).nextFocus();
-                      _digit2Controller.text=value;
-                    }
-                  },
 
-                  style: Theme.of(context).textTheme.headlineMedium,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(1),
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                ),
-              ),
-                SizedBox(
-                  height: 40,
-                  width: 30,
-                  child: TextFormField(
-                    controller: _digit3Controller,
-                    onChanged: (value){
-                      if(value.length==1){
-                        FocusScope.of(context).nextFocus();
-                        _digit3Controller.text=value;
-                      }
-                    },
-
-                    style: Theme.of(context).textTheme.headlineMedium,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(1),
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                  width: 30,
-                  child: TextFormField(
-                    controller: _digit4Controller,
-                    onChanged: (value){
-                      if(value.length==1){
-                        FocusScope.of(context).nextFocus();
-                        _digit4Controller.text=value;
-                      }
-                    },
-                    style: Theme.of(context).textTheme.headlineMedium,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(1),
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                  width: 30,
-                  child: TextFormField(
-                    controller: _digit5Controller,
-                    onChanged: (value){
-                      if(value.length==1){
-                        FocusScope.of(context).nextFocus();
-                        _digit5Controller.text=value;
-                      }
-                    },
-                    style: Theme.of(context).textTheme.headlineMedium,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(1),
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                  width: 30,
-                  child: TextFormField(
-                    controller: _digit6Controller,
-                    onChanged: (value){
-                      if(value.length==1){
-                        FocusScope.of(context).nextFocus();
-                        _digit6Controller.text=value;
-                      }
-                    },
-                    style: Theme.of(context).textTheme.headlineMedium,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(1),
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          Container(
+           child: Pinput(
+             defaultPinTheme: defaultPinTheme,
+             focusedPinTheme: focusedPinTheme,
+             submittedPinTheme: submittedPinTheme,
+             // validator: (s) {
+             //   return s == '2222' ? null : 'Pin is incorrect';
+             // },
+             // pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+             showCursor: true,
+             length: 6,
+             androidSmsAutofillMethod: AndroidSmsAutofillMethod.none,
+             controller: _pinController,
+             // onCompleted: (pin) => print(pin),
+           ),
           ),
-        ),
           Container(
             width: 347,
             height: 56,
@@ -208,8 +115,8 @@ class _OtpState extends State<Otp> {
                   //showOtpErrorDialog(context, _digit1Controller.text+_digit2Controller.text+_digit3Controller.text+_digit4Controller.text+_digit5Controller.text+_digit6Controller.text,);
                   // Create a PhoneAuthCredential with the code
                   PhoneAuthCredential credential = PhoneAuthProvider.credential(
-                      verificationId: RequestOtp.verify,
-                      smsCode:_digit1Controller.text+_digit2Controller.text+_digit3Controller.text+_digit4Controller.text+_digit5Controller.text+_digit6Controller.text );
+                      verificationId: RequestOtp.verify,smsCode:_pinController.text);
+                      //smsCode:_digit1Controller.text+_digit2Controller.text+_digit3Controller.text+_digit4Controller.text+_digit5Controller.text+_digit6Controller.text );
                   // Sign the user in (or link) with the credential
                   await auth.signInWithCredential(credential);
                   Navigator.pushNamedAndRemoveUntil(context, '/register_account',(route)=>false);
