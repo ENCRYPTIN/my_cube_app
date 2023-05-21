@@ -8,15 +8,15 @@ import 'package:my_cube/request_otp.dart';
 import 'package:my_cube/welcome_screen.dart';
 import 'firebase_options.dart';
 import 'login.dart';
-
+// import 'package:firebase_auth/firebase_auth.dart';
 
 
 void main() async{
-  runApp(MyCube());
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  runApp(MyCube());
 }
 class MyCube extends StatelessWidget{
   const MyCube ({Key? key}) : super(key: key);

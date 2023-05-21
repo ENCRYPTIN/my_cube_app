@@ -1,19 +1,26 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 class RequestOtp extends StatefulWidget {
   const RequestOtp({Key? key}) : super(key: key);
-
+  static String verify="";
   @override
   State<RequestOtp> createState() => _RequestOtpState();
 }
 
 class _RequestOtpState extends State<RequestOtp> {
-  //TextEditingController _phonenumber=TextEditingController();
-  String username='';
+  TextEditingController phonenumberController=TextEditingController();
+  TextEditingController countrycodeController=TextEditingController();
+  String phonenumber="";
+  @override
+  void initState() {
+    super.initState();
+    countrycodeController.text="+91";
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [Center(
+      body: SingleChildScrollView(
+        child: Center(
             child: Column(
               children: [
                 Container(
@@ -77,14 +84,45 @@ class _RequestOtpState extends State<RequestOtp> {
                       color: Color(0xFFC2C2C2),
                     ),
                   ),
-                  child: TextField(
-                    //controller: _phonenumber,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [Flexible(
+                      flex:1,
+                      child: TextField(
+                        keyboardType: TextInputType.phone,
+                        controller: countrycodeController,
 
-                    textAlign: TextAlign.left,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Phone Number',
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
                     ),
+                      Flexible(
+                        flex: 1,
+                        child: Text(
+                          '|',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 26,
+                          ),
+                    ),
+                      ),
+                      Expanded(
+                        flex: 6,
+                        child: TextField(
+                          controller: phonenumberController,
+                          keyboardType: TextInputType.phone,
+                          textAlign: TextAlign.left,
+                          onChanged: (value){
+                            phonenumber=value;
+                          },
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Phone Number',
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
 
@@ -102,8 +140,18 @@ class _RequestOtpState extends State<RequestOtp> {
                     ),
                   ),
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/otp');
+                    onPressed: () async{
+                      await FirebaseAuth.instance.verifyPhoneNumber(
+                        phoneNumber: '${countrycodeController.text+phonenumber}',
+                        verificationCompleted: (PhoneAuthCredential credential) {},
+                        verificationFailed: (FirebaseAuthException e) {},
+                        codeSent: (String verificationId, int? resendToken) {
+                            RequestOtp.verify=verificationId;
+                          Navigator.pushNamed(context, '/otp',);
+                        },
+                        codeAutoRetrievalTimeout: (String verificationId) {},
+                      );
+
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -125,7 +173,7 @@ class _RequestOtpState extends State<RequestOtp> {
               ],
             )
         ),
-      ]),
+      ),
     );
   }
 }

@@ -21,12 +21,19 @@ def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
-
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
+    namespace 'com.mycube.my_cube'
+    dependencies {
+        implementation platform('com.google.firebase:firebase-bom:32.0.0')
+        implementation 'com.google.firebase:firebase-analytics'
+        implementation 'com.google.firebase:firebase-auth'
+        implementation 'com.google.gms:google-services:4.3.15'
+    }
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -40,7 +47,7 @@ android {
         applicationId "com.mycube.my_cube"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 21
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -53,7 +60,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-    namespace 'com.mycube.my_cube'
+
 }
 
 flutter {
