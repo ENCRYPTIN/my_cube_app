@@ -6,7 +6,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       body: Center(
-        child: ElevatedButton(onPressed:() {}, child: Text('Pets')),
+        child: ElevatedButton(onPressed:() {}, child: const Text('Pets')),
       ),
     );
   }

@@ -16,7 +16,7 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyCube());
+  runApp(const MyCube());
 }
 class MyCube extends StatelessWidget{
   const MyCube ({Key? key}) : super(key: key);
@@ -27,13 +27,13 @@ class MyCube extends StatelessWidget{
       // home: MyCube(),
       initialRoute: '/',
       routes: {
-        '/': (context) => WelcomeScreen(),
+        '/': (context) => const WelcomeScreen(),
         // '/home': (context) => const HomePage(),
-        '/login': (context) => SignInPage2(),
-        '/register_account':(context)=>RegisterAccount(),
-        '/request_otp':(context)=>RequestOtp(),
-        '/otp':(context)=>Otp(),
-        '/homepage':(context)=>HomePage(),
+        '/login': (context) => const SignInPage2(),
+        '/register_account':(context)=>const RegisterAccount(),
+        '/request_otp':(context)=>const RequestOtp(),
+        '/otp':(context)=>const Otp(),
+        '/homepage':(context)=>const HomePage(),
       },
     );
   }

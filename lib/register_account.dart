@@ -23,7 +23,7 @@ class RegisterAccount extends StatelessWidget {
               ),
               )),
               Container(
-                margin: EdgeInsets.only(top: 10),
+                margin: const EdgeInsets.only(top: 10),
                 child: const Text(
                   'Create your new MyCube Account.',
                   style: TextStyle(
@@ -37,8 +37,8 @@ class RegisterAccount extends StatelessWidget {
               ),
               //Name Text Container:
               Container(
-                  margin: EdgeInsets.only(left: 10,top: 110),
-                  child: Align(
+                  margin: const EdgeInsets.only(left: 10,top: 110),
+                  child: const Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.only(left: 15),
@@ -56,16 +56,16 @@ class RegisterAccount extends StatelessWidget {
               Container(
                 width: 390,
                 height: 56,
-                padding: EdgeInsets.only(left: 15),
-                margin: EdgeInsets.only(left: 10,right: 10, top:10 ),
+                padding: const EdgeInsets.only(left: 15),
+                margin: const EdgeInsets.only(left: 10,right: 10, top:10 ),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(28),
                   border: Border.all(
                     width: 2,
-                    color: Color(0xFFC2C2C2),
+                    color: const Color(0xFFC2C2C2),
                   ),
                 ),
-                child: TextField(
+                child: const TextField(
                   textAlign: TextAlign.left,
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -75,8 +75,8 @@ class RegisterAccount extends StatelessWidget {
               ),
               //Create Password Text Container:
               Container(
-                  margin: EdgeInsets.only(left: 10,top: 30),
-                  child: Align(
+                  margin: const EdgeInsets.only(left: 10,top: 30),
+                  child: const Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.only(left: 15),
@@ -95,16 +95,16 @@ class RegisterAccount extends StatelessWidget {
               Container(
                 width: 390,
                 height: 56,
-                padding: EdgeInsets.only(left: 15),
-                margin: EdgeInsets.only(left: 10,right: 10, top: 10),
+                padding: const EdgeInsets.only(left: 15),
+                margin: const EdgeInsets.only(left: 10,right: 10, top: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(28),
                   border: Border.all(
                     width: 2,
-                    color: Color(0xFFC2C2C2),
+                    color: const Color(0xFFC2C2C2),
                   ),
                 ),
-                child: TextField(
+                child: const TextField(
                   textAlign: TextAlign.left,
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -114,8 +114,8 @@ class RegisterAccount extends StatelessWidget {
               ),
               //Confirm Password Text Container
               Container(
-                  margin: EdgeInsets.only(left: 10,top: 30),
-                  child: Align(
+                  margin: const EdgeInsets.only(left: 10,top: 30),
+                  child: const Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.only(left: 15),
@@ -135,16 +135,16 @@ class RegisterAccount extends StatelessWidget {
               Container(
                 width: 390,
                 height: 56,
-                padding: EdgeInsets.only(left: 15),
-                margin: EdgeInsets.only(left: 10,right: 10, top: 10),
+                padding: const EdgeInsets.only(left: 15),
+                margin: const EdgeInsets.only(left: 10,right: 10, top: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(28),
                   border: Border.all(
                     width: 2,
-                    color: Color(0xFFC2C2C2),
+                    color: const Color(0xFFC2C2C2),
                   ),
                 ),
-                child: TextField(
+                child: const TextField(
                   textAlign: TextAlign.left,
                   decoration: InputDecoration(
                     border: InputBorder.none,
@@ -157,12 +157,12 @@ class RegisterAccount extends StatelessWidget {
                 width: 347,
                 height: 56,
                 //padding: EdgeInsets.only(left: 15),
-                margin: EdgeInsets.only(left: 10,right: 10, top: 20),
+                margin: const EdgeInsets.only(left: 10,right: 10, top: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(28),
                   border: Border.all(
                     width: 2,
-                    color: Color(0xFF17FD54),
+                    color: const Color(0xFF17FD54),
                   ),
                 ),
                 child: ElevatedButton(
@@ -174,10 +174,10 @@ class RegisterAccount extends StatelessWidget {
                       borderRadius: BorderRadius.circular(28),
                     ),
                     padding: EdgeInsets.zero,
-                    minimumSize: Size(347, 56),
-                    backgroundColor: Color(0xFF17FD54),
+                    minimumSize: const Size(347, 56),
+                    backgroundColor: const Color(0xFF17FD54),
                   ),
-                  child: Text(
+                  child: const Text(
                     'Create Account',
                     style: TextStyle(
                       fontSize: 16,

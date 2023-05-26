@@ -17,9 +17,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin:  EdgeInsets.fromLTRB(9.0, 0.0, 0.0, 10.0),
-                  padding: EdgeInsets.all(20),
-                  child: Text(
+                  margin:  const EdgeInsets.fromLTRB(9.0, 0.0, 0.0, 10.0),
+                  padding: const EdgeInsets.all(20),
+                  child: const Text(
                     'MY CUBE',
                     style:  TextStyle (
                       fontFamily: 'Poppins',
@@ -40,9 +40,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Container(
                   width:  double.infinity,
                   height:  56,
-                  margin: EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
                   decoration:  BoxDecoration (
-                      color:  Color(0xff10fc44),
+                      color:  const Color(0xff10fc44),
                       borderRadius:  BorderRadius.circular(100,)
                   ),
                   child: TextButton(
@@ -63,9 +63,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 Container(
                   width:  double.infinity,
                   height:  56,
-                  margin: EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
                   decoration:  BoxDecoration (
-                      color:  Color(0xff10fc44),
+                      color:  const Color(0xff10fc44),
                       borderRadius:  BorderRadius.circular(100,)
                   ),
                   child:
@@ -74,14 +74,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       Navigator.pushNamed(context, '/login');
                     },
                     child:
-                    Text('Login ',
+                    const Text('Login ',
                       style: TextStyle (
                         fontFamily: 'Poppins',
                         fontSize:  16,
                         fontWeight:  FontWeight.w700,
                         height:  1.2125,
                         letterSpacing:  0.08,
-                        color:  const Color(0xffffffff),
+                        color:  Color(0xffffffff),
                       ),
                     ),
                   ),

@@ -11,9 +11,9 @@ class SignInPage2 extends StatelessWidget {
       appBar: AppBar(),
         body: Center(
             child: isSmallScreen
-                ? Column(
+                ? const Column(
               mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 _Logo(),
                 _FormContent(),
               ],
@@ -21,8 +21,8 @@ class SignInPage2 extends StatelessWidget {
                 : Container(
               padding: const EdgeInsets.all(32.0),
               constraints: const BoxConstraints(maxWidth: 800),
-              child: Row(
-                children: const [
+              child: const Row(
+                children: [
                   Expanded(child: _Logo()),
                   Expanded(
                     child: Center(child: _FormContent()),
