@@ -36,6 +36,7 @@ android {
         implementation 'com.google.android.play:integrity:1.1.0'
         implementation 'com.google.android.gms:play-services-base:18.2.0'
         implementation 'com.google.android.gms:play-services-basement:18.2.0'
+        implementation 'com.google.firebase:firebase-storage'
     }
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion

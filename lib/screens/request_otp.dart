@@ -1,5 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
+import 'package:country_picker/country_picker.dart';
+import 'package:my_cube/services/auth.dart';
+import 'package:provider/provider.dart';
 class RequestOtp extends StatefulWidget {
   const RequestOtp({Key? key}) : super(key: key);
   static String verify="";
@@ -8,14 +11,13 @@ class RequestOtp extends StatefulWidget {
 }
 
 class _RequestOtpState extends State<RequestOtp> {
-  TextEditingController phonenumberController=TextEditingController();
+  TextEditingController phoneController=TextEditingController();
   TextEditingController countrycodeController=TextEditingController();
+  //to set default country code:
+  Country country=CountryParser.parseCountryCode("IN");
   String phonenumber="";
-  @override
-  void initState() {
-    super.initState();
-    countrycodeController.text="+91";
-  }
+  String phonenumbersend="";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,50 +81,80 @@ class _RequestOtpState extends State<RequestOtp> {
                   margin: const EdgeInsets.only(left: 10,right: 10, top:10 ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(28),
-                    border: Border.all(
-                      width: 2,
-                      color: const Color(0xFFC2C2C2),
-                    ),
                   ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [Flexible(
-                      flex:1,
-                      child: TextField(
-                        keyboardType: TextInputType.phone,
-                        controller: countrycodeController,
+                  child:    TextFormField(
+                    cursorColor: Colors.purple,
+                    controller: phoneController,
+                    keyboardType: TextInputType.phone,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        phonenumber = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Enter phone number",
+                      hintStyle: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: Colors.grey.shade600,
 
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                        ),
                       ),
-                    ),
-                      const Flexible(
-                        flex: 1,
-                        child: Text(
-                          '|',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: 26,
-                          ),
-                    ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black12),
                       ),
-                      Expanded(
-                        flex: 6,
-                        child: TextField(
-                          controller: phonenumberController,
-                          keyboardType: TextInputType.phone,
-                          textAlign: TextAlign.left,
-                          onChanged: (value){
-                            phonenumber=value;
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.black12),
+                      ),
+                      prefixIcon: Container(
+                        padding: const EdgeInsets.all(8.0),
+                        margin: EdgeInsets.only(top:3),
+
+                        child: InkWell(
+                          onTap: () {
+                            showCountryPicker(
+                                context: context,
+                                countryListTheme: const CountryListThemeData(
+                                  bottomSheetHeight: 550,
+                                ),
+                                onSelect: (value) {
+                                  setState(() {
+                                    country = value;
+                                  });
+                                });
                           },
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Phone Number',
+                          child: Text(
+                            "${country.flagEmoji} + ${country.phoneCode}",
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
-                    ],
+                      suffixIcon: phoneController.text.length > 9
+                          ? Container(
+                        height: 30,
+                        width: 30,
+                        margin: const EdgeInsets.all(10.0),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.green,
+                        ),
+                        child: const Icon(
+                          Icons.done,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      )
+                          : null,
+                    ),
                   ),
                 ),
 
@@ -139,19 +171,10 @@ class _RequestOtpState extends State<RequestOtp> {
                       color: const Color(0xFF17FD54),
                     ),
                   ),
+
                   child: ElevatedButton(
                     onPressed: () async{
-                      await FirebaseAuth.instance.verifyPhoneNumber(
-                        phoneNumber: countrycodeController.text+phonenumber,
-                        verificationCompleted: (PhoneAuthCredential credential) {},
-                        verificationFailed: (FirebaseAuthException e) {},
-                        codeSent: (String verificationId, int? resendToken) {
-                            RequestOtp.verify=verificationId;
-                          Navigator.pushNamed(context, '/otp',);
-                        },
-                        codeAutoRetrievalTimeout: (String verificationId) {},
-                      );
-
+                      sendPhoneNumber();
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -175,5 +198,12 @@ class _RequestOtpState extends State<RequestOtp> {
         ),
       ),
     );
+
+  }
+  void sendPhoneNumber() {
+    final AuthProvider _authService = Provider.of<AuthProvider>(
+        context, listen: false);
+    String phoneNumber = phoneController.text.trim();
+    _authService.signInWithPhone(context, "+${country.phoneCode}$phoneNumber");
   }
 }

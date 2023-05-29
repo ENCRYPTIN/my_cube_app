@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_cube/services/auth.dart';
+import 'package:provider/provider.dart';
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
@@ -8,8 +10,13 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+
+
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
         body:Center(
             child: Column(
@@ -86,6 +93,39 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
                 ),
+                // Container(
+                //   width:  double.infinity,
+                //   height:  56,
+                //   margin: const EdgeInsets.all(20),
+                //   decoration:  BoxDecoration (
+                //       color:  const Color(0xff10fc44),
+                //       borderRadius:  BorderRadius.circular(100,)
+                //   ),
+                //   child:
+                //   TextButton(
+                //     onPressed: () async{
+                //       dynamic result=await _authService.signInAnnon();
+                //       if(result==null){
+                //         print("error signing in");
+                //       }
+                //       else{
+                //         print("signed in");
+                //         print(result.uid);
+                //       }
+                //     },
+                //     child:
+                //     const Text('Login Anon',
+                //       style: TextStyle (
+                //         fontFamily: 'Poppins',
+                //         fontSize:  16,
+                //         fontWeight:  FontWeight.w700,
+                //         height:  1.2125,
+                //         letterSpacing:  0.08,
+                //         color:  Color(0xffffffff),
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             )
         )

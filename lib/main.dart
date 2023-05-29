@@ -1,14 +1,15 @@
 //import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:my_cube/homepage.dart';
-import 'package:my_cube/otp.dart';
-import 'package:my_cube/register_account.dart';
-import 'package:my_cube/request_otp.dart';
-import 'package:my_cube/welcome_screen.dart';
+import 'package:my_cube/home/homepage.dart';
+import 'package:my_cube/home/wrapper.dart';
+import 'package:my_cube/screens/register_account.dart';
+import 'package:my_cube/screens/request_otp.dart';
+import 'package:my_cube/services/auth.dart';
+import 'package:my_cube/screens/welcome_screen.dart';
 import 'firebase_options.dart';
-import 'login.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'screens/login.dart';
+import 'package:provider/provider.dart';
 
 
 void main() async{
@@ -18,23 +19,31 @@ void main() async{
   );
   runApp(const MyCube());
 }
-class MyCube extends StatelessWidget{
+class MyCube extends StatefulWidget{
   const MyCube ({Key? key}) : super(key: key);
 
   @override
+  State<MyCube> createState() => _MyCubeState();
+}
+
+class _MyCubeState extends State<MyCube> {
+  @override
   Widget build(BuildContext context){
-    return MaterialApp(
-      // home: MyCube(),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const WelcomeScreen(),
-        // '/home': (context) => const HomePage(),
-        '/login': (context) => const SignInPage2(),
-        '/register_account':(context)=>const RegisterAccount(),
-        '/request_otp':(context)=>const RequestOtp(),
-        '/otp':(context)=>const Otp(),
-        '/homepage':(context)=>const HomePage(),
-      },
+    return MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_)=>AuthProvider())],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        // home: MyCube(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const Wrapper(),//,
+           '/new user': (context) => const WelcomeScreen(),
+          '/login': (context) => const SignInPage2(),
+          '/register_account':(context)=>const RegisterAccount(),
+          '/request_otp':(context)=>const RequestOtp(),
+          '/homepage':(context)=>HomePage(),
+        },
+      ),
     );
   }
 }
