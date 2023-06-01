@@ -158,25 +158,33 @@ class AuthProvider extends ChangeNotifier{
   }
 
   Future getDataFromFirestore() async {
+    String userid=_auth.currentUser!.uid;
     try {
-      await _firebaseFirestore
-          .collection("Users/$_uid/PersonalData/$_uid")
-          .doc(_auth.currentUser!.uid)
-          .get()
-          .then((DocumentSnapshot snapshot) {
-        _userModel = UserModel(
-          username: snapshot['name'],
-          email: snapshot['email'],
-          createdAt: snapshot['createdAt'],
-          bio: snapshot['bio'],
-          uid: snapshot['uid'],
-          profilepic: snapshot['profilePic'],
-          phoneNumber: snapshot['phoneNumber'],
-        );
-        _uid = userModel.uid;
-      });
+            final DocumentSnapshot snapshot = await _firebaseFirestore
+          .collection("Users")
+          .doc(userid)
+          .collection("PersonalData")
+          .doc(userid)
+          .get();
+      if (snapshot.exists) {
+        final data = snapshot.data() as Map<String, dynamic>;
+         _userModel = UserModel(
+           username: data['name']as String? ??'',
+           email: data['email']as String? ??'',
+           createdAt: data['createdAt']as String? ??'',
+           bio: data['bio']as String? ??'',
+           uid: data['uid']as String? ??'',
+           profilepic: data['profilepic']as String? ??'',
+           phoneNumber: data['phoneNumber']as String? ??'',
+         );
+         _uid = _userModel?.uid;
+
+      } else {
+        // Handle the case where the document does not exist
+        print('Document does not exist');
+    }
     } catch (e){
-       print(e);
+       print("error: $e");
     }
   }
 
