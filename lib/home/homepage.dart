@@ -40,12 +40,6 @@ class HomePage extends StatelessWidget {
             Text(ap.userModel.phoneNumber),
             Text(ap.userModel.email),
             Text(ap.userModel.bio),
-            ElevatedButton(
-              onPressed:() async{
-                ap.userSignOut();
-              },
-              child: const Text('logout')
-          ),
         ]),
       ),
     );
