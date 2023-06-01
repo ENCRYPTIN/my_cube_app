@@ -5,7 +5,7 @@ import 'package:my_cube/services/auth.dart';
 import 'package:pinput/pinput.dart';
 import 'package:my_cube/services/utils.dart';
 import 'package:provider/provider.dart';
-
+import 'package:my_cube/home/homepage.dart';
 class Otp extends StatefulWidget {
   final String verificationId;
   const Otp({super.key, required this.verificationId});
@@ -172,19 +172,19 @@ class _OtpState extends State<Otp> {
         ap.checkExistingUser().then(
               (value) async {
             if (value == true) {
-              // user exists in our app
-              // ap.getDataFromFirestore().then(
-              //       (value) => ap.saveUserDataToSP().then(
-              //         (value) => ap.setSignIn().then(
-              //           (value) => Navigator.pushAndRemoveUntil(
-              //           context,
-              //           MaterialPageRoute(
-              //             builder: (context) => const HomeScreen(),
-              //           ),
-              //               (route) => false),
-              //     ),
-              //   ),
-              // );
+             //user exists in our app
+              ap.getDataFromFirestore().then(
+                    (value) => ap.saveUserDataToSP().then(
+                      (value) => ap.setSignIn().then(
+                        (value) => Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>HomePage(),
+                        ),
+                            (route) => false),
+                  ),
+                ),
+              );
             } else {
               // new user
               Navigator.pushAndRemoveUntil(

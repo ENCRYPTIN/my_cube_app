@@ -1,7 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:my_cube/Models/user_model.dart';
 import 'package:my_cube/screens/otp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_cube/services/utils.dart';
@@ -14,6 +17,10 @@ class AuthProvider extends ChangeNotifier{
 //check if use is signed in
   bool _isSignedIn = false;
   bool get isSignedIn => _isSignedIn;
+
+
+  UserModel? _userModel;
+  UserModel get userModel => _userModel!;
 
   //set loading while verifying otp
   bool _isLoading = false;
@@ -29,6 +36,13 @@ class AuthProvider extends ChangeNotifier{
   checkSignIn() async{
     final SharedPreferences s = await SharedPreferences.getInstance();
     _isSignedIn = s.getBool("is_signedin") ?? false;
+    notifyListeners();
+  }
+
+  Future setSignIn() async {
+    final SharedPreferences s = await SharedPreferences.getInstance();
+    s.setBool("is_signedin", true);
+    _isSignedIn = true;
     notifyListeners();
   }
   // signin
@@ -87,9 +101,10 @@ class AuthProvider extends ChangeNotifier{
     }
   }
 //DATABASE OPERATIONS
+
   Future<bool> checkExistingUser() async {
     DocumentSnapshot snapshot =
-    await _firebaseFirestore.collection("users").doc(_uid).get();
+    await _firebaseFirestore.collection("Users/$_uid/PersonalData").doc(_uid).get();
     if (snapshot.exists) {
       print("USER EXISTS");
       return true;
@@ -98,13 +113,94 @@ class AuthProvider extends ChangeNotifier{
       return false;
     }
   }
-  //signout
-  Future signOut() async{
+
+  //saving data to cloud
+  void saveUserDataToFirebase({
+    required BuildContext context,
+    required UserModel userModel,
+    required File profilePic,
+    required Function onSuccess,
+}) async{
+    _isLoading=true;
+    notifyListeners();
     try{
-      return await _auth.signOut();
-    } catch(e){
-      print(e.toString());
-      return null;
+      // uploading image to firebase storage.
+      await storeFileToStorage("$_uid/ProfilePic", profilePic).then((value) {
+        userModel.uid = _auth.currentUser!.phoneNumber!;
+        userModel.profilepic = value;
+        userModel.createdAt = DateTime.now().millisecondsSinceEpoch.toString();
+        userModel.phoneNumber = _auth.currentUser!.phoneNumber!;
+      });
+      _userModel = userModel;
+
+      // uploading to database
+      await _firebaseFirestore
+          .collection("Users/$_uid/PersonalData")
+          .doc(_uid)
+          .set(userModel.toMap())
+          .then((value) {
+        onSuccess();
+        _isLoading = false;
+        notifyListeners();
+      });
+    } on FirebaseAuthException catch(e){
+      showSnackBar(context, e.toString());
+      _isLoading = false;
+      notifyListeners();
     }
+
+  }
+  Future<String> storeFileToStorage(String ref, File file) async {
+    UploadTask uploadTask = _firebaseStorage.ref().child(ref).putFile(file);
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  Future getDataFromFirestore() async {
+    try {
+      await _firebaseFirestore
+          .collection("Users/$_uid/PersonalData/$_uid")
+          .doc(_auth.currentUser!.uid)
+          .get()
+          .then((DocumentSnapshot snapshot) {
+        _userModel = UserModel(
+          username: snapshot['name'],
+          email: snapshot['email'],
+          createdAt: snapshot['createdAt'],
+          bio: snapshot['bio'],
+          uid: snapshot['uid'],
+          profilepic: snapshot['profilePic'],
+          phoneNumber: snapshot['phoneNumber'],
+        );
+        _uid = userModel.uid;
+      });
+    } catch (e){
+       print(e);
+    }
+  }
+
+
+  //STORING DATA LOCALLY
+  Future saveUserDataToSP() async {
+    SharedPreferences s = await SharedPreferences.getInstance();
+    await s.setString("user_model", jsonEncode(userModel.toMap()));
+  }
+  //fetching data from shared preferences
+  Future getDataFromSP() async {
+    SharedPreferences s = await SharedPreferences.getInstance();
+    String data = s.getString("user_model") ?? '';
+    _userModel = UserModel.fromMap(jsonDecode(data));
+    _uid = _userModel!.uid;
+    notifyListeners();
+  }
+
+  //signout
+  Future userSignOut() async {
+    SharedPreferences s = await SharedPreferences.getInstance();
+    await _auth.signOut();
+    _isSignedIn = false;
+    notifyListeners();
+    s.clear();
   }
 }

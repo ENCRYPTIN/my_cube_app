@@ -10,12 +10,16 @@ import 'package:my_cube/screens/welcome_screen.dart';
 import 'firebase_options.dart';
 import 'screens/login.dart';
 import 'package:provider/provider.dart';
-
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+  );
+      await FirebaseAppCheck.instance.activate(
+        webRecaptchaSiteKey: 'recaptcha-v3-site-key',
+        androidProvider: AndroidProvider.playIntegrity,
   );
   runApp(const MyCube());
 }
