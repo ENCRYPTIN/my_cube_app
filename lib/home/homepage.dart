@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_cube/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:my_cube/home/wrapper.dart';
+import 'package:my_cube/home/profile.dart';
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
   @override
@@ -12,36 +13,85 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text("MY CUBE"),
         actions: [
-          IconButton(
-            onPressed: () {
-              ap.userSignOut().then(
-                    (value) => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Wrapper(),
-                  ),
-                ),
-              );
-            },
-            icon: const Icon(Icons.exit_to_app),
-            //hello there
-          ),
+          IconButton(onPressed:(){
+            Navigator.pushNamed(context, '/profilepage');}
+              , icon: Icon(Icons.account_circle_outlined)),
         ],
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:[CircleAvatar(
-            backgroundColor: Colors.purple,
-            backgroundImage: NetworkImage(ap.userModel.profilepic),
-            radius: 50,
-          ),
-            const SizedBox(height: 20),
-            Text(ap.userModel.username),
-            Text(ap.userModel.phoneNumber),
-            Text(ap.userModel.email),
-            Text(ap.userModel.bio),
-        ]),
+          children: [
+            Container(
+              height: 150,
+              width: double.infinity,
+              child: TextButton(
+                child: Text("Family",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                ),),
+              onPressed: (){
+                Navigator.pushNamed(context, '/family');
+              },
+              ),
+              margin: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                color: Colors.indigoAccent,
+                borderRadius: BorderRadius.circular(26.0)
+              ),
+            ),
+            Container(
+              height: 150,
+              width: double.infinity,
+              child: TextButton(
+                onPressed: (){
+                  Navigator.pushNamed(context, '/friends');
+                },
+                child: Text("Friends",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),),
+              ),
+              margin: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                  color: Colors.indigoAccent,
+                  borderRadius: BorderRadius.circular(26.0)
+              ),
+
+            ),
+            Container(
+              height: 150,
+              width: double.infinity,
+              margin: EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                  color: Colors.indigoAccent,
+                  borderRadius: BorderRadius.circular(26.0),
+                  gradient: LinearGradient(
+                      colors:[Colors.orange, Colors.orangeAccent, Colors.red, Colors.redAccent],
+                      begin: Alignment.topLeft, end: Alignment.bottomRight,
+                      stops: [0, 0.2, 0.5, 0.8]  ),
+              ),
+              child: TextButton(
+                onPressed: (){
+                  Navigator.pushNamed(context, '/pets');
+                },
+                child: Text("Pets",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),),
+              ),
+            )
+          ],
+        )
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle_outlined), label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Settings"),
+        ],
       ),
     );
   }

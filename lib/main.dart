@@ -1,7 +1,11 @@
 //import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:my_cube/home/Profile.dart';
+import 'package:my_cube/home/family.dart';
+import 'package:my_cube/home/friends.dart';
 import 'package:my_cube/home/homepage.dart';
+import 'package:my_cube/home/pets.dart';
 import 'package:my_cube/home/wrapper.dart';
 import 'package:my_cube/screens/register_account.dart';
 import 'package:my_cube/screens/request_otp.dart';
@@ -46,6 +50,10 @@ class _MyCubeState extends State<MyCube> {
           '/register_account':(context)=>const RegisterAccount(),
           '/request_otp':(context)=>const RequestOtp(),
           '/homepage':(context)=>HomePage(),
+          '/profilepage':(context)=>Proflie(),
+          '/friends':(context)=>Friends(),
+          '/family':(context)=>Family(),
+          '/pets':(context)=>Pets(),
         },
       ),
     );
