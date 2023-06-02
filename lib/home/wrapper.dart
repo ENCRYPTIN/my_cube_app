@@ -7,16 +7,24 @@ import 'package:my_cube/home/homepage.dart';
 import 'package:my_cube/screens/welcome_screen.dart';
 import 'package:my_cube/services/auth.dart';
 import 'package:provider/provider.dart';
-class Wrapper extends StatelessWidget {
+class Wrapper extends StatefulWidget {
   const Wrapper({Key? key}) : super(key: key);
+
+  @override
+  State<Wrapper> createState() => _WrapperState();
+}
+
+class _WrapperState extends State<Wrapper> {
+
+
 
   @override
   Widget build(BuildContext context) {
     //final user=Provider.of<AppUser?>(context);
     //variable of auth.dart
     final AuthProvider _authService=Provider.of<AuthProvider>(context, listen:false);
-    //check if user signed in and return either home screen or welcomescreen
-  return Scaffold(
+
+       return Scaffold(
     body: Center(
       child: ElevatedButton(
         onPressed: () async {

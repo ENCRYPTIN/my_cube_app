@@ -6,6 +6,7 @@ import 'package:my_cube/home/family.dart';
 import 'package:my_cube/home/friends.dart';
 import 'package:my_cube/home/homepage.dart';
 import 'package:my_cube/home/pets.dart';
+import 'package:my_cube/home/secwrapper.dart';
 import 'package:my_cube/home/wrapper.dart';
 import 'package:my_cube/screens/register_account.dart';
 import 'package:my_cube/screens/request_otp.dart';
@@ -44,8 +45,9 @@ class _MyCubeState extends State<MyCube> {
         // home: MyCube(),
         initialRoute: '/',
         routes: {
-          '/': (context) => const Wrapper(),//,
-           '/new user': (context) => const WelcomeScreen(),
+          //'/': (context) => const Wrapper(),
+          '/': (context) => SecWrapper(),
+          '/new user': (context) => const WelcomeScreen(),
           '/login': (context) => const SignInPage2(),
           '/register_account':(context)=>const RegisterAccount(),
           '/request_otp':(context)=>const RequestOtp(),
