@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'homepage.dart';
-import 'package:my_cube/screens/welcome_screen.dart';
 import 'package:my_cube/services/auth.dart';
 
 class SecWrapper extends StatefulWidget {
@@ -36,7 +34,7 @@ class _SecWrapperState extends State<SecWrapper> {
     builder: (context, snapshot) {
     if (snapshot.connectionState == ConnectionState.waiting) {
     // Show a loading indicator while waiting
-    return Center(
+    return const Center(
     child: CircularProgressIndicator(),
     );
     } else {
