@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:my_cube/services/auth.dart';
@@ -17,6 +18,12 @@ class _RequestOtpState extends State<RequestOtp> {
   Country country=CountryParser.parseCountryCode("IN");
   String phonenumber="";
   String phonenumbersend="";
+  List<String> logs = [];
+  void addLog(String message) {
+    setState(() {
+      logs.add(message);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -175,6 +182,7 @@ class _RequestOtpState extends State<RequestOtp> {
                   child: ElevatedButton(
                     onPressed: () async{
                       sendPhoneNumber();
+                      addLog("Requesting Otp");
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -192,7 +200,11 @@ class _RequestOtpState extends State<RequestOtp> {
                       ),
                     ),
                   ),
-                )
+                ),
+                Text(
+                  logs.isNotEmpty ? logs.last : 'No logs yet',
+                  style: TextStyle(fontSize: 24),
+                ),
               ],
             )
         ),
@@ -201,9 +213,11 @@ class _RequestOtpState extends State<RequestOtp> {
 
   }
   void sendPhoneNumber() {
-    final AuthProvider _authService = Provider.of<AuthProvider>(
+    final AuthProvider authService = Provider.of<AuthProvider>(
         context, listen: false);
     String phoneNumber = phoneController.text.trim();
-    _authService.signInWithPhone(context, "+${country.phoneCode}$phoneNumber");
+    FirebaseAuth.instance.setSettings(appVerificationDisabledForTesting: true);
+
+    authService.signInWithPhone(context, "+${country.phoneCode}$phoneNumber");
   }
 }

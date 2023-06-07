@@ -8,7 +8,7 @@ import 'package:my_cube/Models/user_model.dart';
 import 'package:my_cube/screens/otp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_cube/services/utils.dart';
-
+import 'package:toast/toast.dart';
 
 class AuthProvider extends ChangeNotifier{
   final FirebaseAuth _auth= FirebaseAuth.instance;
@@ -45,18 +45,22 @@ class AuthProvider extends ChangeNotifier{
     notifyListeners();
   }
   // signin
-  void signInWithPhone(BuildContext context, String phoneNumber) async {
+  void signInWithPhone(BuildContext context, String phoneNumber,) async {
+    ToastContext().init(context);
     try {
       await _auth.verifyPhoneNumber(
           phoneNumber: phoneNumber,
           verificationCompleted:
               (PhoneAuthCredential phoneAuthCredential) async {
-            await _auth.signInWithCredential(phoneAuthCredential);
-          },
-          verificationFailed: (error) {
-            throw Exception(error.message);
+                await _auth.signInWithPhoneNumber(phoneNumber,);
+                Toast.show("Verification Completed", duration: Toast.lengthShort, gravity:  Toast.bottom);
+      },
+          verificationFailed: (FirebaseAuthException error) {
+            Toast.show('$error', duration: Toast.lengthShort, gravity:  Toast.bottom);
+            throw FirebaseAuthException(code: error.code, message: error.message);
           },
           codeSent: (verificationId, forceResendingToken) {
+            Toast.show("Code Sent", duration: Toast.lengthShort, gravity:  Toast.bottom);
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -67,6 +71,8 @@ class AuthProvider extends ChangeNotifier{
           codeAutoRetrievalTimeout: (verificationId) {});
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message.toString());
+      Toast.show('$e', duration: Toast.lengthShort, gravity:  Toast.bottom);
+      print(e.message);
     }
   }
 
@@ -79,7 +85,8 @@ class AuthProvider extends ChangeNotifier{
   }) async {
     _isLoading = true;
     notifyListeners();
-
+    ToastContext().init(context);
+    Toast.show("Verifying OTP", duration: Toast.lengthShort, gravity:  Toast.bottom);
     try {
       PhoneAuthCredential creds = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: userOtp);
@@ -105,10 +112,8 @@ class AuthProvider extends ChangeNotifier{
     DocumentSnapshot snapshot =
     await _firebaseFirestore.collection("Users/$_uid/PersonalData").doc(_uid).get();
     if (snapshot.exists) {
-      print("USER EXISTS");
       return true;
     } else {
-      print("NEW USER");
       return false;
     }
   }
@@ -180,7 +185,9 @@ class AuthProvider extends ChangeNotifier{
 
       } else {
         // Handle the case where the document does not exist
-        print('Document does not exist');
+       print("Document Does not exist");
+
+
       }
     } catch (e){
       print("error: $e");

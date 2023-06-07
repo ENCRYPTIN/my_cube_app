@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_cube/screens/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:my_cube/services/auth.dart';
 import 'package:my_cube/home/wrapper.dart';
@@ -28,7 +29,7 @@ class Proflie extends StatelessWidget {
                       (value) => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Wrapper(),
+                      builder: (context) => const WelcomeScreen(),
                     ),
                   ),
                 );

@@ -10,50 +10,46 @@ class SecWrapper extends StatefulWidget {
 }
 
 class _SecWrapperState extends State<SecWrapper> {
-
   @override
   Widget build(BuildContext context) {
-    final AuthProvider _authProvider=Provider.of<AuthProvider>(context, listen: false);
+    final AuthProvider _authProvider =
+        Provider.of<AuthProvider>(context, listen: false);
 
-    Future<bool> checkSignIn(BuildContext context) async{
-      await _authProvider.getDataFromSP();
-      if(_authProvider.isSignedIn==true){
-
+    Future<bool> checkSignIn(BuildContext context) async {
+      //await _authProvider.getDataFromSP();
+      if (_authProvider.isSignedIn == true) {
         return true;
-      }
-      else {
+      } else {
         return false;
       }
     }
-
 
     //return checkSignIn(context)==true ? HomePage() : WelcomeScreen();
 
     return FutureBuilder(
         future: checkSignIn(context),
-    builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-    // Show a loading indicator while waiting
-    return const Center(
-    child: CircularProgressIndicator(),
-    );
-    } else {
-    // Navigate to the home/register screen based on the result
-    bool isSignedIn = snapshot.data ?? false;
-    if (isSignedIn) {
-    // Navigate to the home screen
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-    Navigator.of(context).pushReplacementNamed('/homepage');
-    });
-    } else {
-    // Navigate to the welcome screen
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-    Navigator.of(context).pushReplacementNamed('/new user');
-    });
-    }
-    return Container();
-    }
-    }
-    );
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Show a loading indicator while waiting
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            // Navigate to the home/register screen based on the result
+            bool isSignedIn = snapshot.data ?? false;
+            if (isSignedIn) {
+              // Navigate to the home screen
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.of(context).pushReplacementNamed('/homepage');
+              });
+            } else {
+              // Navigate to the welcome screen
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                Navigator.of(context).pushReplacementNamed('/new user');
+              });
+            }
+            return Container();
+          }
+        });
   }
 }
