@@ -14,11 +14,11 @@ class _FriendAddState extends State<FriendAdd> {
       body: SafeArea(
           child: SingleChildScrollView(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   TextFormField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -28,10 +28,10 @@ class _FriendAddState extends State<FriendAdd> {
                       hintText: 'Your Friend Name',
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Container(
                     height: 150,
-                    margin: EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.black,
@@ -48,7 +48,7 @@ class _FriendAddState extends State<FriendAdd> {
                       hintText: "DOB",
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextFormField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -58,7 +58,7 @@ class _FriendAddState extends State<FriendAdd> {
                       hintText: "Pet/Nick Name",
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextFormField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -68,7 +68,7 @@ class _FriendAddState extends State<FriendAdd> {
                       hintText: " Male/Female",
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextFormField(
                     maxLines: 5,
                     decoration: InputDecoration(
@@ -77,10 +77,10 @@ class _FriendAddState extends State<FriendAdd> {
                       ),
                       labelText: "BRIEF DESCRIPTION",
                       hintText: "About your Friend",
-                      contentPadding: EdgeInsets.symmetric(vertical: 5),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 5),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextFormField(
 
                     decoration: InputDecoration(
@@ -91,7 +91,7 @@ class _FriendAddState extends State<FriendAdd> {
                       hintText: "Phone Number",
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextFormField(
                     maxLines: 3,
                     decoration: InputDecoration(
@@ -102,7 +102,7 @@ class _FriendAddState extends State<FriendAdd> {
                       hintText: "Goals Achived",
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   TextFormField(
                     maxLines: 2,
                     decoration: InputDecoration(
@@ -111,7 +111,7 @@ class _FriendAddState extends State<FriendAdd> {
                       ),
                       labelText: "HABBITS",
                       hintText: "Good Habbits",
-                      contentPadding: EdgeInsets.symmetric(vertical: 5),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 5),
                     ),
                   ),
                   Builder(
@@ -122,7 +122,7 @@ class _FriendAddState extends State<FriendAdd> {
                             // Add your logic or function call here
                             //Navigator.push(context, MaterialPageRoute(builder: (context) => Family()));
                           },
-                          child: Text('Click Me'),
+                          child: const Text('Click Me'),
                         );
                       }
                   ),

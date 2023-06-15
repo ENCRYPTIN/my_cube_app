@@ -154,6 +154,15 @@ class AuthProvider extends ChangeNotifier{
     }
 
   }
+
+  //TODO:store fcmtoken to firebase
+  // void storefcmtoken(fcmtoken) async{
+  //   await _firebaseFirestore
+  //       .collection("Users/$_uid")
+  //       .doc("fcmtoken")
+  //       .set();
+  //
+  // }
   Future<String> storeFileToStorage(String ref, File file) async {
     UploadTask uploadTask = _firebaseStorage.ref().child(ref).putFile(file);
     TaskSnapshot snapshot = await uploadTask;

@@ -1,6 +1,6 @@
 //import 'dart:js';
 //import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_cube/home/Profile.dart';
@@ -53,16 +53,16 @@ class _MyCubeState extends State<MyCube> {
         initialRoute: '/',
         routes: {
           //'/': (context) => const Wrapper(),
-          '/': (context) => SecWrapper(),
+          '/': (context) => const SecWrapper(),
           '/new user': (context) => const WelcomeScreen(),
           '/login': (context) => const SignInPage2(),
           '/register_account': (context) => const RegisterAccount(),
           '/request_otp': (context) => const RequestOtp(),
-          '/homepage': (context) => HomePage(),
-          '/profilepage': (context) => Proflie(),
-          '/friends': (context) => Friends(),
-          '/family': (context) => Family(),
-          '/pets': (context) => Pets(),
+          '/homepage': (context) => const HomePage(),
+          '/profilepage': (context) => const Proflie(),
+          '/friends': (context) => const Friends(),
+          '/family': (context) => const Family(),
+          '/pets': (context) => const Pets(),
         },
       ),
     );

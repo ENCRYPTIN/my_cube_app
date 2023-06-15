@@ -120,7 +120,7 @@ class _RequestOtpState extends State<RequestOtp> {
                       ),
                       prefixIcon: Container(
                         padding: const EdgeInsets.all(8.0),
-                        margin: EdgeInsets.only(top:3),
+                        margin: const EdgeInsets.only(top:3),
 
                         child: InkWell(
                           onTap: () {
@@ -203,7 +203,7 @@ class _RequestOtpState extends State<RequestOtp> {
                 ),
                 Text(
                   logs.isNotEmpty ? logs.last : 'No logs yet',
-                  style: TextStyle(fontSize: 24),
+                  style: const TextStyle(fontSize: 24),
                 ),
               ],
             )

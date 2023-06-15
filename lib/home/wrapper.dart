@@ -22,18 +22,18 @@ class _WrapperState extends State<Wrapper> {
   Widget build(BuildContext context) {
     //final user=Provider.of<AppUser?>(context);
     //variable of auth.dart
-    final AuthProvider _authService=Provider.of<AuthProvider>(context, listen:false);
+    final AuthProvider authService=Provider.of<AuthProvider>(context, listen:false);
 
        return Scaffold(
     body: Center(
       child: ElevatedButton(
         onPressed: () async {
-          if (_authService.isSignedIn == true) {
-            await _authService.getDataFromSP().whenComplete(
+          if (authService.isSignedIn == true) {
+            await authService.getDataFromSP().whenComplete(
                   () => Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => HomePage(),
+                  builder: (context) => const HomePage(),
                 ),
                   ),
               );

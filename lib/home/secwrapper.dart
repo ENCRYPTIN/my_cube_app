@@ -12,12 +12,12 @@ class SecWrapper extends StatefulWidget {
 class _SecWrapperState extends State<SecWrapper> {
   @override
   Widget build(BuildContext context) {
-    final AuthProvider _authProvider =
+    final AuthProvider authProvider =
         Provider.of<AuthProvider>(context, listen: false);
 
     Future<bool> checkSignIn(BuildContext context) async {
       //await _authProvider.getDataFromSP();
-      if (_authProvider.isSignedIn == true) {
+      if (authProvider.isSignedIn == true) {
         return true;
       } else {
         return false;

@@ -40,7 +40,7 @@ dependencies:
   firebase_core: ^2.11.0
   firebase_auth: ^4.6.1
   pinput: ^2.2.31
-  cloud_firestore: ^4.8.0
+  cloud_firestore: ^4.8.1
   provider: ^6.0.5
   country_picker: ^2.0.20
   firebase_storage: ^11.2.1

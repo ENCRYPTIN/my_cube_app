@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("MY CUBE"),
+        title: const Text("MY CUBE"),
         actions: [
           IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/profilepage');
               },
-              icon: Icon(Icons.account_circle_outlined)),
+              icon: const Icon(Icons.account_circle_outlined)),
         ],
       ),
       body: Center(
@@ -41,11 +41,15 @@ class HomePage extends StatelessWidget {
           Container(
             height: 150,
             width: double.infinity,
+            margin: const EdgeInsets.all(15),
+            decoration: BoxDecoration(
+                color: Colors.indigoAccent,
+                borderRadius: BorderRadius.circular(26.0)),
             child: TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/friends');
               },
-              child: Text(
+              child: const Text(
                 "Friends",
                 style: TextStyle(
                   color: Colors.white,
@@ -53,19 +57,15 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            margin: EdgeInsets.all(15),
-            decoration: BoxDecoration(
-                color: Colors.indigoAccent,
-                borderRadius: BorderRadius.circular(26.0)),
           ),
           Container(
             height: 150,
             width: double.infinity,
-            margin: EdgeInsets.all(15),
+            margin: const EdgeInsets.all(15),
             decoration: BoxDecoration(
               color: Colors.indigoAccent,
               borderRadius: BorderRadius.circular(26.0),
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                   colors: [
                     Colors.orange,
                     Colors.orangeAccent,
@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, '/pets');
               },
-              child: Text(
+              child: const Text(
                 "Pets",
                 style: TextStyle(
                   color: Colors.white,
@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
         ],
       )),
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle_outlined), label: "Profile"),

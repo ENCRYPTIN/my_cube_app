@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:my_cube/screens/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:my_cube/services/auth.dart';
-import 'package:my_cube/home/wrapper.dart';
 class Proflie extends StatelessWidget {
   const Proflie({Key? key}) : super(key: key);
 
@@ -34,7 +33,7 @@ class Proflie extends StatelessWidget {
                   ),
                 );
               },
-                  child:Text("Log Out") )
+                  child:const Text("Log Out") )
             ]),
       ),
     );

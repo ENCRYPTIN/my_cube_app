@@ -7,10 +7,10 @@ class Friends extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Friends"),
+          title: const Text("Friends"),
           centerTitle: true,
           actions: [IconButton(onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>FriendAdd()));}, icon: Icon(Icons.add))],
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>const FriendAdd()));}, icon: const Icon(Icons.add))],
         ),
       
         );

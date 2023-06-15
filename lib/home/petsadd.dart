@@ -14,16 +14,16 @@ class _PetsAddState extends State<PetsAdd> {
 
         child: SingleChildScrollView(
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [Colors.lightBlue,Colors.lightBlueAccent,Colors.indigoAccent],
                   begin: Alignment.topLeft,end: Alignment.bottomRight,stops: [0.1, 0.4, 0.6,]
               ),
             ),
-            margin: EdgeInsets.all(0),
+            margin: const EdgeInsets.all(0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 TextFormField(
                   decoration: InputDecoration(
                       fillColor:Colors.grey[300],
@@ -33,16 +33,16 @@ class _PetsAddState extends State<PetsAdd> {
                       ),
                       labelText: "Pet Name",
                       hintText: 'Enter your name',
-                      labelStyle:TextStyle(
+                      labelStyle:const TextStyle(
                         color: Colors.black87,
                         fontWeight: FontWeight.bold,
                       )
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Container(
                   height: 150,
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.black,
@@ -59,7 +59,7 @@ class _PetsAddState extends State<PetsAdd> {
                     hintText: "DOB",
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -69,7 +69,7 @@ class _PetsAddState extends State<PetsAdd> {
                     hintText: "height in ft or inch",
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -79,7 +79,7 @@ class _PetsAddState extends State<PetsAdd> {
                     hintText: "weight in kg",
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   maxLines: 5,
                   decoration: InputDecoration(
@@ -88,10 +88,10 @@ class _PetsAddState extends State<PetsAdd> {
                     ),
                     labelText: "BRIEF DESCRIPTION",
                     hintText: "about your pet",
-                    contentPadding: EdgeInsets.symmetric(vertical: 5),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 5),
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   maxLines: 2,
                   decoration: InputDecoration(
@@ -102,7 +102,7 @@ class _PetsAddState extends State<PetsAdd> {
                     hintText: "Licence Number of your Pet",
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   maxLines: 2,
                   decoration: InputDecoration(
@@ -113,7 +113,7 @@ class _PetsAddState extends State<PetsAdd> {
                     hintText: "Male OR Female",
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
                   maxLines: 5,
                   decoration: InputDecoration(
@@ -122,7 +122,7 @@ class _PetsAddState extends State<PetsAdd> {
                     ),
                     labelText: "MEDICAL HISTORY",
                     hintText: "Vet Details",
-                    contentPadding: EdgeInsets.symmetric(vertical: 5),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 5),
                   ),
                 ),
                 Builder(
@@ -133,7 +133,7 @@ class _PetsAddState extends State<PetsAdd> {
                           // Add your logic or function call here
                           //Navigator.push(context, MaterialPageRoute(builder: (context) => Friend()));
                         },
-                        child: Text('Click Me'),
+                        child: const Text('Click Me'),
                       );
                     }
                 ),

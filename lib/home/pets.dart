@@ -8,11 +8,11 @@ class Pets extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Pets"),
+          title: const Text("Pets"),
           centerTitle: true,
           actions: [IconButton(onPressed: (){
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>PetsAdd()));
-          }, icon: Icon(Icons.add))],
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>const PetsAdd()));
+          }, icon: const Icon(Icons.add))],
         ),
 
     );

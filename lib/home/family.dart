@@ -7,11 +7,11 @@ class Family extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: AppBar(
-        title: Text("Family"),
+        title: const Text("Family"),
         centerTitle: true,
         actions: [IconButton(
-            onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>FamilyAdd()));},
-            icon: Icon(Icons.add))],
+            onPressed: (){ Navigator.push(context, MaterialPageRoute(builder: (context)=>const FamilyAdd()));},
+            icon: const Icon(Icons.add))],
       ),
 
     );
