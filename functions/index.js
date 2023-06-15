@@ -32,7 +32,7 @@ exports.sendBirthdayNotification = functions.pubsub.schedule("every 2 minutes").
 
   const message = {
     token: fcmtoken,
-    data: payload.notification,
+    notification: payload.notification,
   };
   // Send the notification using FCM
 
