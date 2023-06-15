@@ -320,6 +320,9 @@ class _RegisterAccountState extends State<RegisterAccount> {
   }
   //save user data to database
  void storeData() async{
+    //This line retrieves an instance of the AuthProvider class using the Provider package.
+   // The Provider.of<T>() method is used to obtain the nearest ancestor of type T.
+   // In this case, it's trying to get the AuthProvider instance.
    final AuthProvider authService = Provider.of<AuthProvider>(context, listen: false);
    UserModel userModel=UserModel(
        uid: "",
