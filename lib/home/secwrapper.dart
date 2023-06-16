@@ -16,7 +16,7 @@ class _SecWrapperState extends State<SecWrapper> {
         Provider.of<AuthProvider>(context, listen: false);
 
     Future<bool> checkSignIn(BuildContext context) async {
-      //await _authProvider.getDataFromSP();
+      await authProvider.getDataFromSP();
       if (authProvider.isSignedIn == true) {
         return true;
       } else {
