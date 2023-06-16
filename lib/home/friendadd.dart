@@ -40,7 +40,8 @@ class _FriendAddState extends State<FriendAdd> {
 
   @override
   Widget build(BuildContext context) {
-    final ap = Provider.of<AuthProvider>(context, listen: false);
+    var firestorehelper=FirestoreHelper();
+
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -169,7 +170,7 @@ class _FriendAddState extends State<FriendAdd> {
                       builder: (context) {
                         return ElevatedButton(
                           onPressed: () async{
-                            ap.create(FriendsUserModel(
+                            firestorehelper.create(FriendsUserModel(
                               Friendsname: _friendsnameController.text,
                               DOB: _DOBController.text,
                               nickname: _nicknameController.text,

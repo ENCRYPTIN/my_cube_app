@@ -18,7 +18,7 @@ class _FriendsState extends State<Friends> {
   @override
   Widget build(BuildContext context) {
     //final CollectionReference friendsCollection = FirebaseFirestore.instance.collection('friends');
-    final ap = Provider.of<AuthProvider>(context, listen: false);
+    var firestorehelper=FirestoreHelper();
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +30,7 @@ class _FriendsState extends State<Friends> {
       body: Column(
         children: [
           StreamBuilder<List<FriendsUserModel>>(
-              stream: ap.read(),
+              stream: firestorehelper.read(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator(),);

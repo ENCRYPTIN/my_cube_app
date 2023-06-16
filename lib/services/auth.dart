@@ -203,38 +203,7 @@ class AuthProvider extends ChangeNotifier{
     }
   }
 
-//TODO:TAKEN FROM FIRESTOREHELPER
-  Future create(FriendsUserModel friend) async {
-    _uid=_auth.currentUser!.uid;
-    final friendsCollection = FirebaseFirestore.instance.collection("Users/$_uid/Friends");
 
-    final docRef = friendsCollection.doc();
-
-    final newFriend = FriendsUserModel(
-      Friendsname: friend.Friendsname,
-      DOB: friend.DOB,
-      nickname: friend.nickname,
-      sex: friend.sex,
-      description: friend.description,
-      phonenumber: friend.phonenumber,
-      achivements: friend.achivements,
-      habbits: friend.habbits,
-
-    ).toJson();
-
-    try{
-      await docRef.set(newFriend);
-    }catch(e){
-      print("some error occured $e");
-    }
-  }
-
-  //readingfrienddata
-  Stream<List<FriendsUserModel>> read(){
-    _uid=_auth.currentUser!.uid;
-    final friendsCollection = FirebaseFirestore.instance.collection("Users/$_uid/Friends");
-    return friendsCollection.snapshots().map((querrySnapshot) => querrySnapshot.docs.map((e) => FriendsUserModel.fromSnapshot(e)).toList());
-  }
 
   //STORING DATA LOCALLY
   Future saveUserDataToSP() async {

@@ -7,24 +7,19 @@ import 'package:my_cube/Models/petsusermodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirestoreHelper{
-  String? _currentuserid;
-  String? _currentuserId;
-  String currentuserkey = 'currentuserkey';
   final FirebaseAuth _auth= FirebaseAuth.instance;
    Stream<List<FriendsUserModel>> read()
-   async*{
-     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-     _currentuserid= sharedPreferences.getString(currentuserkey);
-    final friendsCollection = FirebaseFirestore.instance.collection("Users/$_currentuserid/Friends");
-    yield* friendsCollection.snapshots().map((querrySnapshot) => querrySnapshot.docs.map((e) => FriendsUserModel.fromSnapshot(e)).toList());
+   {
+     String _uid=_auth.currentUser!.uid;
+    final friendsCollection = FirebaseFirestore.instance.collection("Users/$_uid/Friends");
+    return friendsCollection.snapshots().map((querrySnapshot) => querrySnapshot.docs.map((e) => FriendsUserModel.fromSnapshot(e)).toList());
 
   }
 
 
    Future create(FriendsUserModel friend) async {
-     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-     _currentuserId= sharedPreferences.getString(currentuserkey);
-     final friendsCollection = FirebaseFirestore.instance.collection("Users/$_currentuserId/Friends");
+     String _uid=_auth.currentUser!.uid;
+     final friendsCollection = FirebaseFirestore.instance.collection("Users/$_uid/Friends");
 
     final docRef = friendsCollection.doc();
 
