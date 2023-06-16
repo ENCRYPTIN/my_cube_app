@@ -14,7 +14,7 @@ final CollectionReference familyCollection = FirebaseFirestore.instance.collecti
 
 
 class _FamilyAddState extends State<FamilyAdd> {
-
+  var firestorehelper=FirestoreHelper();
   TextEditingController _familynameController = TextEditingController();
   TextEditingController _DOBController = TextEditingController();
   TextEditingController _realtionshipController = TextEditingController();
@@ -170,7 +170,7 @@ class _FamilyAddState extends State<FamilyAdd> {
                       builder: (context) {
                         return ElevatedButton(
                           onPressed: () async {
-                            FirestoreHelper.createfam(FamilyUserModel(
+                            firestorehelper.createfam(FamilyUserModel(
                               Familyname: _familynameController.text,
                               DOB: _DOBController.text,
                               age: _ageController.text,

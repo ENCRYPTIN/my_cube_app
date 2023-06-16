@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_cube/Models/friendsusers.dart';
+import 'package:my_cube/services/auth.dart';
 import 'package:my_cube/services/firestore_helper.dart';
+import 'package:provider/provider.dart';
 class FriendAdd extends StatefulWidget {
   const FriendAdd({super.key});
 
@@ -11,7 +13,6 @@ class FriendAdd extends StatefulWidget {
 final CollectionReference friendsCollection = FirebaseFirestore.instance.collection('friends');
 
 class _FriendAddState extends State<FriendAdd> {
-
   TextEditingController _friendsnameController=TextEditingController();
   TextEditingController _DOBController=TextEditingController();
   TextEditingController _nicknameController=TextEditingController();
@@ -39,6 +40,7 @@ class _FriendAddState extends State<FriendAdd> {
 
   @override
   Widget build(BuildContext context) {
+    final ap = Provider.of<AuthProvider>(context, listen: false);
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -167,7 +169,7 @@ class _FriendAddState extends State<FriendAdd> {
                       builder: (context) {
                         return ElevatedButton(
                           onPressed: () async{
-                            FirestoreHelper.create(FriendsUserModel(
+                            ap.create(FriendsUserModel(
                               Friendsname: _friendsnameController.text,
                               DOB: _DOBController.text,
                               nickname: _nicknameController.text,

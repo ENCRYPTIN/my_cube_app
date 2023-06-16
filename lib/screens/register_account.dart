@@ -18,7 +18,7 @@ class RegisterAccount extends StatefulWidget {
 class _RegisterAccountState extends State<RegisterAccount> {
   //final  fcmToken = await FirebaseMessaging.instance.getToken();
   //for validation
-
+  String fcmtokenkey='fcmtokenkey';
   @override
   void initState() {
     getToken();

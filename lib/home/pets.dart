@@ -7,7 +7,7 @@ class Pets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    var firestorehelper=FirestoreHelper();
     return Scaffold(
       appBar: AppBar(
         title: Text("Pets"),
@@ -20,7 +20,7 @@ class Pets extends StatelessWidget {
       body: Column(
         children: [
           StreamBuilder<List<PetsUserModel>>(
-              stream: FirestoreHelper.readpet(),
+              stream: firestorehelper.readpet(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator(),);

@@ -11,6 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_cube/services/utils.dart';
 import 'package:toast/toast.dart';
 
+import '../Models/friendsusers.dart';
+
 class AuthProvider extends ChangeNotifier{
   final FirebaseAuth _auth= FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -19,6 +21,7 @@ class AuthProvider extends ChangeNotifier{
   bool _isSignedIn = false;
   bool get isSignedIn => _isSignedIn;
 
+  String currentuserkey='currentuserkey';
 
   UserModel? _userModel;
   UserModel get userModel => _userModel!;
@@ -93,10 +96,12 @@ class AuthProvider extends ChangeNotifier{
           verificationId: verificationId, smsCode: userOtp);
 
       User? user = (await _auth.signInWithCredential(creds)).user;
-
       if (user != null) {
+        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         // carry our logic
         _uid = user.uid;
+
+         sharedPreferences!.setString(currentuserkey,_uid!);
         onSuccess();
       }
       _isLoading = false;
@@ -184,7 +189,8 @@ class AuthProvider extends ChangeNotifier{
           profilepic: data['profilepic']as String? ??'',
           phoneNumber: data['phoneNumber']as String? ??'',
         );
-        _uid = _userModel?.uid;
+
+        //_uid = _userModel?.uid;
 
       } else {
         // Handle the case where the document does not exist
@@ -197,7 +203,38 @@ class AuthProvider extends ChangeNotifier{
     }
   }
 
+//TODO:TAKEN FROM FIRESTOREHELPER
+  Future create(FriendsUserModel friend) async {
+    _uid=_auth.currentUser!.uid;
+    final friendsCollection = FirebaseFirestore.instance.collection("Users/$_uid/Friends");
 
+    final docRef = friendsCollection.doc();
+
+    final newFriend = FriendsUserModel(
+      Friendsname: friend.Friendsname,
+      DOB: friend.DOB,
+      nickname: friend.nickname,
+      sex: friend.sex,
+      description: friend.description,
+      phonenumber: friend.phonenumber,
+      achivements: friend.achivements,
+      habbits: friend.habbits,
+
+    ).toJson();
+
+    try{
+      await docRef.set(newFriend);
+    }catch(e){
+      print("some error occured $e");
+    }
+  }
+
+  //readingfrienddata
+  Stream<List<FriendsUserModel>> read(){
+    _uid=_auth.currentUser!.uid;
+    final friendsCollection = FirebaseFirestore.instance.collection("Users/$_uid/Friends");
+    return friendsCollection.snapshots().map((querrySnapshot) => querrySnapshot.docs.map((e) => FriendsUserModel.fromSnapshot(e)).toList());
+  }
 
   //STORING DATA LOCALLY
   Future saveUserDataToSP() async {

@@ -39,6 +39,7 @@ class _PetsAddState extends State<PetsAdd> {
 
   @override
   Widget build(BuildContext context) {
+    var firestorehelper=FirestoreHelper();
     return Scaffold(
       body: SafeArea(
 
@@ -183,7 +184,7 @@ class _PetsAddState extends State<PetsAdd> {
                     builder: (context) {
                       return ElevatedButton(
                         onPressed: () async {
-                          FirestoreHelper.createpet(PetsUserModel(
+                          firestorehelper.createpet(PetsUserModel(
                             Petsname: _petsnameController.text,
                             DOB: _DOBController.text,
                             height: _HeightController.text,

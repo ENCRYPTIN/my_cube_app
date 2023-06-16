@@ -7,6 +7,7 @@ class Family extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var firestorehelper=FirestoreHelper();
     return  Scaffold(
       appBar: AppBar(
         title: Text("Family"),
@@ -19,7 +20,7 @@ class Family extends StatelessWidget {
       body: Column(
         children: [
           StreamBuilder<List<FamilyUserModel>>(
-              stream: FirestoreHelper.readop(),
+              stream: firestorehelper.readop(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator(),);

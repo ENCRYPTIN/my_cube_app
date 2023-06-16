@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cube/Models/friendsusers.dart';
+import 'package:my_cube/services/auth.dart';
 import 'package:my_cube/services/firestore_helper.dart';
 import 'package:my_cube/home/friendadd.dart';
+import 'package:provider/provider.dart';
 class Friends extends StatefulWidget {
   const Friends({Key? key}) : super(key: key);
 
@@ -12,9 +14,11 @@ class Friends extends StatefulWidget {
 }
 
 class _FriendsState extends State<Friends> {
+
   @override
   Widget build(BuildContext context) {
-    final CollectionReference friendsCollection = FirebaseFirestore.instance.collection('friends');
+    //final CollectionReference friendsCollection = FirebaseFirestore.instance.collection('friends');
+    final ap = Provider.of<AuthProvider>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
@@ -26,7 +30,7 @@ class _FriendsState extends State<Friends> {
       body: Column(
         children: [
           StreamBuilder<List<FriendsUserModel>>(
-              stream: FirestoreHelper.read(),
+              stream: ap.read(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator(),);
