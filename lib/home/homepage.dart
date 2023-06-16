@@ -6,14 +6,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("MY CUBE"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/profilepage');
-              },
-              icon: const Icon(Icons.account_circle_outlined)),
-        ],
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0.00,
+        title: const Text("MY CUBE",
+        style: TextStyle(
+          color: Colors.black87,
+          fontFamily: 'Dancing Script',
+          fontSize: 36,
+          fontWeight: FontWeight.w600,
+
+        ),),
+
       ),
       body: Center(
           child: Column(
@@ -24,7 +28,18 @@ class HomePage extends StatelessWidget {
             margin: const EdgeInsets.all(15),
             decoration: BoxDecoration(
                 color: Colors.indigoAccent,
-                borderRadius: BorderRadius.circular(26.0)),
+                borderRadius: BorderRadius.circular(26.0),
+              gradient: const LinearGradient(
+                  colors: [
+                    Color(0xfffce4ec),
+                    Color(0xfff8bbd0),
+                    Color(0xffa3bef8),
+                    Color(0xff99b0fc)
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0, 0.2, 0.5, 0.8]),
+                ),
             child: TextButton(
               child: const Text(
                 "Family",
@@ -44,7 +59,19 @@ class HomePage extends StatelessWidget {
             margin: const EdgeInsets.all(15),
             decoration: BoxDecoration(
                 color: Colors.indigoAccent,
-                borderRadius: BorderRadius.circular(26.0)),
+                borderRadius: BorderRadius.circular(26.0),
+              gradient: const LinearGradient(
+                  colors: [
+                    Color(0xfffce4ec),
+                    Color(0xfff8bbd0),
+                    Color(0xffa3bef8),
+                    Color(0xff99b0fc)
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [0, 0.2, 0.5, 0.8]),
+
+            ),
             child: TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/friends');
@@ -67,10 +94,10 @@ class HomePage extends StatelessWidget {
               borderRadius: BorderRadius.circular(26.0),
               gradient: const LinearGradient(
                   colors: [
-                    Colors.orange,
-                    Colors.orangeAccent,
-                    Colors.red,
-                    Colors.redAccent
+                    Color(0xfffce4ec),
+                    Color(0xfff8bbd0),
+                    Color(0xffa3bef8),
+                    Color(0xff99b0fc)
                   ],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
@@ -92,10 +119,12 @@ class HomePage extends StatelessWidget {
         ],
       )),
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
+        items:  [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_outlined), label: "Profile"),
+              icon: IconButton(onPressed: (){
+                Navigator.pushNamed(context, '/profilepage');
+              }, icon: Icon(Icons.account_circle_outlined)), label: "Profile"),
           BottomNavigationBarItem(
               icon: Icon(Icons.settings), label: "Settings"),
         ],

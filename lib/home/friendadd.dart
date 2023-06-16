@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_cube/Models/friendsusers.dart';
-import 'package:my_cube/services/auth.dart';
+
 import 'package:my_cube/services/firestore_helper.dart';
-import 'package:provider/provider.dart';
+
 class FriendAdd extends StatefulWidget {
   const FriendAdd({super.key});
 

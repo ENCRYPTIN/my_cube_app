@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_cube/Models/familyusers.dart';
 import 'package:my_cube/Models/friendsusers.dart';
 import 'package:my_cube/Models/petsusermodel.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class FirestoreHelper{
   final FirebaseAuth _auth= FirebaseAuth.instance;

@@ -1,11 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cube/Models/friendsusers.dart';
-import 'package:my_cube/services/auth.dart';
+
 import 'package:my_cube/services/firestore_helper.dart';
 import 'package:my_cube/home/friendadd.dart';
-import 'package:provider/provider.dart';
+
 class Friends extends StatefulWidget {
   const Friends({Key? key}) : super(key: key);
 

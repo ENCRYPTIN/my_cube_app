@@ -1,6 +1,6 @@
 //import 'dart:js';
 //import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_cube/home/Profile.dart';
@@ -13,8 +13,9 @@ import 'package:my_cube/screens/register_account.dart';
 import 'package:my_cube/screens/request_otp.dart';
 import 'package:my_cube/services/auth.dart';
 import 'package:my_cube/screens/welcome_screen.dart';
-import 'Models/user_model.dart';
 import 'firebase_options.dart';
+import 'home/threewrapper.dart';
+import 'home/wrapper.dart';
 import 'screens/login.dart';
 import 'package:provider/provider.dart';
 //import 'package:firebase_app_check/firebase_app_check.dart';
@@ -42,15 +43,17 @@ class MyCube extends StatefulWidget {
 class _MyCubeState extends State<MyCube> {
   @override
   Widget build(BuildContext context) {
+    final FirebaseAuth _auth= FirebaseAuth.instance;
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => AuthProvider())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        // home: MyCube(),
+        // home: _auth.currentUser!.uid==null?WelcomeScreen():HomePage(),
         initialRoute: '/',
         routes: {
-          //'/': (context) => const Wrapper(),
-          '/': (context) => const SecWrapper(),
+         // '/': (context) => const Wrapper(),
+          //'/': (context) => const SecWrapper(),
+          '/': (context) => const ThreeWrapper(),
           '/new user': (context) => const WelcomeScreen(),
           '/login': (context) => const SignInPage2(),
           '/register_account': (context) => const RegisterAccount(),

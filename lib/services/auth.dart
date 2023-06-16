@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cube/Models/user_model.dart';
@@ -10,8 +9,6 @@ import 'package:my_cube/screens/otp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_cube/services/utils.dart';
 import 'package:toast/toast.dart';
-
-import '../Models/friendsusers.dart';
 
 class AuthProvider extends ChangeNotifier{
   final FirebaseAuth _auth= FirebaseAuth.instance;
@@ -97,11 +94,8 @@ class AuthProvider extends ChangeNotifier{
 
       User? user = (await _auth.signInWithCredential(creds)).user;
       if (user != null) {
-        final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         // carry our logic
         _uid = user.uid;
-
-         sharedPreferences!.setString(currentuserkey,_uid!);
         onSuccess();
       }
       _isLoading = false;
@@ -183,14 +177,14 @@ class AuthProvider extends ChangeNotifier{
           username: data['name']as String? ??'',
           email: data['email']as String? ??'',
           createdAt: data['createdAt']as String? ??'',
-          dateOfBirth: data['dateOfBirth']as String ?? '',
-          fcmtoken: data['fcmtoken']as String ?? '',
+          dateOfBirth: data['dateOfBirth']as String? ?? '',
+          fcmtoken: data['fcmtoken']as String? ?? '',
           uid: data['uid']as String? ??'',
           profilepic: data['profilepic']as String? ??'',
           phoneNumber: data['phoneNumber']as String? ??'',
         );
 
-        //_uid = _userModel?.uid;
+        _uid = _userModel!.uid;
 
       } else {
         // Handle the case where the document does not exist
