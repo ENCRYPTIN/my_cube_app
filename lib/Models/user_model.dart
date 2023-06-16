@@ -2,19 +2,21 @@ class UserModel{
   String uid;
   String username;
   String email;
-  String bio;
   String profilepic;
   String createdAt;
   String phoneNumber;
+  String fcmtoken;
+  String dateOfBirth;
 
   UserModel({
     required this.uid,
     required this.username,
     required this.email,
-    required this.bio,
     required this.profilepic,
     required this.createdAt,
-    required this.phoneNumber
+    required this.phoneNumber,
+    required this.fcmtoken,
+    required this.dateOfBirth,
   });
    //from map: getting data from server
   factory UserModel.fromMap(Map<String,dynamic>map){
@@ -22,10 +24,12 @@ class UserModel{
       uid: map['uid']??'',
       username: map['username']??'',
       email: map['email']??'',
-      bio: map['bio']??'',
       profilepic: map['profilepic']??'',
       createdAt: map['createdAt']??'',
-      phoneNumber: map['phoneNumber']??'');
+      phoneNumber: map['phoneNumber']??'',
+      fcmtoken: map['fcmtoken']??'',
+      dateOfBirth: map['dateOfBirth']??'',
+  );
   }
 
   //to map: Adding data to server
@@ -34,10 +38,11 @@ class UserModel{
       "name":username,
       "email":email,
       "uid":uid,
-      "bio":bio,
       "profilepic":profilepic,
       "phoneNumber":phoneNumber,
       "createdAt":createdAt,
+      "fcmtoken":fcmtoken,
+      "dateOfBirth":dateOfBirth,
     };
   }
 }

@@ -22,7 +22,8 @@ class Proflie extends StatelessWidget {
               Text(ap.userModel.username),
               Text(ap.userModel.phoneNumber),
               Text(ap.userModel.email),
-              Text(ap.userModel.bio),
+
+              Text(ap.userModel.dateOfBirth),
               ElevatedButton(onPressed: (){
                 ap.userSignOut().then(
                       (value) => Navigator.push(

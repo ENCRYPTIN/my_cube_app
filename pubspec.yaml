@@ -50,6 +50,7 @@ dependencies:
   firebase_app_check: ^0.1.4+1
   toast: ^0.3.0
   firebase_messaging: ^14.6.2
+  intl: ^0.18.1
 
 
 

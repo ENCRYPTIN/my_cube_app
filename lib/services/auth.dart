@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cube/Models/user_model.dart';
@@ -155,14 +156,6 @@ class AuthProvider extends ChangeNotifier{
 
   }
 
-  //TODO:store fcmtoken to firebase
-  // void storefcmtoken(fcmtoken) async{
-  //   await _firebaseFirestore
-  //       .collection("Users/$_uid")
-  //       .doc("fcmtoken")
-  //       .set();
-  //
-  // }
   Future<String> storeFileToStorage(String ref, File file) async {
     UploadTask uploadTask = _firebaseStorage.ref().child(ref).putFile(file);
     TaskSnapshot snapshot = await uploadTask;
@@ -185,7 +178,8 @@ class AuthProvider extends ChangeNotifier{
           username: data['name']as String? ??'',
           email: data['email']as String? ??'',
           createdAt: data['createdAt']as String? ??'',
-          bio: data['bio']as String? ??'',
+          dateOfBirth: data['dateOfBirth']as String ?? '',
+          fcmtoken: data['fcmtoken']as String ?? '',
           uid: data['uid']as String? ??'',
           profilepic: data['profilepic']as String? ??'',
           phoneNumber: data['phoneNumber']as String? ??'',

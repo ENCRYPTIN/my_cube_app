@@ -1,6 +1,7 @@
 import 'dart:io' as io;
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:my_cube/Models/user_model.dart';
 import 'package:my_cube/home/homepage.dart';
 import 'package:my_cube/services/utils.dart';
@@ -10,31 +11,64 @@ import 'package:my_cube/services/auth.dart';
 
 class RegisterAccount extends StatefulWidget {
   const RegisterAccount({Key? key}) : super(key: key);
-
   @override
   State<RegisterAccount> createState() => _RegisterAccountState();
 }
 
 class _RegisterAccountState extends State<RegisterAccount> {
+  //final  fcmToken = await FirebaseMessaging.instance.getToken();
   //for validation
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  @override
+  void initState() {
+    getToken();
+    super.initState();
+  }
+  String? fcmtoken="";
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   io.File? image;
   final TextEditingController usernameController =TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController bioController = TextEditingController();
+
+  void getToken() async{
+    await FirebaseMessaging.instance.getToken().then(
+        (token){
+          setState(() {
+            fcmtoken=token;
+          });
+        }
+    );
+  }
+
+
+  DateTime? selectedDate;
+  TextEditingController _dateController = TextEditingController();
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        _dateController.text = DateFormat('dd/MM/yyyy').format(selectedDate!);
+      });
+    }
+  }
 
   @override
   void dispose() {
     super.dispose();
     usernameController.dispose();
     emailController.dispose();
-    bioController.dispose();
+    _dateController.dispose();
   }
 
   String username='';
   String email='';
-  String bio='';
 
   // for selecting image
   void selectImage() async {
@@ -228,7 +262,7 @@ class _RegisterAccountState extends State<RegisterAccount> {
                         alignment: Alignment.centerLeft,
                         child: Padding(
                           padding: EdgeInsets.only(left: 15),
-                          child: Text('Enter Bio',
+                          child: Text('Select Date of Birth, using calender icon',
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
@@ -253,27 +287,38 @@ class _RegisterAccountState extends State<RegisterAccount> {
                         color: const Color(0xFFC2C2C2),
                       ),
                     ),
-                    child:TextFormField(
-                      controller: bioController,
-                      maxLines: 2,
-                      validator: (value){
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-
-                        return null;
-                      },
-                      textAlign: TextAlign.left,
-                      onChanged: (val){
-                        setState(() {
-                          bio=val;
-                        });
-                      },
-                      decoration:const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Bio',
-                        icon: Icon(Icons.abc_outlined),
-                      ),
+                    child:Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                            child: Text(_dateController.text,),
+                          flex: 7,
+                        ),
+                        Expanded(
+                          flex: 3,
+                            child: IconButton(onPressed: (){_selectDate(context);}, icon: Icon(Icons.calendar_month_outlined))),
+                        // TextFormField(
+                        //   readOnly: true,
+                        //   controller: _dateController,
+                        //   //maxLines: 1,
+                        //   validator: (value){
+                        //     if (value == null || value.isEmpty) {
+                        //       return 'Please enter date of birth';
+                        //     }
+                        //     return null;
+                        //   },
+                        //    onTap: () {
+                        //    _selectDate(context);
+                        //   },
+                        //   textAlign: TextAlign.left,
+                        //   decoration:const InputDecoration(
+                        //     border: InputBorder.none,
+                        //     labelText: 'Date of Birth',
+                        //     hintText: 'dd/mm/yyyyy',
+                        //     icon: Icon(Icons.calendar_month_outlined),
+                        //   ),
+                        // ),
+                      ],
                     ),
                   ),
                   //submit button Container
@@ -328,10 +373,13 @@ class _RegisterAccountState extends State<RegisterAccount> {
        uid: "",
        username: usernameController.text,
        email: emailController.text,
-       bio: bioController.text,
+       dateOfBirth: _dateController.text,
        profilepic: "",
        createdAt: "",
-       phoneNumber: "");
+       phoneNumber: "",
+     fcmtoken: fcmtoken!
+
+   );
 
    if(image!=null){
      authService.saveUserDataToFirebase(

@@ -13,6 +13,7 @@ import 'package:my_cube/screens/register_account.dart';
 import 'package:my_cube/screens/request_otp.dart';
 import 'package:my_cube/services/auth.dart';
 import 'package:my_cube/screens/welcome_screen.dart';
+import 'Models/user_model.dart';
 import 'firebase_options.dart';
 import 'screens/login.dart';
 import 'package:provider/provider.dart';
@@ -28,10 +29,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // final fcmToken = await FirebaseMessaging.instance.getToken();
-  // if(fcmToken!=null){
-  //   print(fcmToken);
-  // }
   runApp(const MyCube());
 }
 
