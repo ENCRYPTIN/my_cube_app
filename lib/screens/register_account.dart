@@ -271,7 +271,7 @@ class _RegisterAccountState extends State<RegisterAccount> {
                       )
                   ),
 
-                  // Retype Password Text field container
+
                   Container(
                     width: 390,
                     height: 56,
@@ -294,27 +294,7 @@ class _RegisterAccountState extends State<RegisterAccount> {
                         Expanded(
                           flex: 3,
                             child: IconButton(onPressed: (){_selectDate(context);}, icon: Icon(Icons.calendar_month_outlined))),
-                        // TextFormField(
-                        //   readOnly: true,
-                        //   controller: _dateController,
-                        //   //maxLines: 1,
-                        //   validator: (value){
-                        //     if (value == null || value.isEmpty) {
-                        //       return 'Please enter date of birth';
-                        //     }
-                        //     return null;
-                        //   },
-                        //    onTap: () {
-                        //    _selectDate(context);
-                        //   },
-                        //   textAlign: TextAlign.left,
-                        //   decoration:const InputDecoration(
-                        //     border: InputBorder.none,
-                        //     labelText: 'Date of Birth',
-                        //     hintText: 'dd/mm/yyyyy',
-                        //     icon: Icon(Icons.calendar_month_outlined),
-                        //   ),
-                        // ),
+
                       ],
                     ),
                   ),
