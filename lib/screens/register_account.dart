@@ -371,7 +371,7 @@ class _RegisterAccountState extends State<RegisterAccount> {
    final AuthProvider authService = Provider.of<AuthProvider>(context, listen: false);
    UserModel userModel=UserModel(
        uid: "",
-       username: usernameController.text,
+       name: usernameController.text,
        email: emailController.text,
        dateOfBirth: _dateController.text,
        profilepic: "",

@@ -19,11 +19,7 @@ class _RequestOtpState extends State<RequestOtp> {
   String phonenumber="";
   String phonenumbersend="";
   List<String> logs = [];
-  void addLog(String message) {
-    setState(() {
-      logs.add(message);
-    });
-  }
+  bool isRegisterLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -175,14 +171,13 @@ class _RequestOtpState extends State<RequestOtp> {
                     borderRadius: BorderRadius.circular(28),
                     border: Border.all(
                       width: 2,
-                      color: const Color(0xFF17FD54),
+                      color: const Color(0xffB388FF),
                     ),
                   ),
 
-                  child: ElevatedButton(
+                  child:ElevatedButton(
                     onPressed: () async{
                       sendPhoneNumber();
-                      addLog("Requesting Otp");
                     },
                     style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(
@@ -190,7 +185,7 @@ class _RequestOtpState extends State<RequestOtp> {
                       ),
                       padding: EdgeInsets.zero,
                       minimumSize: const Size(347, 56),
-                      backgroundColor: const Color(0xFF22EA58),
+                      backgroundColor: const Color(0xffB388FF),
                     ),
                     child: const Text(
                       'Request OTP',
@@ -201,10 +196,7 @@ class _RequestOtpState extends State<RequestOtp> {
                     ),
                   ),
                 ),
-                Text(
-                  logs.isNotEmpty ? logs.last : 'No logs yet',
-                  style: const TextStyle(fontSize: 24),
-                ),
+
               ],
             )
         ),

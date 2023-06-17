@@ -80,25 +80,62 @@ class _OtpState extends State<Otp> {
               color: Colors.purple,
             ),
           )
-              :Center(
-              child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+              :SingleChildScrollView(
+                child: Center(
+                child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [Container(
+        width: 197,
+        height: 50,
+        margin: EdgeInsets.only(left: 15,top: 20),
+        child: Text(
+          'Verification code',
+          style: TextStyle(
+            fontSize: 24,
+            letterSpacing: 0.01,
+            color: Colors.black,
+            fontFamily: 'Inter',
+            height: 1.16, // You can adjust the line height by modifying this value
+          ),
+        ),
+      ),
+        Container(
+          width: 292,
+          height: 60,
+          margin: EdgeInsets.only(left: 15, ),
+          child: Text(
+            'We have sent OTP code verification\nto your mobile no',
+            style: TextStyle(
+                fontSize: 16,
+                letterSpacing: 0.01,
+                color: Color(0xFF969696),
+                fontFamily: 'Inter',
+                height: 1.37, // You can adjust the line height by modifying this value
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+          SizedBox(height: 150,),
+          Text("Enter OTP",
+          style: TextStyle(
+            fontSize: 20
+          ),),
+          SizedBox(height: 20,),
           Container(
-            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
             child: Pinput(
-              defaultPinTheme: defaultPinTheme,
-              focusedPinTheme: focusedPinTheme,
-              submittedPinTheme: submittedPinTheme,
-              showCursor: true,
-              length: 6,
-              androidSmsAutofillMethod: AndroidSmsAutofillMethod.none,
-              controller: _pinController,
-              onCompleted: (value) {
-                setState(() {
-                  otpCode = value;
-                });
-              },
+                defaultPinTheme: defaultPinTheme,
+                focusedPinTheme: focusedPinTheme,
+                submittedPinTheme: submittedPinTheme,
+                showCursor: true,
+                length: 6,
+                androidSmsAutofillMethod: AndroidSmsAutofillMethod.none,
+                controller: _pinController,
+                onCompleted: (value) {
+                  setState(() {
+                    otpCode = value;
+                  });
+                },
 
             ),
           ),
@@ -106,58 +143,42 @@ class _OtpState extends State<Otp> {
             width: 347,
             height: 56,
             //padding: EdgeInsets.only(left: 15),
-            margin: const EdgeInsets.only(left: 10, right: 10, top: 20),
+            margin: const EdgeInsets.only(left: 10, right: 10, top: 30),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(28),
-              border: Border.all(
-                width: 2,
-                color: const Color(0xFF17FD54),
-              ),
+                borderRadius: BorderRadius.circular(28),
+                border: Border.all(
+                  width: 2,
+                  color: const Color(0xffB388FF),
+                ),
             ),
             child: ElevatedButton(
-              // onPressed: () async {
-              //   try {
-              //     // Create a PhoneAuthCredential with the code
-              //     PhoneAuthCredential credential = PhoneAuthProvider.credential(
-              //         verificationId: RequestOtp.verify,
-              //         smsCode: _pinController.text);
-              //     // Sign the user in (or link) with the credential
-              //     await auth.signInWithCredential(credential);
-              //     Navigator.pushNamedAndRemoveUntil(
-              //         context, '/register_account', (route) => false);
-              //   } catch (e) {
-              //     showOtpErrorDialog(context, e.toString());
-              //   }
-              //   finally{
-              //     dispose();
-              //   }
-              // },
-              onPressed: () {
-                if (otpCode != null) {
-                  verifyOtp(context, otpCode!);
-                } else {
-                  showSnackBar(context, "Enter 6-Digit code");
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(28),
+                onPressed: () {
+                  if (otpCode != null) {
+                    verifyOtp(context, otpCode!);
+                  } else {
+                    showSnackBar(context, "Enter 6-Digit code");
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(28),
+                  ),
+                  padding: EdgeInsets.zero,
+                  minimumSize: const Size(347, 56),
+                  backgroundColor: const Color(0xffB388FF),
                 ),
-                padding: EdgeInsets.zero,
-                minimumSize: const Size(347, 56),
-                backgroundColor: const Color(0xFF17FD54),
-              ),
-              child: const Text(
-                'Submit',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
             ),
           )
       ],
     )),
+              ),
         ));
 
   }

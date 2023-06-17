@@ -174,7 +174,7 @@ class AuthProvider extends ChangeNotifier{
       if (snapshot.exists) {
         final data = snapshot.data() as Map<String, dynamic>;
         _userModel = UserModel(
-          username: data['name']as String? ??'',
+          name: data['name']as String? ??'',
           email: data['email']as String? ??'',
           createdAt: data['createdAt']as String? ??'',
           dateOfBirth: data['dateOfBirth']as String? ?? '',

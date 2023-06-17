@@ -83,6 +83,10 @@ flutter:
   assets:
      - assets/images/Cube.svg
      - assets/images/Myproject.png
+     - assets/images/cubepinkish.png
+     - assets/images/pet.png
+     - assets/images/family.png
+     - assets/images/Friend.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

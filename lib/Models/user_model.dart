@@ -1,6 +1,6 @@
 class UserModel{
   String uid;
-  String username;
+  String name;
   String email;
   String profilepic;
   String createdAt;
@@ -10,7 +10,7 @@ class UserModel{
 
   UserModel({
     required this.uid,
-    required this.username,
+    required this.name,
     required this.email,
     required this.profilepic,
     required this.createdAt,
@@ -22,7 +22,7 @@ class UserModel{
   factory UserModel.fromMap(Map<String,dynamic>map){
   return UserModel(
       uid: map['uid']??'',
-      username: map['username']??'',
+      name: map['name']??'',
       email: map['email']??'',
       profilepic: map['profilepic']??'',
       createdAt: map['createdAt']??'',
@@ -35,7 +35,7 @@ class UserModel{
   //to map: Adding data to server
   Map<String, dynamic> toMap(){
     return{
-      "name":username,
+      "name":name,
       "email":email,
       "uid":uid,
       "profilepic":profilepic,

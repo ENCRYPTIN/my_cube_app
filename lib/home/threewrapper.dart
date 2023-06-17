@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_cube/screens/Onboarding.dart';
 import 'package:provider/provider.dart';
 import 'package:my_cube/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,14 +32,38 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
             User? user = snapshot.data;
             if (user != null) {
               // Navigate to the home screen
-              WidgetsBinding.instance!.addPostFrameCallback((_) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
                 Navigator.of(context).pushReplacementNamed('/homepage');
                 authProvider.getDataFromSP();
               });
             } else {
               // Navigate to the welcome screen
-              WidgetsBinding.instance!.addPostFrameCallback((_) {
-                Navigator.of(context).pushReplacementNamed('/new user');
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                //Navigator.of(context).pushReplacementNamed('/new user');
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>OnboardingPage(pages:
+                [
+                  OnboardingPageModel(
+                  title: 'Stay connected with your loved ones',
+                  description:
+                  'Show them how much you care and appreciate them.',
+                  image: 'assets/images/family.png',
+                  bgColor: Colors.indigo,
+                ),
+                  OnboardingPageModel(
+                    title: 'Keep in touch with best buddies.',
+                    description: 'Share your memories and celebrate your friendship.',
+                    image: 'assets/images/Friend.png',
+                    bgColor: const Color(0xff1eb090),
+                  ),
+                  OnboardingPageModel(
+                    title: 'Cherish your furry companions',
+                    description:
+                    'Spoil them with treats and toys on their special days.',
+                    image: 'assets/images/pet.png',
+                    bgColor: const Color(0xfff8bbd0),
+                  ),
+                ]
+                )));
               });
             }
             return Container();
