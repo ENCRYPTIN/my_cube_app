@@ -41,28 +41,46 @@ class _PetsAddState extends State<PetsAdd> {
   Widget build(BuildContext context) {
     var firestorehelper=FirestoreHelper();
     return Scaffold(
-      body: SafeArea(
+      appBar: AppBar(
 
+        backgroundColor: Colors.black12,
+        elevation: 0.0,
+
+      ),
+      body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [Colors.lightBlue,Colors.lightBlueAccent,Colors.indigoAccent],
-                  begin: Alignment.topLeft,end: Alignment.bottomRight,stops: [0.1, 0.4, 0.6,]
-              ),
             ),
-            margin: EdgeInsets.all(0),
+            margin: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 15),
+                SizedBox(height: 15,),
+                Container(
+                  transformAlignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(),
+                  child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('GOOD MEMORIES ARE FOREVER',
+                      style: TextStyle(
+                        fontSize: 16
+                      ),),
+                    Text('Store your memories with us'),
+                    Text('We will remember it for you'),
+                  ],
+                ),),
 
                 TextFormField(
+                  style: TextStyle(fontSize: 16.0, height: 0.1),
                   controller: _petsnameController,
                   decoration: InputDecoration(
-                      fillColor:Colors.grey[300],
+                      fillColor:Colors.black12,
                       filled: true,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
+                        gapPadding: 6.0,
                       ),
                       labelText: "Pet Name",
                       hintText: 'Enter your name',
@@ -73,9 +91,9 @@ class _PetsAddState extends State<PetsAdd> {
                   ),
                 ),
 
-                SizedBox(height: 16),
+                SizedBox(height: 10),
                 Container(
-                  height: 150,
+                  height: 200,
                   margin: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -87,7 +105,9 @@ class _PetsAddState extends State<PetsAdd> {
 
                 TextFormField(
                   controller: _DOBController,
+                  style: TextStyle(fontSize: 16.0, height: 0.1),
                   decoration: InputDecoration(
+                    fillColor:Colors.grey[300],
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -99,6 +119,7 @@ class _PetsAddState extends State<PetsAdd> {
                 SizedBox(height: 16),
 
                 TextFormField(
+                  style: TextStyle(fontSize: 16.0, height: 0.1),
                   controller: _HeightController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -112,6 +133,7 @@ class _PetsAddState extends State<PetsAdd> {
                 SizedBox(height: 16),
 
                 TextFormField(
+                  style: TextStyle(fontSize: 16.0, height: 0.1),
                   controller: _WeightController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -125,6 +147,11 @@ class _PetsAddState extends State<PetsAdd> {
                 SizedBox(height: 16),
 
                 TextFormField(
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                      fontSize: 16.0,
+                      height: 1.0,
+                  ),
                   controller: _DescriptionController,
                   maxLines: 5,
                   decoration: InputDecoration(
@@ -140,8 +167,9 @@ class _PetsAddState extends State<PetsAdd> {
                 SizedBox(height: 16),
 
                 TextFormField(
+                  style: TextStyle(fontSize: 16.0, height: 0.1),
                   controller: _LicencenumberController,
-                  maxLines: 2,
+                  maxLines: 1,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -154,8 +182,9 @@ class _PetsAddState extends State<PetsAdd> {
                 SizedBox(height: 16),
 
                 TextFormField(
+                  style: TextStyle(fontSize: 16.0, height: 0.1),
                   controller: _SexController,
-                  maxLines: 2,
+                  maxLines: 1,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -168,8 +197,9 @@ class _PetsAddState extends State<PetsAdd> {
                 SizedBox(height: 16),
 
                 TextFormField(
+                  style: TextStyle(fontSize: 16.0, height: 0.1),
                   controller: _MedicalController,
-                  maxLines: 5,
+                  maxLines: 1,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
