@@ -26,3 +26,4 @@ Future<File?> getImage(BuildContext context) async {
 
   return image;
 }
+

@@ -234,12 +234,9 @@ class _RegisterAccountState extends State<RegisterAccount> {
                       controller: emailController,
                       validator: (value){
                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Please enter your email';
                         }
 
-                        if (value.length < 6) {
-                          return 'Password must be at least 6 characters';
-                        }
                         return null;
                       },
                       textAlign: TextAlign.left,
