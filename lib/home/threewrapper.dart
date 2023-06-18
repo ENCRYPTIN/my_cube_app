@@ -21,9 +21,10 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     String? fcmtoken = await FirebaseMessaging.instance.getToken();
     String _uid = _auth.currentUser!.uid;
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //SharedPreferences prefs = await SharedPreferences.getInstance();
     // Get the token from SharedPreferences with a key of 'fcmtoken'
-    String? prefToken = prefs.getString('spfcmtoken');
+    //tring? spfcmToken = prefs.getString('spfcmtoken');
+    //print(spfcmToken);
     DocumentReference personalDataRef =
     FirebaseFirestore.instance.collection('Users').doc(_uid).collection('PersonalData').doc(_uid);
     personalDataRef.update({'fcmtoken': fcmtoken});

@@ -32,19 +32,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // Get the Firebase Cloud Messaging token
-  FirebaseMessaging.instance.getToken().then((token) async {
-    // Check if the token is not null
-    if (token != null) {
-      // Get an instance of SharedPreferences
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      // Store the token into SharedPreferences with a key of 'fcmtoken'
-      prefs.setString('spfcmtoken', token);
-    }
-  }).catchError((e) {
-    // Handle any errors
-    print(e);
-  });
+
   runApp(const MyCube());
 }
 

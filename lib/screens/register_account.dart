@@ -7,6 +7,7 @@ import 'package:my_cube/home/homepage.dart';
 import 'package:my_cube/services/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:my_cube/services/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class RegisterAccount extends StatefulWidget {
