@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_cube/screens/welcome_screen.dart';
 
 class OnboardingPageModel {
   final String title;
@@ -21,10 +22,10 @@ class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key, required this.pages}) : super(key: key);
 
   @override
-  _OnboardingPageState createState() => _OnboardingPageState();
+  OnboardingPageState createState() => OnboardingPageState();
 }
 
-class _OnboardingPageState extends State<OnboardingPage> {
+class OnboardingPageState extends State<OnboardingPage> {
   // Store the currently visible page
   int _currentPage = 0;
   // Define a controller for the pageview
@@ -51,7 +52,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     });
                   },
                   itemBuilder: (context, idx) {
-                    final _item = widget.pages[idx];
+                    final item = widget.pages[idx];
                     return Column(
                       children: [
                         Expanded(
@@ -59,7 +60,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           child: Padding(
                             padding: const EdgeInsets.all(32.0),
                             child: Image.asset(
-                              _item.image,
+                              item.image,
                             ),
                           ),
                         ),
@@ -68,26 +69,26 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             child: Column(children: [
                               Padding(
                                 padding: const EdgeInsets.all(16.0),
-                                child: Text(_item.title,
+                                child: Text(item.title,
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleLarge
                                         ?.copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: _item.textColor,
+                                      color: item.textColor,
                                     )),
                               ),
                               Container(
                                 constraints: BoxConstraints(maxWidth: 280),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 24.0, vertical: 8.0),
-                                child: Text(_item.description,
+                                child: Text(item.description,
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
                                         ?.copyWith(
-                                      color: _item.textColor,
+                                      color: item.textColor,
                                     )),
                               )
                             ]))
@@ -124,7 +125,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     TextButton(
                         onPressed: () {
                           // Handle Skipping onboarding page
-                          Navigator.of(context).pushReplacementNamed('/new user');
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                                  (Route<dynamic> route) => false
+                          );
                         },
                         child: Text(
                           "Skip",
@@ -134,7 +139,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                       onPressed: () {
                         if (_currentPage == widget.pages.length - 1) {
                           // This is the last page
-                          Navigator.pushReplacementNamed(context, '/new user');
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                                  (Route<dynamic> route) => false
+                          );
                         } else {
                           _pageController.animateToPage(_currentPage + 1,
                               curve: Curves.easeInOutCubic,

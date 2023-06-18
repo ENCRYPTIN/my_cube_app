@@ -37,7 +37,11 @@ exports.sendBirthdayNotification = functions.pubsub.schedule("every 2 minutes").
       // Compare the two dates and log a message if they are equal
       if (formattedDate === dob) {
         // get fcm token from a const variable
-        const fcmtoken="crHV_n5MQJmO9ZRpDbdRPE:APA91bG8VT_zQRYcN74IqhPMmBkOE48R_hoWcIwYrGckgcdhIojTmko_ECTsG_3VlJmZ0E7BCdJHWlPff4-6kTiTGrlGA60EqdNjiPPhSz0P87cFQVwn4f73ZsTTlROqQJTy1vh47Q2O";// eslint-disable-line max-len
+        
+        //try to do for every document in every collection
+         fcmtoken=todo.fcmtoken;
+         
+         // eslint-disable-line max-len
         /* eslint-enable max-len */
         //  Create a payload for the notification
         const payload = {

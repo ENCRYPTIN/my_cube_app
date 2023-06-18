@@ -1,6 +1,7 @@
 //import 'dart:js';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_cube/home/Profile.dart';
@@ -13,6 +14,7 @@ import 'package:my_cube/screens/register_account.dart';
 import 'package:my_cube/screens/request_otp.dart';
 import 'package:my_cube/services/auth.dart';
 import 'package:my_cube/screens/welcome_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'home/threewrapper.dart';
 import 'home/wrapper.dart';
@@ -30,6 +32,19 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // Get the Firebase Cloud Messaging token
+  FirebaseMessaging.instance.getToken().then((token) async {
+    // Check if the token is not null
+    if (token != null) {
+      // Get an instance of SharedPreferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      // Store the token into SharedPreferences with a key of 'fcmtoken'
+      prefs.setString('spfcmtoken', token);
+    }
+  }).catchError((e) {
+    // Handle any errors
+    print(e);
+  });
   runApp(const MyCube());
 }
 

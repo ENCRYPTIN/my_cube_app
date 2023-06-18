@@ -18,27 +18,27 @@ class RegisterAccount extends StatefulWidget {
 class _RegisterAccountState extends State<RegisterAccount> {
   //final  fcmToken = await FirebaseMessaging.instance.getToken();
   //for validation
-  String fcmtokenkey='fcmtokenkey';
   @override
   void initState() {
     getToken();
     super.initState();
   }
   String? fcmtoken="";
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  io.File? image;
-  final TextEditingController usernameController =TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-
   void getToken() async{
     await FirebaseMessaging.instance.getToken().then(
-        (token){
+            (token){
           setState(() {
             fcmtoken=token;
           });
         }
     );
   }
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  io.File? image;
+  final TextEditingController usernameController =TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+
 
 
   DateTime? selectedDate;

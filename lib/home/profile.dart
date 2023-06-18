@@ -218,12 +218,11 @@ class Proflie extends StatelessWidget {
                             FloatingActionButton.extended(
                               onPressed: () {
                                     ap.userSignOut().then(
-                                          (value) => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => const WelcomeScreen(),
-                                        ),
-                                      ),
+                                          (value) => Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                                                  (Route<dynamic> route) => false
+                                          )
                                     );
                               },
                               heroTag: 'Logout',

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FamilyUserModel{
-
+  final String? id;
   final String? Familyname;
   final String? DOB;
   final String? relationship;
@@ -10,8 +10,20 @@ class FamilyUserModel{
   final String? habbits;
   final String? phonenumber;
   final String? achivements;
+  final String? fcmtoken;
 
-  FamilyUserModel({this.Familyname, this.DOB, this.relationship, this.age, this.description, this.habbits, this.phonenumber, this.achivements});
+  FamilyUserModel({
+    this.id,
+    this.Familyname,
+    this.DOB,
+    this.relationship,
+    this.age,
+    this.description,
+    this.habbits,
+    this.phonenumber,
+    this.achivements,
+    this.fcmtoken,
+  });
 
   factory FamilyUserModel.fromSnapshot(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
@@ -21,10 +33,12 @@ class FamilyUserModel{
         DOB: snapshot['Date of Birth'],
         relationship: snapshot['Relationship'],
         age: snapshot['age'],
-        description: snapshot['Description'],
+        description: snapshot['description'],
         phonenumber: snapshot['Phonenumber'],
-        habbits: snapshot['Habbits'],
-        achivements: snapshot['Achivements']
+        habbits: snapshot['habbits'],
+        achivements: snapshot['achivements'],
+        id: snapshot['id'],
+        fcmtoken: snapshot['fcmtoken'],
     );
   }
 
@@ -36,8 +50,9 @@ class FamilyUserModel{
     "description": description,
     "achivements": achivements,
     "habbits": habbits,
-    "Phonenumber": phonenumber
-
+    "Phonenumber": phonenumber,
+    "id": id,
+    "fcmtoken":fcmtoken,
   };
 }
 

@@ -1,5 +1,7 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 import 'package:my_cube/Models/familyusers.dart';
 import 'package:my_cube/services/firestore_helper.dart';
 
@@ -23,7 +25,7 @@ class _FamilyAddState extends State<FamilyAdd> {
   TextEditingController _habbitsController = TextEditingController();
   TextEditingController _phonenumberController = TextEditingController();
   TextEditingController _achivementsController = TextEditingController();
-
+  DateTime? selectedDate;
   @override
   void dispose() {
     _familynameController.dispose();
@@ -36,6 +38,36 @@ class _FamilyAddState extends State<FamilyAdd> {
     _achivementsController.dispose();
     // TODO: implement dispose
     super.dispose();
+  }
+  @override
+  void initState() {
+    getToken();
+    super.initState();
+  }
+  String? fcmtoken="";
+  void getToken() async{
+    await FirebaseMessaging.instance.getToken().then(
+            (token){
+          setState(() {
+            fcmtoken=token;
+          });
+        }
+    );
+  }
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        _DOBController.text = DateFormat('dd/MM/yyyy').format(selectedDate!);
+      });
+    }
   }
 
   @override
@@ -75,14 +107,47 @@ class _FamilyAddState extends State<FamilyAdd> {
                     ),
                   ),
 
-                  TextFormField(
-                    controller: _DOBController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Container(
+                      margin: const EdgeInsets.only(left: 10,top: 30),
+                      child: const Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 15),
+                          child: Text('Select Date of Birth, using calender icon',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 1.1,
+                                fontFamily: 'Inter'
+                            ),
+                          ),
+                        ),
+                      )
+                  ),
+                  Container(
+                    width: 390,
+                    height: 56,
+                    padding: const EdgeInsets.only(left: 15),
+                    margin: const EdgeInsets.only(left: 10,right: 10, top: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        width: 2,
+                        color: const Color(0xFFC2C2C2),
                       ),
-                      labelText: "DATE OF BIRTH",
-                      hintText: "DOB",
+                    ),
+                    child:Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: Text(_DOBController.text,),
+                          flex: 7,
+                        ),
+                        Expanded(
+                            flex: 3,
+                            child: IconButton(onPressed: (){_selectDate(context);}, icon: Icon(Icons.calendar_month_outlined))),
+
+                      ],
                     ),
                   ),
                   SizedBox(height: 16),
@@ -179,6 +244,7 @@ class _FamilyAddState extends State<FamilyAdd> {
                               phonenumber: _phonenumberController.text,
                               achivements: _achivementsController.text,
                               habbits: _habbitsController.text,
+                              fcmtoken: fcmtoken,
 
 
                             ));
