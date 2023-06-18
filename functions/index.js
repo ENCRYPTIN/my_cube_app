@@ -9,7 +9,7 @@ admin.initializeApp();
 const db = admin.firestore();
 
 /* eslint-disable max-len */
-exports.sendBirthdayNotification = functions.pubsub.schedule("every 2 minutes").onRun(async (context) =>{
+exports.sendBirthdayNotification = functions.pubsub.schedule("1 0 * * *").onRun(async (context) =>{
   const todos = [];
   // Query all documents in any subcollection named PersonalData, friends, family or pets
   const querySnapshot = await db.collectionGroup("PersonalData").get();
