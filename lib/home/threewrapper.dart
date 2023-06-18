@@ -98,8 +98,9 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
               // Navigate to the home screen
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 authProvider.getDataFromSP();
-                updatefcmtoken();
                 Navigator.of(context).pushReplacementNamed('/homepage');
+                updatefcmtoken();
+
               });
             } else {
               // Navigate to the welcome screen
