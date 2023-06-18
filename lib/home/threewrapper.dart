@@ -7,7 +7,6 @@ import 'package:my_cube/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class ThreeWrapper extends StatefulWidget {
   const ThreeWrapper({Key? key}) : super(key: key);
 
@@ -16,8 +15,7 @@ class ThreeWrapper extends StatefulWidget {
 }
 
 class _ThreeWrapperState extends State<ThreeWrapper> {
-
-  updatefcmtoken()async{
+  updatefcmtoken() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     String? fcmtoken = await FirebaseMessaging.instance.getToken();
     String _uid = _auth.currentUser!.uid;
@@ -25,13 +23,16 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
     // Get the token from SharedPreferences with a key of 'fcmtoken'
     //tring? spfcmToken = prefs.getString('spfcmtoken');
     //print(spfcmToken);
-    DocumentReference personalDataRef =
-    FirebaseFirestore.instance.collection('Users').doc(_uid).collection('PersonalData').doc(_uid);
+    DocumentReference personalDataRef = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(_uid)
+        .collection('PersonalData')
+        .doc(_uid);
     personalDataRef.update({'fcmtoken': fcmtoken});
 
     //now for pets
-    final petsCollection = FirebaseFirestore.instance.collection(
-        "Users/$_uid/Pets");
+    final petsCollection =
+        FirebaseFirestore.instance.collection("Users/$_uid/Pets");
     // Get all documents in the petsCollection
     QuerySnapshot petsSnapshot = await petsCollection.get();
     // Check if the collection exists
@@ -45,8 +46,8 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
       });
     }
     //for family
-    final familyCollection = FirebaseFirestore.instance.collection(
-        "Users/$_uid/Family");
+    final familyCollection =
+        FirebaseFirestore.instance.collection("Users/$_uid/Family");
     // Get all documents in the Collection
     QuerySnapshot familySnapshot = await familyCollection.get();
     // Check if the collection exists
@@ -60,8 +61,8 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
       });
     }
     //for friend
-    final friendsCollection = FirebaseFirestore.instance.collection(
-        "Users/$_uid/Friends");
+    final friendsCollection =
+        FirebaseFirestore.instance.collection("Users/$_uid/Friends");
     // Get all documents in the petsCollection
     QuerySnapshot friendSnapshot = await friendsCollection.get();
     // Check if the collection exists
@@ -79,11 +80,12 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
   @override
   Widget build(BuildContext context) {
     final FirebaseAuth auth = FirebaseAuth.instance;
-    final AuthProvider authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final AuthProvider authProvider =
+        Provider.of<AuthProvider>(context, listen: false);
 
     // Use a StreamBuilder widget instead of a FutureBuilder widget
     return StreamBuilder<User?>(
-      // Use authStateChanges() method to get a stream of User objects
+        // Use authStateChanges() method to get a stream of User objects
         stream: auth.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -100,36 +102,37 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
                 authProvider.getDataFromSP();
                 Navigator.of(context).pushReplacementNamed('/homepage');
                 updatefcmtoken();
-
               });
             } else {
               // Navigate to the welcome screen
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 //Navigator.of(context).pushReplacementNamed('/new user');
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>OnboardingPage(pages:
-                [
-                  OnboardingPageModel(
-                  title: 'Stay connected with your loved ones',
-                  description:
-                  'Show them how much you care and appreciate them.',
-                  image: 'assets/images/family.png',
-                  bgColor: Colors.indigo,
-                ),
-                  OnboardingPageModel(
-                    title: 'Keep in touch with best buddies.',
-                    description: 'Share your memories and celebrate your friendship.',
-                    image: 'assets/images/Friend.png',
-                    bgColor: const Color(0xff1eb090),
-                  ),
-                  OnboardingPageModel(
-                    title: 'Cherish your furry companions',
-                    description:
-                    'Spoil them with treats and toys on their special days.',
-                    image: 'assets/images/pet.png',
-                    bgColor: const Color(0xfff8bbd0),
-                  ),
-                ]
-                )));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => OnboardingPage(pages: [
+                              OnboardingPageModel(
+                                title: 'Stay connected with your loved ones',
+                                description:
+                                    'Show them how much you care and appreciate them.',
+                                image: 'assets/images/family.png',
+                                bgColor: Colors.indigo,
+                              ),
+                              OnboardingPageModel(
+                                title: 'Keep in touch with best buddies.',
+                                description:
+                                    'Share your memories and celebrate your friendship.',
+                                image: 'assets/images/Friend.png',
+                                bgColor: const Color(0xff1eb090),
+                              ),
+                              OnboardingPageModel(
+                                title: 'Cherish your furry companions',
+                                description:
+                                    'Spoil them with treats and toys on their special days.',
+                                image: 'assets/images/pet.png',
+                                bgColor: const Color(0xfff8bbd0),
+                              ),
+                            ])));
               });
             }
             return Container();

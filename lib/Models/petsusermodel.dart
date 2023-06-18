@@ -30,7 +30,7 @@ class PetsUserModel {
 
     return PetsUserModel(
         Petsname: snapshot['Petsname'],
-        DOB: snapshot['Date of Birth'],
+        DOB: snapshot['dateOfBirth'],
         height: snapshot['Height'],
         weight: snapshot['weight'],
         description: snapshot['Description'],
@@ -45,7 +45,7 @@ class PetsUserModel {
 
   Map<String, dynamic> toJson() => {
     "Petsname": Petsname,
-    "Date of Birth": DOB,
+    "dateOfBirth": DOB,
     "Height": height,
     "weight": weight,
     "Description": description,

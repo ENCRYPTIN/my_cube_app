@@ -32,7 +32,7 @@ class FriendsUserModel{
 
     return FriendsUserModel(
         Friendsname: snapshot['friendsname'],
-        DOB: snapshot['Date of Birth'],
+        DOB: snapshot['dateOfBirth'],
         nickname: snapshot['nick name'],
         sex: snapshot['sex'],
         description: snapshot['description'],
@@ -46,7 +46,7 @@ class FriendsUserModel{
 
   Map<String, dynamic> toJson() => {
     "friendsname": Friendsname,
-    "Date of Birth": DOB,
+    "dateOfBirth": DOB,
     "nick name": nickname,
     "sex": sex,
     "description": description,

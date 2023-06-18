@@ -30,7 +30,7 @@ class FamilyUserModel{
 
     return FamilyUserModel(
         Familyname: snapshot['Familyname'],
-        DOB: snapshot['Date of Birth'],
+        DOB: snapshot['dateOfBirth'],
         relationship: snapshot['Relationship'],
         age: snapshot['age'],
         description: snapshot['description'],
@@ -44,7 +44,7 @@ class FamilyUserModel{
 
   Map<String, dynamic> toJson() => {
     "Familyname": Familyname,
-    "Date of Birth": DOB,
+    "dateOfBirth": DOB,
     "Relationship": relationship,
     "age": age,
     "description": description,
