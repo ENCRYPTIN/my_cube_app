@@ -23,7 +23,7 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
     String _uid = _auth.currentUser!.uid;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // Get the token from SharedPreferences with a key of 'fcmtoken'
-    String? prefToken = prefs.getString('fcmtoken');
+    String? prefToken = prefs.getString('spfcmtoken');
     DocumentReference personalDataRef =
     FirebaseFirestore.instance.collection('Users').doc(_uid).collection('PersonalData').doc(_uid);
     personalDataRef.update({'fcmtoken': fcmtoken});
