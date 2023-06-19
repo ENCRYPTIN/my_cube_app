@@ -29,7 +29,6 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
         .collection('PersonalData')
         .doc(_uid);
     personalDataRef.update({'fcmtoken': fcmtoken});
-
     //now for pets
     final petsCollection =
         FirebaseFirestore.instance.collection("Users/$_uid/Pets");

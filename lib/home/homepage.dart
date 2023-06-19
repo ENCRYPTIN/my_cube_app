@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_cube/home/Social/socialhome.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -122,11 +123,15 @@ class HomePage extends StatelessWidget {
         items:  [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
+              icon: IconButton(
+                icon: Icon(Icons.people_alt_sharp),
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>socialhome()));
+                },), label: "Social"),
+          BottomNavigationBarItem(
               icon: IconButton(onPressed: (){
                 Navigator.pushNamed(context, '/profilepage');
               }, icon: Icon(Icons.account_circle_outlined)), label: "Profile"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: "Settings"),
         ],
       ),
     );

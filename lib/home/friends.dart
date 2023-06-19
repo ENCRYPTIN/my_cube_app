@@ -5,6 +5,7 @@ import 'package:my_cube/home/friendsedit.dart';
 import 'package:my_cube/services/firestore_helper.dart';
 import 'package:my_cube/home/friendadd.dart';
 
+
 class Friends extends StatefulWidget {
   const Friends({Key? key}) : super(key: key);
 

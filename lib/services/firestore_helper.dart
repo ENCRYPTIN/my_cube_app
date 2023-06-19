@@ -5,6 +5,9 @@ import 'package:my_cube/Models/familyusers.dart';
 import 'package:my_cube/Models/friendsusers.dart';
 import 'package:my_cube/Models/petsusermodel.dart';
 
+import '../Models/socialusermodel.dart';
+
+
 
 class FirestoreHelper {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -53,7 +56,6 @@ class FirestoreHelper {
 
     final FriendsCollection = FirebaseFirestore.instance.collection(
         "Users/$_uid/Friends/");
-    print(_uid);
 
     final docRef = FriendsCollection.doc(friend.id);
 
@@ -242,5 +244,25 @@ class FirestoreHelper {
     docRef.delete();
   }
 
+//For Socailhome
+  Stream<List<SocialUserModel>> readPersonalData() {
+
+
+    //Working code:
+    Query personalDataCollection = FirebaseFirestore.instance.collectionGroup(
+        "PersonalData");
+    //DocumentReference personalDataRef =personalDataCollection.;
+    return personalDataCollection.snapshots().map((querrySnapshot) =>
+        querrySnapshot.docs.map((e) => SocialUserModel.fromSnapshot(e))
+            .toList());
+
+    // //Experimental Code
+    //var myUserId = _auth.currentUser!.uid;
+    // Query otherData = FirebaseFirestore.collectionGroup('PersonalData').where('uid', '!=', myUserId,true);
+    // //DocumentReference personalDataRef =personalDataCollection.;
+    // return otherData.snapshots().map((querrySnapshot) =>
+    //     querrySnapshot.docs.map((e) => SocialUserModel.fromSnapshot(e)).toList());
+
+  }
 }
 
