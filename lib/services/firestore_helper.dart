@@ -243,26 +243,46 @@ class FirestoreHelper {
     final docRef = petsCollection.doc(pet.id);
     docRef.delete();
   }
-
 //For Socailhome
-  Stream<List<SocialUserModel>> readPersonalData() {
-
-
+//   Stream<List<SocialUserModel>> readPersonalData() {
+//     var myUserId = _auth.currentUser!.uid;
     //Working code:
-    Query personalDataCollection = FirebaseFirestore.instance.collectionGroup(
-        "PersonalData");
-    //DocumentReference personalDataRef =personalDataCollection.;
-    return personalDataCollection.snapshots().map((querrySnapshot) =>
-        querrySnapshot.docs.map((e) => SocialUserModel.fromSnapshot(e))
-            .toList());
+    // Query personalDataCollection = FirebaseFirestore.instance.collectionGroup(
+    //     "PersonalData");
+    //
+    // return personalDataCollection.snapshots().map((querrySnapshot) =>
+    //     querrySnapshot.docs.map((e) => SocialUserModel.fromSnapshot(e))
+    //         .toList());
 
-    // //Experimental Code
+     //Experimental Code
     //var myUserId = _auth.currentUser!.uid;
     // Query otherData = FirebaseFirestore.collectionGroup('PersonalData').where('uid', '!=', myUserId,true);
-    // //DocumentReference personalDataRef =personalDataCollection.;
-    // return otherData.snapshots().map((querrySnapshot) =>
-    //     querrySnapshot.docs.map((e) => SocialUserModel.fromSnapshot(e)).toList());
+    // Get the current user's uid
+//For Socailhome
+//For Socailhome
+  Stream<List<SocialUserModel>> readPersonalData() {
+    var myUserId = _auth.currentUser!.uid;
+    // Query the collection group "PersonalData"
+    var allData = FirebaseFirestore.instance.collectionGroup('PersonalData');
 
+    // Get the data from the query as a stream
+    return allData.snapshots().asyncMap((querySnapshot) async {
+      // Create an empty list to store the SocialUserModel objects
+      List<SocialUserModel> socialUserModels = [];
+      // Loop through the documents
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        // Check if the document name is different from the current user's uid
+        if (doc.id != myUserId) {
+          // Create a SocialUserModel object from the document data
+          SocialUserModel socialUserModel = SocialUserModel.fromSnapshot(doc);
+          // Add the SocialUserModel object to the list
+          socialUserModels.add(socialUserModel);
+        }
+      }
+      // Return the list of SocialUserModel objects
+      return socialUserModels;
+    });
   }
+
 }
 
