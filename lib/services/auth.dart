@@ -10,7 +10,8 @@ import 'package:my_cube/screens/register_account.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_cube/services/utils.dart';
 import 'package:toast/toast.dart';
-
+import 'dart:convert';
+import 'dart:math' as math;
 class AuthProvider extends ChangeNotifier{
   final FirebaseAuth _auth= FirebaseAuth.instance;
   final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
@@ -55,12 +56,6 @@ class AuthProvider extends ChangeNotifier{
 
           verificationCompleted:
               (PhoneAuthCredential phoneAuthCredential) async {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RegisterAccount(),
-                  ),
-                );
                 await _auth.signInWithCredential(phoneAuthCredential);
                 Toast.show("Verification Completed", duration: Toast.lengthShort, gravity:  Toast.bottom);
       },
@@ -100,6 +95,43 @@ class AuthProvider extends ChangeNotifier{
   //     codeAutoRetrievalTimeout: (String verificationId) {},
   //   );
   // }
+
+
+  String? sendphonenumber(BuildContext context, String phonenumber) {
+    // code to request otp from firebase auth and navigate to another screen if otp is sent
+    String? phoneNumber = phonenumber;
+    String? smsCode;
+    String? verificationId;
+    String? errorMessage;
+    String? verificationCode;
+    final PhoneCodeAutoRetrievalTimeout autoRetrieve = (String verId) {
+      verificationId = verId;
+    };
+    final PhoneCodeSent smsCodeSent = (String verId, [int? forceCodeResend]) {
+      verificationId = verId;
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Otp(verificationId: verificationId!),
+        ),
+      );
+    };
+    final PhoneVerificationCompleted verifiedSuccess = (AuthCredential auth) {
+      print('verified');
+    };
+    final PhoneVerificationFailed verifyFailed = (FirebaseAuthException exception) {
+      print('${exception.message}');
+      print("this is pretty stupid");
+    };
+    FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        timeout: const Duration(seconds: 5),
+        verificationCompleted: verifiedSuccess,
+        verificationFailed: verifyFailed,
+        codeSent: smsCodeSent,
+        codeAutoRetrievalTimeout: autoRetrieve);
+    return verificationCode;
+  }
 
   //verifyotp
   void verifyOtp({

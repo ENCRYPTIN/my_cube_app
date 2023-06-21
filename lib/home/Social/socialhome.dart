@@ -78,7 +78,11 @@ class _socialhomeState extends State<socialhome> {
                                     height: 40,
                                     decoration: BoxDecoration(
                                         color: Colors.lightBlue,
-                                        shape: BoxShape.circle
+                                        shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                          image: NetworkImage("${singleUser.profilepic}")
+                                      ),
                                     ),
                                   ),
                                   title: Text("${singleUser.name}"),

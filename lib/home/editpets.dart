@@ -22,6 +22,7 @@ class _EditPetsState extends State<EditPets> {
   TextEditingController? _LicencenumberController;
   TextEditingController? _SexController;
   TextEditingController? _MedicalController;
+  TextEditingController? _ImageController;
   DateTime? selectedDate;
 
   @override
@@ -34,7 +35,7 @@ class _EditPetsState extends State<EditPets> {
     _LicencenumberController=TextEditingController(text: widget.pet.licencenumber);
     _SexController=TextEditingController(text: widget.pet.sex);
     _MedicalController=TextEditingController(text: widget.pet.medicalhistory);
-
+    _ImageController=TextEditingController(text: widget.pet.profilepic);
     super.initState();
   }
 
@@ -91,7 +92,7 @@ class _EditPetsState extends State<EditPets> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       labelText: "Pet Name",
-                      hintText: 'Enter your name',
+                      hintText: 'Enter pet name',
                       labelStyle:TextStyle(
                         color: Colors.black87,
                         fontWeight: FontWeight.bold,
@@ -108,6 +109,10 @@ class _EditPetsState extends State<EditPets> {
                       color: Colors.black,
                       width: 1.0,
                     ),
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(widget.pet.profilepic!),
+                      )
                   ),
                 ),
 
@@ -253,7 +258,8 @@ class _EditPetsState extends State<EditPets> {
                         licencenumber: _LicencenumberController!.text,
                         sex: _SexController!.text,
                         fcmtoken:widget.pet.fcmtoken,
-                        medicalhistory: _MedicalController!.text,),).then((value){
+                        medicalhistory: _MedicalController!.text,
+                        profilepic: _ImageController!.text),).then((value){
                       Navigator.pop(context);
 
                     });

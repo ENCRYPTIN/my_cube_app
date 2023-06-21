@@ -75,8 +75,12 @@ class _PetsState extends State<Pets> {
                                   height: 40,
                                   decoration: BoxDecoration(
                                       color: Colors.lightBlue,
-                                      shape: BoxShape.circle
+                                      shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage("${singleUser.profilepic}")),
                                   ),
+
                                 ),
                                 title: Text("${singleUser.Petsname}"),
                                 subtitle: Text("${singleUser.licencenumber}"),
@@ -92,6 +96,7 @@ class _PetsState extends State<Pets> {
                                       weight: singleUser.weight,
                                       id: singleUser.id,
                                       fcmtoken: singleUser.fcmtoken,
+                                      profilepic: singleUser.profilepic,
                                   ))));
                                 }, child: Icon(Icons.edit),
                                 ),

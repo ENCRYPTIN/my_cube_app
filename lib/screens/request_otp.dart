@@ -208,8 +208,7 @@ class _RequestOtpState extends State<RequestOtp> {
     final AuthProvider authService = Provider.of<AuthProvider>(
         context, listen: false);
     String phoneNumber = phoneController.text.trim();
-    FirebaseAuth.instance.setSettings(appVerificationDisabledForTesting: false);
-
-    authService.signInWithPhone(context, "+${country.phoneCode}$phoneNumber");
+    FirebaseAuth.instance.setSettings(appVerificationDisabledForTesting: true);
+    authService.sendphonenumber(context, "+${country.phoneCode}$phoneNumber");
   }
 }

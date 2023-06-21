@@ -316,17 +316,24 @@ class _PetsAddState extends State<PetsAdd> {
                     builder: (context) {
                       return ElevatedButton(
                         onPressed: () async {
-                          firestorehelper.createpet(PetsUserModel(
-                            Petsname: _petsnameController.text,
-                            DOB: _DOBController.text,
-                            height: _HeightController.text,
-                            weight: _WeightController.text,
-                            description: _DescriptionController.text,
-                            licencenumber: _LicencenumberController.text,
-                            sex: _SexController.text,
-                            medicalhistory: _MedicalController.text,
-                            fcmtoken: fcmtoken,
-                          ));
+                          if(image!=null) {
+
+                            firestorehelper.createpet(PetsUserModel(
+                              Petsname: _petsnameController.text,
+                              DOB: _DOBController.text,
+                              height: _HeightController.text,
+                              weight: _WeightController.text,
+                              description: _DescriptionController.text,
+                              licencenumber: _LicencenumberController.text,
+                              sex: _SexController.text,
+                              medicalhistory: _MedicalController.text,
+                              fcmtoken: fcmtoken,
+                            ),image!).then((valve) {
+                              Navigator.pop(context);
+                            });
+                          } else{
+                            showSnackBar(context, "Please upload Pet photo");
+                          }
                           // Handle button click event
                           // Add your logic or function call here
                           //Navigator.push(context, MaterialPageRoute(builder: (context) => Friend()));

@@ -15,27 +15,6 @@ class Proflie extends StatelessWidget {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children:[
-              //   CircleAvatar(
-              //     backgroundColor: Colors.purple,
-              //     backgroundImage: NetworkImage(ap.userModel.profilepic),
-              //     radius: 50,
-              //   ),
-              //   const SizedBox(height: 20),
-              //   Text(ap.userModel.name),
-              //   Text(ap.userModel.phoneNumber),
-              //   Text(ap.userModel.email),
-              //   Text(ap.userModel.dateOfBirth),
-              //   ElevatedButton(onPressed: (){
-              //     ap.userSignOut().then(
-              //           (value) => Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //           builder: (context) => const WelcomeScreen(),
-              //         ),
-              //       ),
-              //     );
-              //   },
-              //       child:const Text("Log Out") )
             Container(
               height: 250,
               child: Stack(

@@ -1,6 +1,9 @@
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:my_cube/Models/familyusers.dart';
 import 'package:my_cube/Models/friendsusers.dart';
 import 'package:my_cube/Models/petsusermodel.dart';
@@ -176,13 +179,20 @@ class FirestoreHelper {
         querrySnapshot.docs.map((e) => PetsUserModel.fromSnapshot(e)).toList());
   }
 
-  createpet(PetsUserModel pet) async {
+  createpet(PetsUserModel pet,File pic) async {
+    String? petpic;
     String _uid = _auth.currentUser!.uid;
     final petsCollection = FirebaseFirestore.instance.collection(
         "Users/$_uid/Pets");
-
     final docRef = petsCollection.doc();
     final uid = docRef.id;
+    try {
+      await storeFileToStorage("$_uid/Pets/$uid", pic).then((value) {
+        petpic = value;
+      });
+    }catch(e){
+      print("some error occured $e");
+    }
     final newPet = PetsUserModel(
         id: uid,
         Petsname: pet.Petsname,
@@ -193,17 +203,22 @@ class FirestoreHelper {
         licencenumber: pet.licencenumber,
         sex: pet.sex,
         medicalhistory: pet.medicalhistory,
-        fcmtoken: pet.fcmtoken
-
+        fcmtoken: pet.fcmtoken,
+        profilepic: petpic
     ).toJson();
-
-    try {
+    try{
       await docRef.set(newPet);
     } catch (e) {
       print("some error occured $e");
     }
   }
-
+  Future<String> storeFileToStorage(String ref, File file) async {
+    final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
+    UploadTask uploadTask = _firebaseStorage.ref().child(ref).putFile(file);
+    TaskSnapshot snapshot = await uploadTask;
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
   updatepet(PetsUserModel pet) async {
     String _uid = _auth.currentUser!.uid;
     final petsCollection = FirebaseFirestore.instance.collection(
@@ -221,7 +236,8 @@ class FirestoreHelper {
         licencenumber: pet.licencenumber,
         sex: pet.sex,
         medicalhistory: pet.medicalhistory,
-        fcmtoken: pet.fcmtoken
+        fcmtoken: pet.fcmtoken,
+      profilepic: pet.profilepic,
 
     ).toJson();
 
