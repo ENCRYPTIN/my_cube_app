@@ -20,19 +20,22 @@ import 'home/threewrapper.dart';
 import 'home/wrapper.dart';
 import 'screens/login.dart';
 import 'package:provider/provider.dart';
-//import 'package:firebase_app_check/firebase_app_check.dart';
-
+import 'package:firebase_app_check/firebase_app_check.dart';
+import 'dart:io';
 //import 'dart:async';
 
 //import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  await FirebaseAppCheck.instance.activate(
+    webRecaptchaSiteKey: 'recaptcha-v3-site-key',
+    // Set androidProvider to `AndroidProvider.debug`
+    androidProvider: AndroidProvider.debug,
+  );
   runApp(const MyCube());
 }
 

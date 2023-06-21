@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cube/Models/user_model.dart';
 import 'package:my_cube/screens/otp.dart';
+import 'package:my_cube/screens/register_account.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:my_cube/services/utils.dart';
 import 'package:toast/toast.dart';
@@ -46,19 +47,27 @@ class AuthProvider extends ChangeNotifier{
     notifyListeners();
   }
   // signin
-  void signInWithPhone(BuildContext context, String phoneNumber,) async {
+   signInWithPhone(BuildContext context, String phoneNumber,) async {
     ToastContext().init(context);
     try {
       await _auth.verifyPhoneNumber(
           phoneNumber: phoneNumber,
+
           verificationCompleted:
               (PhoneAuthCredential phoneAuthCredential) async {
-                await _auth.signInWithPhoneNumber(phoneNumber,);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RegisterAccount(),
+                  ),
+                );
+                await _auth.signInWithCredential(phoneAuthCredential);
                 Toast.show("Verification Completed", duration: Toast.lengthShort, gravity:  Toast.bottom);
       },
           verificationFailed: (FirebaseAuthException error) {
             Toast.show('$error', duration: Toast.lengthShort, gravity:  Toast.bottom);
             throw FirebaseAuthException(code: error.code, message: error.message);
+
           },
           codeSent: (verificationId, forceResendingToken) {
             Toast.show("Code Sent", duration: Toast.lengthShort, gravity:  Toast.bottom);
@@ -72,10 +81,25 @@ class AuthProvider extends ChangeNotifier{
           codeAutoRetrievalTimeout: (verificationId) {});
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message.toString());
-      Toast.show('$e', duration: Toast.lengthShort, gravity:  Toast.bottom);
+      Toast.show('$e', duration: Toast.lengthLong, gravity:  Toast.bottom);
       print(e.message);
     }
   }
+
+
+  // //trial
+  // signInWithPhoneMob(BuildContext context, String phoneNumber,) async {
+  //   await FirebaseAuth.instance.verifyPhoneNumber(
+  //     phoneNumber: phoneNumber,
+  //
+  //     verificationCompleted: (PhoneAuthCredential credential) {
+  //
+  //     },
+  //     verificationFailed: (FirebaseAuthException e) {},
+  //     codeSent: (String verificationId, int? resendToken) {},
+  //     codeAutoRetrievalTimeout: (String verificationId) {},
+  //   );
+  // }
 
   //verifyotp
   void verifyOtp({

@@ -39,6 +39,7 @@ android {
         implementation 'com.google.firebase:firebase-storage'
         implementation 'com.google.firebase:firebase-appcheck-playintegrity'
         implementation 'com.google.firebase:firebase-appcheck-debug:17.0.1'
+        implementation 'com.android.support:multidex:2.0.1'
         implementation "androidx.browser:browser:1.5.0"
     }
     compileSdkVersion 33//flutter.compileSdkVersion
