@@ -14,6 +14,7 @@ class FriendsUserModel{
   final String? achivements;
   final String? habbits;
   final String? fcmtoken;
+  final String? friendprofilepic;
 
   FriendsUserModel({this.id
     ,this.Friendsname,
@@ -25,6 +26,7 @@ class FriendsUserModel{
     this.achivements,
     this.habbits,
     this.fcmtoken,
+    this.friendprofilepic,
   });
 
   factory FriendsUserModel.fromSnapshot(DocumentSnapshot snap) {
@@ -41,6 +43,7 @@ class FriendsUserModel{
         phonenumber:  snapshot['phone number'],
         id: snapshot['id'],
         fcmtoken: snapshot['fcmtoken'],
+        friendprofilepic: snapshot['friendprofilepic']
     );
   }
 
@@ -55,6 +58,7 @@ class FriendsUserModel{
     "phone number": phonenumber,
     "id": id,
     "fcmtoken":fcmtoken,
+    "friendprofilepic":friendprofilepic,
   };
 
 }

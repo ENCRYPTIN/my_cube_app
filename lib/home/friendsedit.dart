@@ -23,6 +23,7 @@ class _FriendEditPageState extends State<FriendEditPage> {
   TextEditingController? _phonenumberController;
   TextEditingController? _achivementsController;
   TextEditingController? _habbitsController;
+  TextEditingController? _ImageController;
   DateTime? selectedDate;
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _FriendEditPageState extends State<FriendEditPage> {
     _phonenumberController = TextEditingController(text: widget.friend.phonenumber);
     _achivementsController = TextEditingController(text: widget.friend.achivements);
     _habbitsController = TextEditingController(text: widget.friend.habbits);
+    _ImageController=TextEditingController(text: widget.friend.friendprofilepic);
     super.initState();
   }
 
@@ -47,7 +49,7 @@ class _FriendEditPageState extends State<FriendEditPage> {
     _phonenumberController!.dispose();
     _achivementsController!.dispose();
     _habbitsController!.dispose();
-
+    _ImageController!.dispose();
     super.dispose();
   }
   Future<void> _selectDate(BuildContext context) async {
@@ -93,12 +95,15 @@ class _FriendEditPageState extends State<FriendEditPage> {
                   height: 150,
                   margin: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1.0,
-                    ),
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1.0,
+                      ),
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(widget.friend.friendprofilepic!),
+                      )
                   ),
-
                 ),
               Container(
                   margin: const EdgeInsets.only(left: 10,top: 30),
@@ -242,6 +247,7 @@ class _FriendEditPageState extends State<FriendEditPage> {
                         achivements: _achivementsController!.text,
                         habbits: _habbitsController!.text,
                       fcmtoken: widget.friend.fcmtoken,
+                      friendprofilepic: widget.friend.friendprofilepic,
                     ),
                     ).then((value){
                       Navigator.pop(context);

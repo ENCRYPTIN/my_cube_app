@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -5,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:my_cube/Models/friendsusers.dart';
 
 import 'package:my_cube/services/firestore_helper.dart';
+import 'package:my_cube/services/utils.dart';
 
 class FriendAdd extends StatefulWidget {
   const FriendAdd({super.key});
@@ -38,7 +41,13 @@ class _FriendAddState extends State<FriendAdd> {
     // TODO: implement dispose
     super.dispose();
   }
-
+  //Image Picker
+  File? image;
+  // for selecting image
+  void selectImage() async {
+    image = await getImage(context);
+    setState(() {});
+  }
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -95,15 +104,42 @@ class _FriendAddState extends State<FriendAdd> {
                   ),
                   SizedBox(height: 16),
                   Container(
-                    height: 150,
+                    height: 200,
+                    width: double.infinity,
                     margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(
                         color: Colors.black,
                         width: 1.0,
                       ),
                     ),
-
+                    child:  Container(
+                      //padding: const EdgeInsets.only(top: 20.0),
+                      child: InkWell(
+                        onTap: () => selectImage(),//selectImage(),
+                        child: image == null
+                            ? const CircleAvatar(
+                          backgroundColor: Colors.grey,
+                          radius: 60,
+                          child: Icon(
+                            Icons.account_circle,
+                            size: 50,
+                            color: Colors.white,
+                          ),
+                        )
+                            : Container(
+                          height: 200,
+                          //margin: const EdgeInsets.only(top: 8.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: FileImage(image!),
+                              )),
+                        ),
+                      ),
+                    ),
                   ),
                   Container(
                       margin: const EdgeInsets.only(left: 10,top: 30),
@@ -244,20 +280,23 @@ class _FriendAddState extends State<FriendAdd> {
                       builder: (context) {
                         return ElevatedButton(
                           onPressed: () async{
-                            firestorehelper.create(FriendsUserModel(
-                              Friendsname: _friendsnameController.text,
-                              DOB: _DOBController.text,
-                              nickname: _nicknameController.text,
-                              sex: _sexController.text,
-                              description: _DescriptionController.text,
-                              phonenumber: _phonenumberController.text,
-                              achivements: _achivementsController.text,
-                              habbits: _habbitsController.text,
-                              fcmtoken: fcmtoken,
-                            ));
-                            // Handle button click event
-                            // Add your logic or function call here
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => Family()));
+                            if(image!=null) {
+                              firestorehelper.create(FriendsUserModel(
+                                Friendsname: _friendsnameController.text,
+                                DOB: _DOBController.text,
+                                nickname: _nicknameController.text,
+                                sex: _sexController.text,
+                                description: _DescriptionController.text,
+                                phonenumber: _phonenumberController.text,
+                                achivements: _achivementsController.text,
+                                habbits: _habbitsController.text,
+                                fcmtoken: fcmtoken,
+                              ), image!).then((valve) {
+                                Navigator.pop(context);
+                              });
+                            }else{
+                              showSnackBar(context, "Please upload Pet photo");
+                            }
                           },
                           child: Text('SAVE'),
                         );

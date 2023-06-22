@@ -35,7 +35,7 @@ class _EditPetsState extends State<EditPets> {
     _LicencenumberController=TextEditingController(text: widget.pet.licencenumber);
     _SexController=TextEditingController(text: widget.pet.sex);
     _MedicalController=TextEditingController(text: widget.pet.medicalhistory);
-    _ImageController=TextEditingController(text: widget.pet.profilepic);
+    _ImageController=TextEditingController(text: widget.pet.petprofilepic);
     super.initState();
   }
 
@@ -49,6 +49,7 @@ class _EditPetsState extends State<EditPets> {
     _LicencenumberController!.dispose();
     _SexController!.dispose();
     _MedicalController!.dispose();
+    _ImageController!.dispose();
     // TODO: implement dispose
     super.dispose();
   }
@@ -111,7 +112,7 @@ class _EditPetsState extends State<EditPets> {
                     ),
                       image: DecorationImage(
                         fit: BoxFit.fill,
-                        image: NetworkImage(widget.pet.profilepic!),
+                        image: NetworkImage(widget.pet.petprofilepic!),
                       )
                   ),
                 ),
@@ -259,7 +260,7 @@ class _EditPetsState extends State<EditPets> {
                         sex: _SexController!.text,
                         fcmtoken:widget.pet.fcmtoken,
                         medicalhistory: _MedicalController!.text,
-                        profilepic: _ImageController!.text),).then((value){
+                        petprofilepic: _ImageController!.text),).then((value){
                       Navigator.pop(context);
 
                     });

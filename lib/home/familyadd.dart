@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:my_cube/Models/familyusers.dart';
 import 'package:my_cube/services/firestore_helper.dart';
+import 'package:my_cube/services/utils.dart';
 
 class FamilyAdd extends StatefulWidget {
   const FamilyAdd({super.key});
@@ -38,6 +41,13 @@ class _FamilyAddState extends State<FamilyAdd> {
     _achivementsController.dispose();
     // TODO: implement dispose
     super.dispose();
+  }
+  //Image Picker
+  File? image;
+  // for selecting image
+  void selectImage() async {
+    image = await getImage(context);
+    setState(() {});
   }
   @override
   void initState() {
@@ -95,17 +105,45 @@ class _FamilyAddState extends State<FamilyAdd> {
                   ),
 
                   SizedBox(height: 16),
-
                   Container(
-                    height: 150,
+                    height: 200,
+                    width: double.infinity,
                     margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(
                         color: Colors.black,
                         width: 1.0,
                       ),
                     ),
+                    child:  Container(
+                      //padding: const EdgeInsets.only(top: 20.0),
+                      child: InkWell(
+                        onTap: () => selectImage(),//selectImage(),
+                        child: image == null
+                            ? const CircleAvatar(
+                          backgroundColor: Colors.grey,
+                          radius: 60,
+                          child: Icon(
+                            Icons.account_circle,
+                            size: 50,
+                            color: Colors.white,
+                          ),
+                        )
+                            : Container(
+                          height: 200,
+                          //margin: const EdgeInsets.only(top: 8.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: FileImage(image!),
+                              )),
+                        ),
+                      ),
+                    ),
                   ),
+                  SizedBox(height: 16),
 
                   Container(
                       margin: const EdgeInsets.only(left: 10,top: 30),
@@ -235,20 +273,21 @@ class _FamilyAddState extends State<FamilyAdd> {
                       builder: (context) {
                         return ElevatedButton(
                           onPressed: () async {
-                            firestorehelper.createfam(FamilyUserModel(
-                              Familyname: _familynameController.text,
-                              DOB: _DOBController.text,
-                              age: _ageController.text,
-                              relationship: _realtionshipController.text,
-                              description: _descriptionController.text,
-                              phonenumber: _phonenumberController.text,
-                              achivements: _achivementsController.text,
-                              habbits: _habbitsController.text,
-                              fcmtoken: fcmtoken,
-
-
-                            ));
-
+                            if(image!=null) {
+                              firestorehelper.createfam(FamilyUserModel(
+                                Familyname: _familynameController.text,
+                                DOB: _DOBController.text,
+                                age: _ageController.text,
+                                relationship: _realtionshipController.text,
+                                description: _descriptionController.text,
+                                phonenumber: _phonenumberController.text,
+                                achivements: _achivementsController.text,
+                                habbits: _habbitsController.text,
+                                fcmtoken: fcmtoken,
+                              ),image!).then((value) => Navigator.pop(context));
+                            } else{
+                              showSnackBar(context, "Please upload Pet photo");
+                            }
                             // Handle button click event
                             // Add your logic or function call here
                             //Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));

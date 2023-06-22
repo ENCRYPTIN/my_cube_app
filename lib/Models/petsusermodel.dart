@@ -11,7 +11,7 @@ class PetsUserModel {
   final String? sex;
   final String? medicalhistory;
   final String? fcmtoken;
-  final String? profilepic;
+  final String? petprofilepic;
 
   PetsUserModel({
     this.id,
@@ -24,7 +24,7 @@ class PetsUserModel {
     this.sex,
     this.medicalhistory,
     this.fcmtoken,
-    this.profilepic
+    this.petprofilepic,
   });
 
   factory PetsUserModel.fromSnapshot(DocumentSnapshot snap) {
@@ -41,7 +41,7 @@ class PetsUserModel {
         medicalhistory: snapshot['Medicalhistory'],
         id: snapshot['id'],
         fcmtoken: snapshot['fcmtoken'],
-        profilepic: snapshot['profilepic']
+        petprofilepic: snapshot['petprofilepic'],
     );
   }
 
@@ -57,7 +57,7 @@ class PetsUserModel {
     "Medicalhistory": medicalhistory,
     "id":id,
     "fcmtoken":fcmtoken,
-    "profilepic":profilepic
+    "petprofilepic":petprofilepic,
   };
 }
 

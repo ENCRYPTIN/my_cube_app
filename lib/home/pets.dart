@@ -78,7 +78,7 @@ class _PetsState extends State<Pets> {
                                       shape: BoxShape.circle,
                                     image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: NetworkImage("${singleUser.profilepic}")),
+                                        image: NetworkImage("${singleUser.petprofilepic}")),
                                   ),
 
                                 ),
@@ -96,7 +96,7 @@ class _PetsState extends State<Pets> {
                                       weight: singleUser.weight,
                                       id: singleUser.id,
                                       fcmtoken: singleUser.fcmtoken,
-                                      profilepic: singleUser.profilepic,
+                                      petprofilepic: singleUser.petprofilepic,
                                   ))));
                                 }, child: Icon(Icons.edit),
                                 ),

@@ -11,6 +11,7 @@ class FamilyUserModel{
   final String? phonenumber;
   final String? achivements;
   final String? fcmtoken;
+  final String? familyprofilepic;
 
   FamilyUserModel({
     this.id,
@@ -23,6 +24,7 @@ class FamilyUserModel{
     this.phonenumber,
     this.achivements,
     this.fcmtoken,
+    this.familyprofilepic,
   });
 
   factory FamilyUserModel.fromSnapshot(DocumentSnapshot snap) {
@@ -39,6 +41,7 @@ class FamilyUserModel{
         achivements: snapshot['achivements'],
         id: snapshot['id'],
         fcmtoken: snapshot['fcmtoken'],
+        familyprofilepic: snapshot['familyprofilepic'],
     );
   }
 
@@ -53,6 +56,7 @@ class FamilyUserModel{
     "Phonenumber": phonenumber,
     "id": id,
     "fcmtoken":fcmtoken,
+    "familyprofilepic":familyprofilepic,
   };
 }
 

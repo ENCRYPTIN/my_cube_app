@@ -25,7 +25,8 @@ class FirestoreHelper {
   }
 
 
-  Future create(FriendsUserModel friend) async {
+  Future create(FriendsUserModel friend,File pic) async {
+    String? friendpic;
     String _uid = _auth.currentUser!.uid;
     final friendsCollection = FirebaseFirestore.instance.collection(
         "Users/$_uid/Friends");
@@ -33,6 +34,13 @@ class FirestoreHelper {
 
     final docRef = friendsCollection.doc();
     final uid = docRef.id;
+    try {
+      await storeFileToStorage("$_uid/Pets/$uid", pic).then((value) {
+        friendpic = value;
+      });
+    }catch(e){
+      print("some error occured $e");
+    }
     final newFriend = FriendsUserModel(
       id: uid,
       Friendsname: friend.Friendsname,
@@ -44,7 +52,7 @@ class FirestoreHelper {
       achivements: friend.achivements,
       habbits: friend.habbits,
       fcmtoken: friend.fcmtoken,
-
+      friendprofilepic: friendpic,
     ).toJson();
 
     try {
@@ -74,7 +82,7 @@ class FirestoreHelper {
       achivements: friend.achivements,
       habbits: friend.habbits,
       fcmtoken: friend.fcmtoken,
-
+      friendprofilepic: friend.friendprofilepic
     ).toJson();
 
     try {
@@ -104,14 +112,21 @@ class FirestoreHelper {
             .toList());
   }
 
-  Future createfam(FamilyUserModel family) async {
+  Future createfam(FamilyUserModel family,File pic) async {
+    String? familypic;
     String _uid = _auth.currentUser!.uid;
     final familyCollection = FirebaseFirestore.instance.collection(
         "Users/$_uid/Family");
 
     final docRef = familyCollection.doc();
     final uid = docRef.id;
-
+    try {
+      await storeFileToStorage("$_uid/Pets/$uid", pic).then((value) {
+        familypic = value;
+      });
+    }catch(e){
+      print("some error occured $e");
+    }
     final newFamily = FamilyUserModel(
       id: uid,
       Familyname: family.Familyname,
@@ -122,9 +137,9 @@ class FirestoreHelper {
       description: family.description,
       phonenumber: family.phonenumber,
       achivements: family.achivements,
-        fcmtoken: family.fcmtoken
+        fcmtoken: family.fcmtoken,
+      familyprofilepic: familypic,
     ).toJson();
-
     try {
       await docRef.set(newFamily);
     } catch (e) {
@@ -150,6 +165,7 @@ class FirestoreHelper {
         achivements: family.achivements,
         DOB: family.DOB,
         fcmtoken: family.fcmtoken,
+        familyprofilepic: family.familyprofilepic
     ).toJson();
 
     try {
@@ -204,7 +220,7 @@ class FirestoreHelper {
         sex: pet.sex,
         medicalhistory: pet.medicalhistory,
         fcmtoken: pet.fcmtoken,
-        profilepic: petpic
+        petprofilepic: petpic
     ).toJson();
     try{
       await docRef.set(newPet);
@@ -237,7 +253,7 @@ class FirestoreHelper {
         sex: pet.sex,
         medicalhistory: pet.medicalhistory,
         fcmtoken: pet.fcmtoken,
-      profilepic: pet.profilepic,
+      petprofilepic: pet.petprofilepic,
 
     ).toJson();
 

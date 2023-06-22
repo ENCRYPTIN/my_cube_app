@@ -20,6 +20,7 @@ class _EditFamilyState extends State<EditFamily> {
   TextEditingController? _habbitsController;
   TextEditingController? _phonenumberController;
   TextEditingController? _achivementsController;
+  TextEditingController? _ImageController;
   DateTime? selectedDate;
   @override
   void initState() {
@@ -31,6 +32,7 @@ class _EditFamilyState extends State<EditFamily> {
     _habbitsController = TextEditingController(text: widget.family.habbits);
     _phonenumberController = TextEditingController(text: widget.family.phonenumber);
     _achivementsController = TextEditingController(text: widget.family.achivements);
+    _ImageController=TextEditingController(text: widget.family.familyprofilepic);
     super.initState();
   }
   @override
@@ -43,7 +45,7 @@ class _EditFamilyState extends State<EditFamily> {
     _habbitsController!.dispose();
     _phonenumberController!.dispose();
     _achivementsController!.dispose();
-
+    _ImageController!.dispose();
     super.dispose();
   }
   Future<void> _selectDate(BuildContext context) async {
@@ -94,10 +96,14 @@ class _EditFamilyState extends State<EditFamily> {
                   height: 150,
                   margin: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1.0,
-                    ),
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1.0,
+                      ),
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(widget.family.familyprofilepic!),
+                      )
                   ),
                 ),
 
@@ -240,6 +246,7 @@ class _EditFamilyState extends State<EditFamily> {
                         achivements: _achivementsController!.text,
                         habbits: _habbitsController!.text,
                         fcmtoken: widget.family.fcmtoken,
+                        familyprofilepic: _ImageController!.text
                     ),
                     ).then((value){
                       Navigator.pop(context);

@@ -80,7 +80,10 @@ class _FriendsState extends State<Friends> {
                                   height: 40,
                                   decoration: BoxDecoration(
                                       color: Colors.lightBlue,
-                                      shape: BoxShape.circle
+                                      shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage("${singleUser.friendprofilepic}")),
                                   ),
                                 ),
                                 title: Text("${singleUser.Friendsname}"),
@@ -97,6 +100,7 @@ class _FriendsState extends State<Friends> {
                                       habbits: singleUser.habbits,
                                       id: singleUser.id,
                                     fcmtoken: singleUser.fcmtoken,
+                                    friendprofilepic: singleUser.friendprofilepic,
                                   )
                                   ) ));
                                 }, child: Icon(Icons.edit), ),
