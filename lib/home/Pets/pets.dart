@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_cube/Models/petsusermodel.dart';
-import 'package:my_cube/home/editpets.dart';
+import 'package:my_cube/home/Pets/editpets.dart';
 import 'package:my_cube/services/firestore_helper.dart';
-import 'package:my_cube/home/petsadd.dart';
+import 'package:my_cube/home/Pets/petsadd.dart';
 import 'package:flutter/foundation.dart';
 class Pets extends StatefulWidget {
   const Pets({Key? key}) : super(key: key);

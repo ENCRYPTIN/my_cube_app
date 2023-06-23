@@ -17,8 +17,6 @@ class _RequestOtpState extends State<RequestOtp> {
   //to set default country code:
   Country country=CountryParser.parseCountryCode("IN");
   String phonenumber="";
-  String phonenumbersend="";
-  List<String> logs = [];
   bool isRegisterLoading = false;
 
   @override
@@ -209,6 +207,6 @@ class _RequestOtpState extends State<RequestOtp> {
         context, listen: false);
     String phoneNumber = phoneController.text.trim();
     FirebaseAuth.instance.setSettings(appVerificationDisabledForTesting: true);
-    authService.sendphonenumber(context, "+${country.phoneCode}$phoneNumber");
+    authService.signInWithPhone(context, "+${country.phoneCode}$phoneNumber");
   }
 }

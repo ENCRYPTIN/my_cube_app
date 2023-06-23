@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_cube/screens/emaillogin.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -65,32 +66,32 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     },
                   ),
                 ),
-                // Container(
-                //   width:  double.infinity,
-                //   height:  56,
-                //   margin: const EdgeInsets.all(20),
-                //   decoration:  BoxDecoration (
-                //       color:  const Color(0xff10fc44),
-                //       borderRadius:  BorderRadius.circular(100,)
-                //   ),
-                //   child:
-                //   TextButton(
-                //     onPressed: () {
-                //       Navigator.pushNamed(context, '/login');
-                //     },
-                //     child:
-                //     const Text('Login ',
-                //       style: TextStyle (
-                //         fontFamily: 'Poppins',
-                //         fontSize:  16,
-                //         fontWeight:  FontWeight.w700,
-                //         height:  1.2125,
-                //         letterSpacing:  0.08,
-                //         color:  Color(0xffffffff),
-                //       ),
-                //     ),
-                //   ),
-                // ),
+                Container(
+                  width:  double.infinity,
+                  height:  56,
+                  margin: const EdgeInsets.all(20),
+                  decoration:  BoxDecoration (
+                      color:  const Color(0xff10fc44),
+                      borderRadius:  BorderRadius.circular(100,)
+                  ),
+                  child:
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>EmailLogin()));
+                    },
+                    child:
+                    const Text('Email Register ',
+                      style: TextStyle (
+                        fontFamily: 'Poppins',
+                        fontSize:  16,
+                        fontWeight:  FontWeight.w700,
+                        height:  1.2125,
+                        letterSpacing:  0.08,
+                        color:  Color(0xffffffff),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             )
         )

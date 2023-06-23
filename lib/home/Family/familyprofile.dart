@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_cube/home/family.dart';
-import '../services/utils.dart';
+import 'package:my_cube/home/Family/family.dart';
+import '../../services/utils.dart';
 import 'package:my_cube/Models/familyusers.dart';
 class FamilyProflie extends StatefulWidget {
   final FamilyUserModel family;

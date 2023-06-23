@@ -5,11 +5,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_cube/home/Profile.dart';
-import 'package:my_cube/home/family.dart';
-import 'package:my_cube/home/friends.dart';
+import 'package:my_cube/home/Family/family.dart';
+import 'package:my_cube/home/Friends/friends.dart';
 import 'package:my_cube/home/homepage.dart';
-import 'package:my_cube/home/pets.dart';
-import 'package:my_cube/home/secwrapper.dart';
+import 'package:my_cube/home/Pets/pets.dart';
 import 'package:my_cube/screens/register_account.dart';
 import 'package:my_cube/screens/request_otp.dart';
 import 'package:my_cube/services/auth.dart';
@@ -17,7 +16,6 @@ import 'package:my_cube/screens/welcome_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'home/threewrapper.dart';
-import 'home/wrapper.dart';
 import 'screens/login.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -54,6 +52,7 @@ class _MyCubeState extends State<MyCube> {
       providers: [ChangeNotifierProvider(create: (_) => AuthProvider())],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        title: "My Cube",
         // home: _auth.currentUser!.uid==null?WelcomeScreen():HomePage(),
         initialRoute: '/',
         routes: {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_cube/Models/familyusers.dart';
-import 'package:my_cube/home/editfamily.dart';
-import 'package:my_cube/home/familyprofile.dart';
+import 'package:my_cube/home/Family/editfamily.dart';
+import 'package:my_cube/home/Family/familyprofile.dart';
 import 'package:my_cube/services/firestore_helper.dart';
-import 'package:my_cube/home/familyadd.dart';
+import 'package:my_cube/home/Family/familyadd.dart';
 import 'package:flutter/foundation.dart';
 
 class Family extends StatefulWidget {
