@@ -4,11 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:my_cube/home/Profile.dart';
 import 'package:my_cube/home/Family/family.dart';
 import 'package:my_cube/home/Friends/friends.dart';
 import 'package:my_cube/home/homepage.dart';
 import 'package:my_cube/home/Pets/pets.dart';
+import 'package:my_cube/home/profile.dart';
 import 'package:my_cube/screens/register_account.dart';
 import 'package:my_cube/screens/request_otp.dart';
 import 'package:my_cube/services/auth.dart';
@@ -64,7 +64,7 @@ class _MyCubeState extends State<MyCube> {
           '/register_account': (context) => const RegisterAccount(),
           '/request_otp': (context) => const RequestOtp(),
           '/homepage': (context) => const HomePage(),
-          '/profilepage': (context) => const Proflie(),
+          '/profilepage': (context) => const Profile(),
           '/friends': (context) => const Friends(),
           '/family': (context) => const Family(),
           '/pets': (context) => const Pets(),

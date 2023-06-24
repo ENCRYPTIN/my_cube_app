@@ -5,7 +5,6 @@ import 'package:my_cube/screens/Onboarding.dart';
 import 'package:provider/provider.dart';
 import 'package:my_cube/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ThreeWrapper extends StatefulWidget {
   const ThreeWrapper({Key? key}) : super(key: key);
@@ -89,8 +88,12 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Show a loading indicator while waiting
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Scaffold(
+              body: const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.deepPurple,
+                ),
+              ),
             );
           } else {
             // Navigate to the home/register screen based on the result

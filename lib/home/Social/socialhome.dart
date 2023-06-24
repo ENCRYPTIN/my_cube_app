@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:my_cube/services/firestore_helper.dart';
 import 'package:my_cube/Models/socialusermodel.dart';
-class socialhome extends StatefulWidget {
-  const socialhome({super.key});
+class SocialHome extends StatefulWidget {
+  const SocialHome({super.key});
 
   @override
-  State<socialhome> createState() => _socialhomeState();
+  State<SocialHome> createState() => _SocialHomeState();
 }
 
-class _socialhomeState extends State<socialhome> {
+class _SocialHomeState extends State<SocialHome> {
   final ScrollController _scrollController = ScrollController();
   @override
   void dispose() {

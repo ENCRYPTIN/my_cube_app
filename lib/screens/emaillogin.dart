@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_cube/home/homepage.dart';
 import 'package:my_cube/screens/signupscreen.dart';
-import 'package:my_cube/services/authmethods.dart';
 import 'package:my_cube/services/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:my_cube/services/auth.dart';
@@ -116,7 +115,7 @@ class _EmailLoginState extends State<EmailLogin> {
                     'Log in',
                   )
                       : const CircularProgressIndicator(
-                    color: const Color(0xffB388FF),
+                    color: const Color(0xFF000000),
                   ),
                 ),
               ),

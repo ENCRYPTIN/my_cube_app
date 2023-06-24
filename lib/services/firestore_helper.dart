@@ -11,27 +11,29 @@ import '../Models/socialusermodel.dart';
 
 class FirestoreHelper {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
 //Friend
   Stream<List<FriendsUserModel>> read() {
     String _uid = _auth.currentUser!.uid;
     final friendsCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Friends");
-    return friendsCollection.snapshots().map((querrySnapshot) => querrySnapshot
-        .docs
-        .map((e) => FriendsUserModel.fromSnapshot(e))
-        .toList());
+    FirebaseFirestore.instance.collection("Users/$_uid/Friends");
+    return friendsCollection.snapshots().map((querrySnapshot) =>
+        querrySnapshot
+            .docs
+            .map((e) => FriendsUserModel.fromSnapshot(e))
+            .toList());
   }
 
   Future create(FriendsUserModel friend, File pic) async {
     String? friendpic;
     String _uid = _auth.currentUser!.uid;
     final friendsCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Friends");
+    FirebaseFirestore.instance.collection("Users/$_uid/Friends");
 
     final docRef = friendsCollection.doc();
     final uid = docRef.id;
     try {
-      await storeFileToStorage("$_uid/Pets/$uid", pic).then((value) {
+      await storeFileToStorage("$_uid/Friends/$uid", pic).then((value) {
         friendpic = value;
       });
     } catch (e) {
@@ -62,22 +64,22 @@ class FirestoreHelper {
     String _uid = _auth.currentUser!.uid;
 
     final FriendsCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Friends/");
+    FirebaseFirestore.instance.collection("Users/$_uid/Friends/");
 
     final docRef = FriendsCollection.doc(friend.id);
 
     final newFriend = FriendsUserModel(
-            id: friend.id,
-            Friendsname: friend.Friendsname,
-            DOB: friend.DOB,
-            nickname: friend.nickname,
-            sex: friend.sex,
-            description: friend.description,
-            phonenumber: friend.phonenumber,
-            achivements: friend.achivements,
-            habbits: friend.habbits,
-            fcmtoken: friend.fcmtoken,
-            friendprofilepic: friend.friendprofilepic)
+        id: friend.id,
+        Friendsname: friend.Friendsname,
+        DOB: friend.DOB,
+        nickname: friend.nickname,
+        sex: friend.sex,
+        description: friend.description,
+        phonenumber: friend.phonenumber,
+        achivements: friend.achivements,
+        habbits: friend.habbits,
+        fcmtoken: friend.fcmtoken,
+        friendprofilepic: friend.friendprofilepic)
         .toJson();
 
     try {
@@ -91,7 +93,7 @@ class FirestoreHelper {
     String _uid = _auth.currentUser!.uid;
 
     final FriendsCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Friends/");
+    FirebaseFirestore.instance.collection("Users/$_uid/Friends/");
     print(_uid);
 
     final docRef = FriendsCollection.doc(friend.id);
@@ -102,23 +104,24 @@ class FirestoreHelper {
   Stream<List<FamilyUserModel>> readop() {
     String _uid = _auth.currentUser!.uid;
     final familyCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Family");
-    return familyCollection.snapshots().map((querrySnapshot) => querrySnapshot
-        .docs
-        .map((e) => FamilyUserModel.fromSnapshot(e))
-        .toList());
+    FirebaseFirestore.instance.collection("Users/$_uid/Family");
+    return familyCollection.snapshots().map((querrySnapshot) =>
+        querrySnapshot
+            .docs
+            .map((e) => FamilyUserModel.fromSnapshot(e))
+            .toList());
   }
 
   Future createfam(FamilyUserModel family, File pic) async {
     String? familypic;
     String _uid = _auth.currentUser!.uid;
     final familyCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Family");
+    FirebaseFirestore.instance.collection("Users/$_uid/Family");
 
     final docRef = familyCollection.doc();
     final uid = docRef.id;
     try {
-      await storeFileToStorage("$_uid/Pets/$uid", pic).then((value) {
+      await storeFileToStorage("$_uid/Family/$uid", pic).then((value) {
         familypic = value;
       });
     } catch (e) {
@@ -147,22 +150,22 @@ class FirestoreHelper {
   Future updatefamily(FamilyUserModel family) async {
     String _uid = _auth.currentUser!.uid;
     final familyCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Family");
+    FirebaseFirestore.instance.collection("Users/$_uid/Family");
 
     final docRef = familyCollection.doc(family.id);
 
     final newFamily = FamilyUserModel(
-            id: family.id,
-            Familyname: family.Familyname,
-            age: family.age,
-            relationship: family.relationship,
-            habbits: family.habbits,
-            description: family.description,
-            phonenumber: family.phonenumber,
-            achivements: family.achivements,
-            DOB: family.DOB,
-            fcmtoken: family.fcmtoken,
-            familyprofilepic: family.familyprofilepic)
+        id: family.id,
+        Familyname: family.Familyname,
+        age: family.age,
+        relationship: family.relationship,
+        habbits: family.habbits,
+        description: family.description,
+        phonenumber: family.phonenumber,
+        achivements: family.achivements,
+        DOB: family.DOB,
+        fcmtoken: family.fcmtoken,
+        familyprofilepic: family.familyprofilepic)
         .toJson();
 
     try {
@@ -176,7 +179,7 @@ class FirestoreHelper {
     String _uid = _auth.currentUser!.uid;
 
     final familyCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Family");
+    FirebaseFirestore.instance.collection("Users/$_uid/Family");
     print(_uid);
 
     final docRef = familyCollection.doc(family.id);
@@ -187,7 +190,7 @@ class FirestoreHelper {
   Stream<List<PetsUserModel>> readpet() {
     String _uid = _auth.currentUser!.uid;
     final petsCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Pets");
+    FirebaseFirestore.instance.collection("Users/$_uid/Pets");
     return petsCollection.snapshots().map((querrySnapshot) =>
         querrySnapshot.docs.map((e) => PetsUserModel.fromSnapshot(e)).toList());
   }
@@ -196,7 +199,7 @@ class FirestoreHelper {
     String? petpic;
     String _uid = _auth.currentUser!.uid;
     final petsCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Pets");
+    FirebaseFirestore.instance.collection("Users/$_uid/Pets");
     final docRef = petsCollection.doc();
     final uid = docRef.id;
     try {
@@ -207,17 +210,17 @@ class FirestoreHelper {
       print("some error occured $e");
     }
     final newPet = PetsUserModel(
-            id: uid,
-            Petsname: pet.Petsname,
-            DOB: pet.DOB,
-            height: pet.height,
-            weight: pet.weight,
-            description: pet.description,
-            licencenumber: pet.licencenumber,
-            sex: pet.sex,
-            medicalhistory: pet.medicalhistory,
-            fcmtoken: pet.fcmtoken,
-            petprofilepic: petpic)
+        id: uid,
+        Petsname: pet.Petsname,
+        DOB: pet.DOB,
+        height: pet.height,
+        weight: pet.weight,
+        description: pet.description,
+        licencenumber: pet.licencenumber,
+        sex: pet.sex,
+        medicalhistory: pet.medicalhistory,
+        fcmtoken: pet.fcmtoken,
+        petprofilepic: petpic)
         .toJson();
     try {
       await docRef.set(newPet);
@@ -237,7 +240,7 @@ class FirestoreHelper {
   updatepet(PetsUserModel pet) async {
     String _uid = _auth.currentUser!.uid;
     final petsCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Pets");
+    FirebaseFirestore.instance.collection("Users/$_uid/Pets");
 
     final docRef = petsCollection.doc(pet.id);
 
@@ -266,28 +269,13 @@ class FirestoreHelper {
     String _uid = _auth.currentUser!.uid;
 
     final petsCollection =
-        FirebaseFirestore.instance.collection("Users/$_uid/Pets");
+    FirebaseFirestore.instance.collection("Users/$_uid/Pets");
     print(_uid);
 
     final docRef = petsCollection.doc(pet.id);
     docRef.delete();
   }
-//For Socailhome
-//   Stream<List<SocialUserModel>> readPersonalData() {
-//     var myUserId = _auth.currentUser!.uid;
-  //Working code:
-  // Query personalDataCollection = FirebaseFirestore.instance.collectionGroup(
-  //     "PersonalData");
-  //
-  // return personalDataCollection.snapshots().map((querrySnapshot) =>
-  //     querrySnapshot.docs.map((e) => SocialUserModel.fromSnapshot(e))
-  //         .toList());
 
-  //Experimental Code
-  //var myUserId = _auth.currentUser!.uid;
-  // Query otherData = FirebaseFirestore.collectionGroup('PersonalData').where('uid', '!=', myUserId,true);
-  // Get the current user's uid
-//For Socailhome
 //For Socailhome
   Stream<List<SocialUserModel>> readPersonalData() {
     var myUserId = _auth.currentUser!.uid;

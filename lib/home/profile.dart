@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:my_cube/screens/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:my_cube/services/auth.dart';
-class Proflie extends StatelessWidget {
-  const Proflie({Key? key}) : super(key: key);
+class Profile extends StatelessWidget {
+  const Profile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,140 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:my_cube/home/Social/socialhome.dart';
+import 'package:my_cube/home/globalvar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _page = 0;
+  final primaryColor = Colors.black;
+  final secondaryColor = Colors.grey;
+  late PageController pageController; // for tabs animation
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
+  }
+
+  void onPageChanged(int page) {
+    setState(() {
+      _page = page;
+    });
+  }
+
+  void navigationTapped(int page) {
+    //Animating Page
+    pageController.jumpToPage(page);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0.00,
-        title: const Text("MY CUBE",
-        style: TextStyle(
-          color: Colors.black87,
-          fontFamily: 'Dancing Script',
-          fontSize: 36,
-          fontWeight: FontWeight.w600,
-
-          ),),
-
-        ),
-        body: Center(
-            child: Column(
-          children: [
-            Container(
-              height: 150,
-              width: double.infinity,
-              margin: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  color: Colors.indigoAccent,
-                  borderRadius: BorderRadius.circular(26.0),
-                gradient: const LinearGradient(
-                    colors: [
-                      Color(0xfffce4ec),
-                      Color(0xfff8bbd0),
-                      Color(0xffa3bef8),
-                      Color(0xff99b0fc)
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [0, 0.2, 0.5, 0.8]),
-                  ),
-              child: TextButton(
-                child: const Text(
-                  "Family",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/family');
-                },
-              ),
+      body: PageView(
+          controller: pageController,
+          onPageChanged: onPageChanged,
+          children:homeScreenItems),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.home,
+              color: (_page == 0) ? primaryColor : secondaryColor,
             ),
-            Container(
-              height: 150,
-              width: double.infinity,
-              margin: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  color: Colors.indigoAccent,
-                  borderRadius: BorderRadius.circular(26.0),
-                gradient: const LinearGradient(
-                    colors: [
-                      Color(0xfffce4ec),
-                      Color(0xfff8bbd0),
-                      Color(0xffa3bef8),
-                      Color(0xff99b0fc)
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [0, 0.2, 0.5, 0.8]),
-
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search,
+                color: (_page == 1) ? primaryColor : secondaryColor,
               ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/friends');
-                },
-                child: const Text(
-                  "Friends",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                  ),
+              label: "Search"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.add,
+                color: (_page == 2) ? primaryColor : secondaryColor,
+              ),
+              label: "Post"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                  Icons.people_alt_sharp,
+                  color: (_page == 3) ? primaryColor : secondaryColor,
                 ),
-              ),
-            ),
-            Container(
-              height: 150,
-              width: double.infinity,
-              margin: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: Colors.indigoAccent,
-                borderRadius: BorderRadius.circular(26.0),
-                gradient: const LinearGradient(
-                    colors: [
-                      Color(0xfffce4ec),
-                      Color(0xfff8bbd0),
-                      Color(0xffa3bef8),
-                      Color(0xff99b0fc)
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    stops: [0, 0.2, 0.5, 0.8]),
-              ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/pets');
-                },
-                child: const Text(
-                  "Pets",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
+              label: "Social"),//TODO:SOCIALPAGE
+          BottomNavigationBarItem(
+              icon:  Icon(
+                    Icons.account_circle_outlined,
+                    color: (_page == 4) ? primaryColor : secondaryColor,
                   ),
-                ),
-              ),
-            )
-          ],
-        )),
-        bottomNavigationBar: BottomNavigationBar(
-          items:  [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(
-                icon: IconButton(
-                  icon: Icon(Icons.people_alt_sharp),
-                  onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>socialhome()));
-                  },), label: "Social"),
-            BottomNavigationBarItem(
-                icon: IconButton(onPressed: (){
-                  Navigator.pushNamed(context, '/profilepage');
-                }, icon: Icon(Icons.account_circle_outlined)), label: "Profile"),
-          ],
-        ),
-      );
-
+              label: "Profile"),
+        ],
+        onTap: navigationTapped,
+        currentIndex: _page,
+      ),
+    );
   }
 }

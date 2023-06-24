@@ -8,11 +8,9 @@ import 'package:intl/intl.dart';
 import 'package:my_cube/Widgets/text_field_input.dart';
 import 'package:my_cube/home/homepage.dart';
 import 'package:my_cube/screens/emaillogin.dart';
-import 'package:my_cube/screens/fakehomescreen.dart';
 import 'package:my_cube/services/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:my_cube/services/auth.dart';
-import '../services/authmethods.dart';
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
 
