@@ -289,12 +289,12 @@ class FirestoreHelper {
       // Loop through the documents
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
         // Check if the document name is different from the current user's uid
-        if (doc.id != myUserId) {
+
           // Create a SocialUserModel object from the document data
           SocialUserModel socialUserModel = SocialUserModel.fromSnapshot(doc);
           // Add the SocialUserModel object to the list
           socialUserModels.add(socialUserModel);
-        }
+
       }
       // Return the list of SocialUserModel objects
       return socialUserModels;
