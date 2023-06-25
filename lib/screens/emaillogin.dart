@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_cube/home/homepage.dart';
+import 'package:my_cube/screens/forgotpassword.dart';
 import 'package:my_cube/screens/signupscreen.dart';
 import 'package:my_cube/services/utils.dart';
 import 'package:provider/provider.dart';
 import 'package:my_cube/services/auth.dart';
 import '../Widgets/text_field_input.dart';
+
 class EmailLogin extends StatefulWidget {
   const EmailLogin({super.key});
 
@@ -25,13 +27,9 @@ class _EmailLoginState extends State<EmailLogin> {
     _passwordController.dispose();
   }
 
-
-
-
-
   void loginUser() async {
     final AuthProvider authService =
-    Provider.of<AuthProvider>(context, listen: false);
+        Provider.of<AuthProvider>(context, listen: false);
     setState(() {
       _isLoading = true;
     });
@@ -40,16 +38,16 @@ class _EmailLoginState extends State<EmailLogin> {
     if (res == 'success') {
       //authService.getUserDetails().then((value) => authService.saveUserDataToSP());
       if (context.mounted) {
-        authService.getUserDetails().then((value) => authService.saveUserDataToSP().then((value) =>
-            Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) => const HomePage(),
-            ), (route) => false)
-            ));
+        authService.getUserDetails().then((value) => authService
+            .saveUserDataToSP()
+            .then((value) => Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+                (route) => false)));
         setState(() {
           _isLoading = false;
         });
-
       }
     } else {
       setState(() {
@@ -60,12 +58,13 @@ class _EmailLoginState extends State<EmailLogin> {
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding:const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.symmetric(horizontal: 32),
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -96,7 +95,23 @@ class _EmailLoginState extends State<EmailLogin> {
                 isPass: true,
               ),
               const SizedBox(
-                height: 24,
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPassword())),
+                    child: Text("Forgot Password?",
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.lightBlue
+                    ),),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
               ),
               InkWell(
                 onTap: loginUser,
@@ -106,17 +121,17 @@ class _EmailLoginState extends State<EmailLogin> {
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   decoration: const ShapeDecoration(
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      borderRadius: BorderRadius.all(Radius.circular(6)),
                     ),
                     color: const Color(0xffB388FF),
                   ),
                   child: !_isLoading
                       ? const Text(
-                    'Log in',
-                  )
+                          'Log in',
+                        )
                       : const CircularProgressIndicator(
-                    color: const Color(0xFF000000),
-                  ),
+                          color: const Color(0xFF000000),
+                        ),
                 ),
               ),
               const SizedBox(
