@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:my_cube/home/profilepage.dart';
 import 'package:my_cube/services/firestore_helper.dart';
 import 'package:my_cube/Models/socialusermodel.dart';
 class SocialHome extends StatefulWidget {
@@ -9,11 +11,13 @@ class SocialHome extends StatefulWidget {
 }
 
 class _SocialHomeState extends State<SocialHome> {
+
   final ScrollController _scrollController = ScrollController();
   @override
   void dispose() {
-    _scrollController.dispose();
     super.dispose();
+    _scrollController.dispose();
+
   }
   @override
   Widget build(BuildContext context) {
@@ -63,7 +67,7 @@ class _SocialHomeState extends State<SocialHome> {
                     return Expanded(
                       child: SingleChildScrollView(
                         controller: _scrollController,
-                        child: ListView.builder(itemCount: personalDataCollection!.length,
+                        child:ListView.builder(itemCount: personalDataCollection!.length,
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index){
@@ -85,7 +89,22 @@ class _SocialHomeState extends State<SocialHome> {
                                       ),
                                     ),
                                   ),
-                                  title: Text("${singleUser.name}"),
+                                  title: InkWell(
+                                    onTap: () {
+                                      print("${singleUser.uid}");
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProfileScreen(
+                                                uid: "${singleUser
+                                                    .uid}", //(snapshot.data! as dynamic).docs[index]['uid'],
+                                              ),
+                                        ),
+                                      );
+                                    },
+                                    child: Text("${singleUser.name}",
+                                    ),
+                                  ),
                                   subtitle: Text("${singleUser.phoneNumber}"),
                                 ),
                               );

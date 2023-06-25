@@ -239,17 +239,6 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
               ),
-              IconButton(
-                  icon: const Icon(
-                    Icons.send,
-                  ),
-                  onPressed: () {}),
-              Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: IconButton(
-                        icon: const Icon(Icons.bookmark_border), onPressed: () {}),
-                  ))
             ],
           ),
           //DESCRIPTION AND NUMBER OF COMMENTS
@@ -307,15 +296,13 @@ class _PostCardState extends State<PostCard> {
                       ),
                     ),
                   ),
-                  //TODO:UNCOMMENT
-                  onTap: (){},
-                  // onTap: () => Navigator.of(context).push(
-                  //   MaterialPageRoute(
-                  //     builder: (context) => CommentsScreen(
-                  //       postId: widget.snap['postId'].toString(),
-                  //     ),
-                  //   ),
-                  // ),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CommentsScreen(
+                        postId: widget.snap['postId'].toString(),
+                      ),
+                    ),
+                  ),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 4),
