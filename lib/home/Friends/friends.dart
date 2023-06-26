@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cube/Models/friendsusers.dart';
+import 'package:my_cube/home/Friends/friends_profile.dart';
 import 'package:my_cube/home/Friends/friendsedit.dart';
 import 'package:my_cube/services/firestore_helper.dart';
 import 'package:my_cube/home/Friends/friendadd.dart';
@@ -68,6 +69,30 @@ class _FriendsState extends State<Friends> {
                             return Container(
                               margin: EdgeInsets.symmetric(vertical: 5),
                               child: ListTile(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => FriendsProfile(
+                                              friends: FriendsUserModel(
+                                                Friendsname:
+                                                singleUser.Friendsname,
+                                                DOB: singleUser.DOB,
+                                                nickname:
+                                                singleUser.nickname,
+                                                sex: singleUser.sex,
+                                                habbits: singleUser.habbits,
+                                                achivements:
+                                                singleUser.achivements,
+                                                description:
+                                                singleUser.description,
+                                                phonenumber:
+                                                singleUser.phonenumber,
+                                                id: singleUser.id,
+                                                fcmtoken: singleUser.fcmtoken,
+                                                friendprofilepic: singleUser.friendprofilepic,
+                                              ))));
+                                },
                                 onLongPress: () {
                                   showDialog(
                                       context: context,

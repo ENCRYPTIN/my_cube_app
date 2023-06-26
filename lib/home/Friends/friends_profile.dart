@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:my_cube/home/Family/family.dart';
-import '../../services/utils.dart';
-import 'package:my_cube/Models/familyusers.dart';
-class FamilyProflie extends StatefulWidget {
-  final FamilyUserModel family;
-  const FamilyProflie({super.key, required this.family});
+import 'package:my_cube/Models/friendsusers.dart';
+import 'package:my_cube/services/utils.dart';
+class FriendsProfile extends StatefulWidget {
+  final FriendsUserModel friends;
+  const FriendsProfile({super.key,required this.friends});
   @override
-  State<FamilyProflie> createState() => _FamilyProflieState();
+  State<FriendsProfile> createState() => _FriendsProfileState();
 }
 const kDefaultPadding=20.0;
-class _FamilyProflieState extends State<FamilyProflie> {
-  TextEditingController? _familynameController;
+class _FriendsProfileState extends State<FriendsProfile> {
+  TextEditingController? _friendsnameController;
   TextEditingController? _DOBController;
-  TextEditingController? _realtionshipController;
-  TextEditingController? _ageController;
-  TextEditingController? _descriptionController;
-  TextEditingController? _habbitsController;
+  TextEditingController? _nicknameController;
+  TextEditingController? _sexController;
+  TextEditingController? _DescriptionController;
   TextEditingController? _phonenumberController;
   TextEditingController? _achivementsController;
+  TextEditingController? _habbitsController;
   TextEditingController? _ImageController;
   @override
   void initState() {
-    _familynameController = TextEditingController(text: widget.family.Familyname);
-    _DOBController = TextEditingController(text: widget.family.DOB);
-    _realtionshipController = TextEditingController(text: widget.family.relationship);
-    _ageController = TextEditingController(text: widget.family.age);
-    _descriptionController = TextEditingController(text: widget.family.description);
-    _habbitsController = TextEditingController(text: widget.family.habbits);
-    _phonenumberController = TextEditingController(text: widget.family.phonenumber);
-    _achivementsController = TextEditingController(text: widget.family.achivements);
-    _ImageController=TextEditingController(text: widget.family.familyprofilepic);
+    _friendsnameController = TextEditingController(text: widget.friends.Friendsname);
+    _DOBController = TextEditingController(text: widget.friends.DOB);
+    _nicknameController = TextEditingController(text: widget.friends.nickname);
+    _sexController = TextEditingController(text: widget.friends.sex);
+    _DescriptionController = TextEditingController(text: widget.friends.description);
+    _habbitsController = TextEditingController(text: widget.friends.habbits);
+    _phonenumberController = TextEditingController(text: widget.friends.phonenumber);
+    _achivementsController = TextEditingController(text: widget.friends.achivements);
+    _ImageController=TextEditingController(text: widget.friends.friendprofilepic);
     super.initState();
   }
   @override
@@ -56,7 +55,7 @@ class _FamilyProflieState extends State<FamilyProflie> {
                       maxRadius: 50.0,
                       minRadius: 50.0,
                       backgroundColor: Colors.white,
-                      foregroundImage: NetworkImage(widget.family.familyprofilepic!),
+                      foregroundImage: NetworkImage(widget.friends.friendprofilepic!),
                     ),
                   ),
                   Padding(
@@ -64,7 +63,7 @@ class _FamilyProflieState extends State<FamilyProflie> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(_familynameController!.text.toString(),
+                        Text(_friendsnameController!.text.toString(),
                           textAlign: TextAlign.end,
                           style: TextStyle(
                               fontSize: 20,
@@ -91,19 +90,19 @@ class _FamilyProflieState extends State<FamilyProflie> {
                   ),
                   UserInfoTile(
                     //margin: EdgeInsets.only(bottom: 16),
-                    label: 'Relationship',
-                    value: _realtionshipController!.text,
+                    label: 'Nickname',
+                    value: _nicknameController!.text,
 
                   ),
                   UserInfoTile(
                     //margin: EdgeInsets.only(bottom: 16),
-                    label: 'Age',
-                    value: _ageController!.text,
+                    label: 'Sex',
+                    value: _sexController!.text,
                   ),
                   UserInfoTile(
                     //margin: EdgeInsets.only(bottom: 16),
                     label: 'Description',
-                    value: _descriptionController!.text,
+                    value: _DescriptionController!.text,
                   ),
                   UserInfoTile(
                     //margin: EdgeInsets.only(bottom: 16),

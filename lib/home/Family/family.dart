@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_cube/Models/familyusers.dart';
 import 'package:my_cube/home/Family/editfamily.dart';
 import 'package:my_cube/home/Family/familyprofile.dart';
+import 'package:my_cube/home/Family/familytree.dart';
 import 'package:my_cube/services/firestore_helper.dart';
 import 'package:my_cube/home/Family/familyadd.dart';
 import 'package:flutter/foundation.dart';
@@ -29,6 +30,12 @@ class _FamilyState extends State<Family> {
         title: Text("Family"),
         centerTitle: true,
         actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FamilyTree()));
+              },
+              icon: Icon(Icons.forest_outlined)),
           IconButton(
               onPressed: () {
                 Navigator.push(context,
@@ -88,7 +95,8 @@ class _FamilyState extends State<Family> {
                                                     singleUser.phonenumber,
                                                 id: singleUser.id,
                                                 fcmtoken: singleUser.fcmtoken,
-                                                    familyprofilepic: singleUser.familyprofilepic,
+                                                familyprofilepic:
+                                                    singleUser.familyprofilepic,
                                               ))));
                                 },
                                 onLongPress: () {
@@ -117,12 +125,12 @@ class _FamilyState extends State<Family> {
                                   width: 40,
                                   height: 40,
                                   decoration: BoxDecoration(
-                                      color: Colors.lightBlue,
-                                      shape: BoxShape.circle,
+                                    color: Colors.lightBlue,
+                                    shape: BoxShape.circle,
                                     image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: NetworkImage("${singleUser.familyprofilepic}")),
-
+                                        image: NetworkImage(
+                                            "${singleUser.familyprofilepic}")),
                                   ),
                                 ),
                                 title: Text(
@@ -152,7 +160,8 @@ class _FamilyState extends State<Family> {
                                                       singleUser.phonenumber,
                                                   id: singleUser.id,
                                                   fcmtoken: singleUser.fcmtoken,
-                                                      familyprofilepic: singleUser.familyprofilepic,
+                                                  familyprofilepic: singleUser
+                                                      .familyprofilepic,
                                                 ))));
                                   },
                                   child: Icon(Icons.edit),

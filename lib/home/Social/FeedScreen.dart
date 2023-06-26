@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:my_cube/Widgets/postcard.dart';
-import 'package:my_cube/home/globalvar.dart';
 
 
 class FeedScreen extends StatefulWidget {
@@ -27,15 +26,7 @@ class _FeedScreenState extends State<FeedScreen> {
           color: Colors.black,
           height: 32,
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(
-              Icons.messenger_outline,
-              color: Colors.black,
-            ),
-            onPressed: () {},
-          ),
-        ],
+
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('Posts').orderBy('datePublished',descending: true).snapshots(),

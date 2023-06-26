@@ -78,6 +78,89 @@ class _FriendAddState extends State<FriendAdd> {
         }
     );
   }
+  String? validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a name';
+    }
+    // Check if the first letter is capitalized
+    if (!RegExp(r'^[A-Z]').hasMatch(value)) {
+      return 'First letter should be capitalized';
+    }
+    // Check if the name contains any special characters
+    if (RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+      return 'Special characters are not allowed';
+    }
+    // Check if the name contains any numbers
+    if (RegExp(r'\d').hasMatch(value)) {
+      return 'Numbers are not allowed';
+    }
+    return null;
+
+  }
+  String? validateNickname(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter Nik name';
+    }
+    // Check if the habits contain any special characters
+    if (RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+      return 'Special characters are not allowed in Nik name';
+    }
+    // Check if the habits contain any numbers
+    if (RegExp(r'\d').hasMatch(value)) {
+      return 'Numbers are not allowed in Nik name';
+    }
+    return null;
+  }
+  String? validatesex(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter sex';
+    }
+
+    if (value.toLowerCase() != 'male' && value.toLowerCase() != 'female') {
+      return 'Please enter either "Male" or "Female"';
+    }
+
+    return null;
+  }
+  String? validateNumber(String? value, String fieldName) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter $fieldName';
+    }
+    // Check if the value is a valid number
+    if (int.tryParse(value) == null) {
+      return 'Please enter a valid $fieldName';
+    }
+    return null;
+  }
+  String? validateAchievements(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter achievements';
+    }
+    // Check if the achievements contain any special characters
+    if (RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+      return 'Special characters are not allowed in achievements';
+    }
+    // Check if the achievements contain any numbers
+    if (RegExp(r'\d').hasMatch(value)) {
+      return 'Numbers are not allowed in achievements';
+    }
+    return null;
+  }
+  String? validateHabits(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter habits';
+    }
+    // Check if the habits contain any special characters
+    if (RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+      return 'Special characters are not allowed in habits';
+    }
+    // Check if the habits contain any numbers
+    if (RegExp(r'\d').hasMatch(value)) {
+      return 'Numbers are not allowed in habits';
+    }
+    return null;
+  }
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var firestorehelper=FirestoreHelper();
@@ -101,6 +184,7 @@ class _FriendAddState extends State<FriendAdd> {
                       labelText: "NAME",
                       hintText: 'Your Friend Name',
                     ),
+                    validator: validateName,
                   ),
                   SizedBox(height: 16),
                   Container(
@@ -184,16 +268,6 @@ class _FriendAddState extends State<FriendAdd> {
                   ],
                 ),
               ),
-                  // TextFormField(
-                  //   controller: _DOBController,
-                  //   decoration: InputDecoration(
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //     labelText: "DATE OF BIRTH",
-                  //     hintText: "DOB",
-                  //   ),
-                  // ),
                   SizedBox(height: 16),
 
                   TextFormField(
@@ -205,6 +279,7 @@ class _FriendAddState extends State<FriendAdd> {
                       labelText: "Nick Name",
                       hintText: "Pet/Nick Name",
                     ),
+                    validator: validateNickname,
                   ),
 
                   SizedBox(height: 16),
@@ -218,6 +293,7 @@ class _FriendAddState extends State<FriendAdd> {
                       labelText: "SEX",
                       hintText: " Male/Female",
                     ),
+                    validator: validatesex,
                   ),
 
                   SizedBox(height: 16),
@@ -246,6 +322,9 @@ class _FriendAddState extends State<FriendAdd> {
                       labelText: "PHONE NUMBER",
                       hintText: "Phone Number",
                     ),
+                    validator: (value) =>
+                        validateNumber(value, "phone number"),
+                    keyboardType: TextInputType.number,
                   ),
 
                   SizedBox(height: 16),
@@ -260,6 +339,7 @@ class _FriendAddState extends State<FriendAdd> {
                       labelText: "ACHIVEMENTS",
                       hintText: "Goals Achived",
                     ),
+                    validator: validateAchievements,
                   ),
 
                   SizedBox(height: 16),
@@ -275,28 +355,34 @@ class _FriendAddState extends State<FriendAdd> {
                       hintText: "Good Habbits",
                       contentPadding: EdgeInsets.symmetric(vertical: 5),
                     ),
+                    validator: validateAchievements,
                   ),
                   Builder(
                       builder: (context) {
                         return ElevatedButton(
                           onPressed: () async{
-                            if(image!=null) {
-                              firestorehelper.create(FriendsUserModel(
-                                Friendsname: _friendsnameController.text,
-                                DOB: _DOBController.text,
-                                nickname: _nicknameController.text,
-                                sex: _sexController.text,
-                                description: _DescriptionController.text,
-                                phonenumber: _phonenumberController.text,
-                                achivements: _achivementsController.text,
-                                habbits: _habbitsController.text,
-                                fcmtoken: fcmtoken,
-                              ), image!).then((valve) {
-                                Navigator.pop(context);
-                              });
-                            }else{
-                              showSnackBar(context, "Please upload Pet photo");
+                            if(_formKey.currentState?.validate() ?? false){
+                              if(image!=null) {
+                                firestorehelper.create(FriendsUserModel(
+                                  Friendsname: _friendsnameController.text,
+                                  DOB: _DOBController.text,
+                                  nickname: _nicknameController.text,
+                                  sex: _sexController.text,
+                                  description: _DescriptionController.text,
+                                  phonenumber: _phonenumberController.text,
+                                  achivements: _achivementsController.text,
+                                  habbits: _habbitsController.text,
+                                  fcmtoken: fcmtoken,
+                                ), image!).then((valve) {
+                                  Navigator.pop(context);
+                                });
+                              }else{
+                                showSnackBar(context, "Please upload a photo");
+                              }
+                            } else{
+                              showSnackBar(context, "Please verify entered information");
                             }
+
                           },
                           child: Text('SAVE'),
                         );
@@ -316,23 +402,6 @@ class _FriendAddState extends State<FriendAdd> {
     );
   }
 
-// Future _create() async{
-//   final friendsCollection = FirebaseFirestore.instance.collection("friends");
-//
-//   final docRef=friendsCollection.doc();
-//
-//   await docRef.set({
-//     "friendsname": _friendsnameController.text,
-//     "Date of birth": _DOBController.text,
-//     "Nick name": _nicknameController.text,
-//     "Sex": _sexController.text,
-//     "Brief Description": _DescriptionController.text,
-//     "Phone number": _phonenumberController.text,
-//     "Achivements": _achivementsController.text,
-//     "Habbits": _habbitsController.text
-//   });
-
-//}
 
 }
 

@@ -1,35 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:my_cube/home/Family/family.dart';
-import '../../services/utils.dart';
-import 'package:my_cube/Models/familyusers.dart';
-class FamilyProflie extends StatefulWidget {
-  final FamilyUserModel family;
-  const FamilyProflie({super.key, required this.family});
+import 'package:my_cube/Models/petsusermodel.dart';
+import 'package:my_cube/services/utils.dart';
+class PetsProfile extends StatefulWidget {
+  final PetsUserModel pets;
+  const PetsProfile({super.key,required this.pets});
   @override
-  State<FamilyProflie> createState() => _FamilyProflieState();
+  State<PetsProfile> createState() => _PetsProfileState();
 }
 const kDefaultPadding=20.0;
-class _FamilyProflieState extends State<FamilyProflie> {
-  TextEditingController? _familynameController;
+class _PetsProfileState extends State<PetsProfile> {
+  TextEditingController? _petsnameController;
   TextEditingController? _DOBController;
-  TextEditingController? _realtionshipController;
-  TextEditingController? _ageController;
-  TextEditingController? _descriptionController;
-  TextEditingController? _habbitsController;
-  TextEditingController? _phonenumberController;
-  TextEditingController? _achivementsController;
+  TextEditingController? _HeightController;
+  TextEditingController? _WeightController;
+  TextEditingController? _DescriptionController;
+  TextEditingController? _LicencenumberController;
+  TextEditingController? _SexController;
+  TextEditingController? _MedicalController;
   TextEditingController? _ImageController;
   @override
   void initState() {
-    _familynameController = TextEditingController(text: widget.family.Familyname);
-    _DOBController = TextEditingController(text: widget.family.DOB);
-    _realtionshipController = TextEditingController(text: widget.family.relationship);
-    _ageController = TextEditingController(text: widget.family.age);
-    _descriptionController = TextEditingController(text: widget.family.description);
-    _habbitsController = TextEditingController(text: widget.family.habbits);
-    _phonenumberController = TextEditingController(text: widget.family.phonenumber);
-    _achivementsController = TextEditingController(text: widget.family.achivements);
-    _ImageController=TextEditingController(text: widget.family.familyprofilepic);
+    _petsnameController = TextEditingController(text: widget.pets.Petsname);
+    _DOBController = TextEditingController(text: widget.pets.DOB);
+    _HeightController = TextEditingController(text: widget.pets.height);
+    _WeightController = TextEditingController(text: widget.pets.weight);
+    _DescriptionController = TextEditingController(text: widget.pets.description);
+    _LicencenumberController = TextEditingController(text: widget.pets.licencenumber);
+    _SexController = TextEditingController(text: widget.pets.sex);
+    _MedicalController = TextEditingController(text: widget.pets.medicalhistory);
+    _ImageController=TextEditingController(text: widget.pets.petprofilepic);
     super.initState();
   }
   @override
@@ -56,7 +55,7 @@ class _FamilyProflieState extends State<FamilyProflie> {
                       maxRadius: 50.0,
                       minRadius: 50.0,
                       backgroundColor: Colors.white,
-                      foregroundImage: NetworkImage(widget.family.familyprofilepic!),
+                      foregroundImage: NetworkImage(widget.pets.petprofilepic!),
                     ),
                   ),
                   Padding(
@@ -64,7 +63,7 @@ class _FamilyProflieState extends State<FamilyProflie> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(_familynameController!.text.toString(),
+                        Text(_petsnameController!.text.toString(),
                           textAlign: TextAlign.end,
                           style: TextStyle(
                               fontSize: 20,
@@ -91,34 +90,33 @@ class _FamilyProflieState extends State<FamilyProflie> {
                   ),
                   UserInfoTile(
                     //margin: EdgeInsets.only(bottom: 16),
-                    label: 'Relationship',
-                    value: _realtionshipController!.text,
-
+                    label: 'Height',
+                    value: _HeightController!.text,
                   ),
                   UserInfoTile(
                     //margin: EdgeInsets.only(bottom: 16),
-                    label: 'Age',
-                    value: _ageController!.text,
+                    label: 'Weight',
+                    value: _WeightController!.text,
                   ),
                   UserInfoTile(
                     //margin: EdgeInsets.only(bottom: 16),
                     label: 'Description',
-                    value: _descriptionController!.text,
+                    value: _DescriptionController!.text,
                   ),
                   UserInfoTile(
                     //margin: EdgeInsets.only(bottom: 16),
-                    label: 'Habbits',
-                    value: _habbitsController!.text,
+                    label: 'Liscence No.',
+                    value: _LicencenumberController!.text,
                   ),
                   UserInfoTile(
                     //margin: EdgeInsets.only(bottom: 16),
-                    label: 'Phone Number',
-                    value: _phonenumberController!.text,
+                    label: 'Gender',
+                    value: _SexController!.text,
                   ),
                   UserInfoTile(
                     //margin: EdgeInsets.only(bottom: 16),
-                    label: 'Achivements',
-                    value: _achivementsController!.text,
+                    label: 'Previous Medical History',
+                    value: _MedicalController!.text,
                   ),
                 ],
               ),

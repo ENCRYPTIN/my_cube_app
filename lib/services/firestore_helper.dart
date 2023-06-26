@@ -112,6 +112,27 @@ class FirestoreHelper {
             .toList());
   }
 
+  Stream<List<FamilyUserModel>> readFather() {
+    String _uid = _auth.currentUser!.uid;
+    final familyCollection =
+    FirebaseFirestore.instance.collection("Users/$_uid/Family").where('Relationship',isEqualTo:"Father" );
+    return familyCollection.snapshots().map((querrySnapshot) =>
+        querrySnapshot
+            .docs
+            .map((e) => FamilyUserModel.fromSnapshot(e))
+            .toList());
+  }
+//Family Section
+  Stream<List<FamilyUserModel>> readMother() {
+    String _uid = _auth.currentUser!.uid;
+    final familyCollection =
+    FirebaseFirestore.instance.collection("Users/$_uid/Family").where('Relationship',isEqualTo:"Mother" );
+    return familyCollection.snapshots().map((querrySnapshot) =>
+        querrySnapshot
+            .docs
+            .map((e) => FamilyUserModel.fromSnapshot(e))
+            .toList());
+  }
   Future createfam(FamilyUserModel family, File pic) async {
     String? familypic;
     String _uid = _auth.currentUser!.uid;

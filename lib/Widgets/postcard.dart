@@ -196,8 +196,8 @@ class _PostCardState extends State<PostCard> {
                       });
                     },
                     child: const Icon(
-                      Icons.celebration,
-                      color: Colors.redAccent,
+                      Icons.thumb_up_off_alt_rounded,
+                      color: Colors.lightBlue,
                       size: 100,
                     ),
                   ),
@@ -214,11 +214,11 @@ class _PostCardState extends State<PostCard> {
                 child: IconButton(
                   icon: widget.snap['likes'].contains(user.uid)
                       ? const Icon(
-                    Icons.celebration,
-                    color: Colors.red,
+                    Icons.thumb_up_off_alt_rounded,
+                    color: Colors.lightBlue,
                   )
                       : const Icon(
-                    Icons.celebration_outlined,
+                    Icons.thumb_up_off_alt_rounded,
                   ),
                   onPressed: () => PostFireStoreMethods().likePost(
                     widget.snap['postId'].toString(),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_cube/Models/petsusermodel.dart';
+import 'package:my_cube/home/Friends/friends_profile.dart';
 import 'package:my_cube/home/Pets/editpets.dart';
+import 'package:my_cube/home/Pets/pets_profile.dart';
 import 'package:my_cube/services/firestore_helper.dart';
 import 'package:my_cube/home/Pets/petsadd.dart';
 import 'package:flutter/foundation.dart';
@@ -55,6 +57,30 @@ class _PetsState extends State<Pets> {
                             return Container(
                               margin: EdgeInsets.symmetric(vertical: 5),
                               child: ListTile(
+                                onTap: (){
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => PetsProfile(
+                                              pets: PetsUserModel(
+                                                Petsname:
+                                                singleUser.Petsname,
+                                                DOB: singleUser.DOB,
+                                                height:
+                                                singleUser.height,
+                                                weight: singleUser.weight,
+                                                licencenumber: singleUser.licencenumber,
+                                                sex:
+                                                singleUser.sex,
+                                                description:
+                                                singleUser.description,
+                                                medicalhistory:
+                                                singleUser.medicalhistory,
+                                                id: singleUser.id,
+                                                fcmtoken: singleUser.fcmtoken,
+                                                petprofilepic: singleUser.petprofilepic,
+                                              ))));
+                                },
                                 onLongPress: () {
                                   showDialog(context: context, builder: (context){
                                     return AlertDialog(

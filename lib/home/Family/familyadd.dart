@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:my_cube/Models/familyusers.dart';
+import 'package:my_cube/Widgets/relationship_dropdown.dart';
 import 'package:my_cube/services/firestore_helper.dart';
 import 'package:my_cube/services/utils.dart';
 
@@ -29,6 +30,8 @@ class _FamilyAddState extends State<FamilyAdd> {
   TextEditingController _phonenumberController = TextEditingController();
   TextEditingController _achivementsController = TextEditingController();
   DateTime? selectedDate;
+  String selectedRelationship = '';
+  bool isLoading = false;
   @override
   void dispose() {
     _familynameController.dispose();
@@ -172,6 +175,15 @@ class _FamilyAddState extends State<FamilyAdd> {
     return null;
   }
 
+  final List<String> _relationships = [
+    "Father",
+    "Mother",
+    "Cousin",
+    "Wife",
+    "Husband",
+    "Son/Daughter",
+    "Other"
+  ];
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -287,16 +299,34 @@ class _FamilyAddState extends State<FamilyAdd> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    TextFormField(
-                      controller: _realtionshipController,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        labelText: "RELATIONSHIP",
-                        hintText: "Relationship like father,mother,etc",
-                      ),
-                      validator: validateRelationship,
+                    // TextFormField(
+                    //   controller: _realtionshipController,
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(
+                    //       borderRadius: BorderRadius.circular(10),
+                    //     ),
+                    //     labelText: "RELATIONSHIP",
+                    //     hintText: "Relationship like father,mother,etc",
+                    //   ),
+                    //   validator: validateRelationship,
+                    // ),
+                    AutocompleteTextField(
+                      items: _relationships,
+                      decoration: const InputDecoration(
+                          labelText: 'Select Relationship with you',
+                          border: OutlineInputBorder()),
+                      validator: (val) {
+                        if (_relationships.contains(val)) {
+                          return null;
+                        } else {
+                          return 'Invalid Relationship';
+                        }
+                      },
+                      onItemSelect: (selected) {
+                        setState(() {
+                          selectedRelationship = selected;
+                        });
+                      },
                     ),
                     SizedBox(height: 16),
                     TextFormField(
@@ -337,8 +367,7 @@ class _FamilyAddState extends State<FamilyAdd> {
                           labelText: "ACHIVEMENTS",
                           hintText: "Goals Achived",
                         ),
-                        validator: validateAchievements
-                    ),
+                        validator: validateAchievements),
                     SizedBox(height: 16),
                     TextFormField(
                       controller: _descriptionController,
@@ -368,41 +397,57 @@ class _FamilyAddState extends State<FamilyAdd> {
                       validator: validateHabits,
                     ),
                     Builder(builder: (context) {
-                      return ElevatedButton(
-                        onPressed: () async {
-                          if (_formKey.currentState?.validate() ?? false) {
-                            if (image != null) {
-                              firestorehelper
-                                  .createfam(
-                                      FamilyUserModel(
-                                        Familyname: _familynameController.text,
-                                        DOB: _DOBController.text,
-                                        age: _ageController.text,
-                                        relationship:
-                                            _realtionshipController.text,
-                                        description:
-                                            _descriptionController.text,
-                                        phonenumber:
-                                            _phonenumberController.text,
-                                        achivements:
-                                            _achivementsController.text,
-                                        habbits: _habbitsController.text,
-                                        fcmtoken: fcmtoken,
-                                      ),
-                                      image!)
-                                  .then((value) => Navigator.pop(context));
+                      return Container(
+                        child: isLoading
+                            ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                          ),
+                        )
+                            : ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState?.validate() ??
+                                false) {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              if (image != null) {
+                                firestorehelper
+                                    .createfam(
+                                    FamilyUserModel(
+                                      Familyname:
+                                      _familynameController.text,
+                                      DOB: _DOBController.text,
+                                      age: _ageController.text,
+                                      relationship:
+                                      selectedRelationship,
+                                      description:
+                                      _descriptionController.text,
+                                      phonenumber:
+                                      _phonenumberController.text,
+                                      achivements:
+                                      _achivementsController.text,
+                                      habbits: _habbitsController.text,
+                                      fcmtoken: fcmtoken,
+                                    ),
+                                    image!)
+                                    .then(
+                                        (value) => Navigator.pop(context));
+                              } else {
+                                showSnackBar(
+                                    context, "Please upload a image");
+                              }
                             } else {
-                              showSnackBar(context, "Please upload Pet photo");
+                              showSnackBar(
+                                  context, "Please Enter Your Details");
                             }
-                          } else {
-                            showSnackBar(context, "Please Enter Your Details");
-                          }
-
-                          // Handle button click event
-                          // Add your logic or function call here
-                          //Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
-                        },
-                        child: Text('SAVE'),
+                            setState(() {
+                              isLoading = false;
+                            });
+                          },
+                          child: Text('SAVE'),
+                        )
                       );
                     }),
                   ],
