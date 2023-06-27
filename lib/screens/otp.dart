@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cube/screens/register_account.dart';
@@ -18,7 +20,8 @@ class _OtpState extends State<Otp> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final TextEditingController _pinController = TextEditingController();
   String? otpCode;
-
+  int start = 30;
+  bool wait = false;
   void showOtpErrorDialog(BuildContext context, String errorMessage) {
     showDialog(
       context: context,
@@ -44,7 +47,11 @@ class _OtpState extends State<Otp> {
     _pinController.dispose();
     super.dispose();
   }
-
+@override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
   @override
   Widget build(BuildContext context) {
     final isLoading =
@@ -139,11 +146,41 @@ class _OtpState extends State<Otp> {
 
             ),
           ),
+        SizedBox(height: 15,),
+        RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: "Send OTP again in ",
+                  style: TextStyle(fontSize: 16, color: Colors.redAccent),
+                ),
+                TextSpan(
+                  text: "00:$start",
+                  style: TextStyle(fontSize: 16, color: Colors.pinkAccent),
+                ),
+                TextSpan(
+                  text: " sec ",
+                  style: TextStyle(fontSize: 16, color: Colors.redAccent),
+                ),
+              ],
+            )),
+          SizedBox(height: 10,),
+        Container(
+          child: wait==true?InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Text("Resend OTP",style: TextStyle(
+              color: Colors.lightBlueAccent
+            ),),
+          ):Text("Resend OTP"),
+        ),
+        SizedBox(height: 10,),
           Container(
             width: 347,
             height: 56,
             //padding: EdgeInsets.only(left: 15),
-            margin: const EdgeInsets.only(left: 10, right: 10, top: 30),
+            margin: const EdgeInsets.only(left: 10, right: 10, top: 20),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(28),
                 border: Border.all(
@@ -218,5 +255,20 @@ class _OtpState extends State<Otp> {
         );
       },
     );
+  }
+  void startTimer() {
+    const onsec = Duration(seconds: 1);
+    Timer _timer = Timer.periodic(onsec, (timer) {
+      if (start == 0) {
+        setState(() {
+          timer.cancel();
+          wait = false;
+        });
+      } else {
+        setState(() {
+          start--;
+        });
+      }
+    });
   }
 }

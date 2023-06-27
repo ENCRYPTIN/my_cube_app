@@ -99,15 +99,15 @@ class _FriendAddState extends State<FriendAdd> {
   }
   String? validateNickname(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter Nik name';
+      return 'Please enter Nick name';
     }
     // Check if the habits contain any special characters
     if (RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
-      return 'Special characters are not allowed in Nik name';
+      return 'Special characters are not allowed in Nick name';
     }
     // Check if the habits contain any numbers
     if (RegExp(r'\d').hasMatch(value)) {
-      return 'Numbers are not allowed in Nik name';
+      return 'Numbers are not allowed in Nick name';
     }
     return null;
   }
@@ -168,231 +168,234 @@ class _FriendAddState extends State<FriendAdd> {
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
-            child: Container(
-              margin: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 8),
+            child: Form(
+              key: _formKey,
+              child: Container(
+                margin: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 8),
 
-                  TextFormField(
-                    controller: _friendsnameController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                    TextFormField(
+                      controller: _friendsnameController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        labelText: "NAME",
+                        hintText: 'Your Friend Name',
                       ),
-                      labelText: "NAME",
-                      hintText: 'Your Friend Name',
+                      validator: validateName,
                     ),
-                    validator: validateName,
-                  ),
-                  SizedBox(height: 16),
-                  Container(
-                    height: 200,
-                    width: double.infinity,
-                    margin: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1.0,
+                    SizedBox(height: 16),
+                    Container(
+                      height: 200,
+                      width: double.infinity,
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1.0,
+                        ),
                       ),
-                    ),
-                    child:  Container(
-                      //padding: const EdgeInsets.only(top: 20.0),
-                      child: InkWell(
-                        onTap: () => selectImage(),//selectImage(),
-                        child: image == null
-                            ? const CircleAvatar(
-                          backgroundColor: Colors.grey,
-                          radius: 60,
-                          child: Icon(
-                            Icons.account_circle,
-                            size: 50,
-                            color: Colors.white,
+                      child:  Container(
+                        //padding: const EdgeInsets.only(top: 20.0),
+                        child: InkWell(
+                          onTap: () => selectImage(),//selectImage(),
+                          child: image == null
+                              ? const CircleAvatar(
+                            backgroundColor: Colors.grey,
+                            radius: 60,
+                            child: Icon(
+                              Icons.account_circle,
+                              size: 50,
+                              color: Colors.white,
+                            ),
+                          )
+                              : Container(
+                            height: 200,
+                            //margin: const EdgeInsets.only(top: 8.0),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8.0),
+                                image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: FileImage(image!),
+                                )),
                           ),
-                        )
-                            : Container(
-                          height: 200,
-                          //margin: const EdgeInsets.only(top: 8.0),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: FileImage(image!),
-                              )),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                      margin: const EdgeInsets.only(left: 10,top: 30),
-                      child: const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 15),
-                          child: Text('Select Date of Birth, using calender icon',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 1.1,
-                                fontFamily: 'Inter'
+                    Container(
+                        margin: const EdgeInsets.only(left: 10,top: 30),
+                        child: const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 15),
+                            child: Text('Select Date of Birth, using calender icon',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 1.1,
+                                  fontFamily: 'Inter'
+                              ),
                             ),
                           ),
-                        ),
-                      )
+                        )
+                    ),
+                Container(
+                  width: 390,
+                  height: 56,
+                  padding: const EdgeInsets.only(left: 15),
+                  margin: const EdgeInsets.only(left: 10,right: 10, top: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      width: 2,
+                      color: const Color(0xFFC2C2C2),
+                    ),
                   ),
-              Container(
-                width: 390,
-                height: 56,
-                padding: const EdgeInsets.only(left: 15),
-                margin: const EdgeInsets.only(left: 10,right: 10, top: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    width: 2,
-                    color: const Color(0xFFC2C2C2),
+                  child:Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: Text(_DOBController.text,),
+                        flex: 7,
+                      ),
+                      Expanded(
+                          flex: 3,
+                          child: IconButton(onPressed: (){_selectDate(context);}, icon: Icon(Icons.calendar_month_outlined))),
+
+                    ],
                   ),
                 ),
-                child:Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Text(_DOBController.text,),
-                      flex: 7,
-                    ),
-                    Expanded(
-                        flex: 3,
-                        child: IconButton(onPressed: (){_selectDate(context);}, icon: Icon(Icons.calendar_month_outlined))),
+                    SizedBox(height: 16),
 
+                    TextFormField(
+                      controller: _nicknameController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        labelText: "Nick Name",
+                        hintText: "Pet/Nick Name",
+                      ),
+                      validator: validateNickname,
+                    ),
+
+                    SizedBox(height: 16),
+
+                    TextFormField(
+                      controller: _sexController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        labelText: "SEX",
+                        hintText: " Male/Female",
+                      ),
+                      validator: validatesex,
+                    ),
+
+                    SizedBox(height: 16),
+
+                    TextFormField(
+                      controller: _DescriptionController,
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        labelText: "BRIEF DESCRIPTION",
+                        hintText: "About your Friend",
+                        contentPadding: EdgeInsets.symmetric(vertical: 5),
+                      ),
+                    ),
+
+                    SizedBox(height: 16),
+
+                    TextFormField(
+                      controller: _phonenumberController,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        labelText: "PHONE NUMBER",
+                        hintText: "Phone Number",
+                      ),
+                      validator: (value) =>
+                          validateNumber(value, "phone number"),
+                      keyboardType: TextInputType.number,
+                    ),
+
+                    SizedBox(height: 16),
+
+                    TextFormField(
+                      controller: _achivementsController,
+                      maxLines: 3,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        labelText: "ACHIVEMENTS",
+                        hintText: "Goals Achived",
+                      ),
+                      validator: validateAchievements,
+                    ),
+
+                    SizedBox(height: 16),
+
+                    TextFormField(
+                      controller: _habbitsController,
+                      maxLines: 2,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        labelText: "HABBITS",
+                        hintText: "Good Habbits",
+                        contentPadding: EdgeInsets.symmetric(vertical: 5),
+                      ),
+                      validator: validateAchievements,
+                    ),
+                    Builder(
+                        builder: (context) {
+                          return ElevatedButton(
+                            onPressed: () async{
+                              if(_formKey.currentState?.validate() ?? false){
+                                if(image!=null) {
+                                  firestorehelper.create(FriendsUserModel(
+                                    Friendsname: _friendsnameController.text,
+                                    DOB: _DOBController.text,
+                                    nickname: _nicknameController.text,
+                                    sex: _sexController.text,
+                                    description: _DescriptionController.text,
+                                    phonenumber: _phonenumberController.text,
+                                    achivements: _achivementsController.text,
+                                    habbits: _habbitsController.text,
+                                    fcmtoken: fcmtoken,
+                                  ), image!).then((valve) {
+                                    Navigator.pop(context);
+                                  });
+                                }else{
+                                  showSnackBar(context, "Please upload a photo");
+                                }
+                              } else{
+                                showSnackBar(context, "Please verify entered information");
+                              }
+
+                            },
+                            child: Text('SAVE'),
+                          );
+
+
+
+                        }
+
+                    ),
                   ],
                 ),
-              ),
-                  SizedBox(height: 16),
-
-                  TextFormField(
-                    controller: _nicknameController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      labelText: "Nick Name",
-                      hintText: "Pet/Nick Name",
-                    ),
-                    validator: validateNickname,
-                  ),
-
-                  SizedBox(height: 16),
-
-                  TextFormField(
-                    controller: _sexController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      labelText: "SEX",
-                      hintText: " Male/Female",
-                    ),
-                    validator: validatesex,
-                  ),
-
-                  SizedBox(height: 16),
-
-                  TextFormField(
-                    controller: _DescriptionController,
-                    maxLines: 5,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      labelText: "BRIEF DESCRIPTION",
-                      hintText: "About your Friend",
-                      contentPadding: EdgeInsets.symmetric(vertical: 5),
-                    ),
-                  ),
-
-                  SizedBox(height: 16),
-
-                  TextFormField(
-                    controller: _phonenumberController,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      labelText: "PHONE NUMBER",
-                      hintText: "Phone Number",
-                    ),
-                    validator: (value) =>
-                        validateNumber(value, "phone number"),
-                    keyboardType: TextInputType.number,
-                  ),
-
-                  SizedBox(height: 16),
-
-                  TextFormField(
-                    controller: _achivementsController,
-                    maxLines: 3,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      labelText: "ACHIVEMENTS",
-                      hintText: "Goals Achived",
-                    ),
-                    validator: validateAchievements,
-                  ),
-
-                  SizedBox(height: 16),
-
-                  TextFormField(
-                    controller: _habbitsController,
-                    maxLines: 2,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      labelText: "HABBITS",
-                      hintText: "Good Habbits",
-                      contentPadding: EdgeInsets.symmetric(vertical: 5),
-                    ),
-                    validator: validateAchievements,
-                  ),
-                  Builder(
-                      builder: (context) {
-                        return ElevatedButton(
-                          onPressed: () async{
-                            if(_formKey.currentState?.validate() ?? false){
-                              if(image!=null) {
-                                firestorehelper.create(FriendsUserModel(
-                                  Friendsname: _friendsnameController.text,
-                                  DOB: _DOBController.text,
-                                  nickname: _nicknameController.text,
-                                  sex: _sexController.text,
-                                  description: _DescriptionController.text,
-                                  phonenumber: _phonenumberController.text,
-                                  achivements: _achivementsController.text,
-                                  habbits: _habbitsController.text,
-                                  fcmtoken: fcmtoken,
-                                ), image!).then((valve) {
-                                  Navigator.pop(context);
-                                });
-                              }else{
-                                showSnackBar(context, "Please upload a photo");
-                              }
-                            } else{
-                              showSnackBar(context, "Please verify entered information");
-                            }
-
-                          },
-                          child: Text('SAVE'),
-                        );
-
-
-
-                      }
-
-                  ),
-                ],
               ),
             ),
           )

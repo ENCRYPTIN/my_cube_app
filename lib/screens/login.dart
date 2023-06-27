@@ -102,8 +102,8 @@ class __FormContentState extends State<_FormContent> {
                 return null;
               },
               decoration: const InputDecoration(
-                labelText: 'Phone Number',
-                hintText: 'Enter your Phone Number',
+                labelText: 'Email',
+                hintText: 'Enter your Email',
                 prefixIcon: Icon(Icons.email_outlined),
                 border: OutlineInputBorder(),
               ),

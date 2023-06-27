@@ -212,7 +212,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   height: 24,
                 ),
                 Container(
-                    margin: const EdgeInsets.only(left: 10,top: 20),
+
                     child: const Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
@@ -232,7 +232,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   width: 390,
                   height: 56,
                   padding: const EdgeInsets.only(left: 15),
-                  margin: const EdgeInsets.only(left: 10,right: 10, top:10 ),
+                  margin: const EdgeInsets.only( top:10 ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(28),
                   ),
@@ -316,7 +316,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   height: 24,
                 ),
                 Container(
-                    margin: const EdgeInsets.only(left: 10, top: 30),
+                    margin: const EdgeInsets.only(left: 10,),
                     child: const Align(
                       alignment: Alignment.centerLeft,
                       child: Padding(
@@ -365,6 +365,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ],
                   ),
                 ),
+                SizedBox(height: 15,),
                 InkWell(
                   onTap: signUpUser,
                   child: Container(
@@ -388,10 +389,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
                 const SizedBox(
                   height: 12,
-                ),
-                Flexible(
-                  flex: 2,
-                  child: Container(),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
