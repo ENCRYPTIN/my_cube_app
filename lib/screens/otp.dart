@@ -166,14 +166,14 @@ class _OtpState extends State<Otp> {
             )),
           SizedBox(height: 10,),
         Container(
-          child: wait==true?InkWell(
+          child: InkWell(
             onTap: (){
               Navigator.pop(context);
             },
             child: Text("Resend OTP",style: TextStyle(
               color: Colors.lightBlueAccent
             ),),
-          ):Text("Resend OTP"),
+          ),
         ),
         SizedBox(height: 10,),
           Container(

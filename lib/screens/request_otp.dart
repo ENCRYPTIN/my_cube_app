@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:my_cube/services/auth.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 class RequestOtp extends StatefulWidget {
   const RequestOtp({Key? key}) : super(key: key);
   static String verify = "";
+
   @override
   State<RequestOtp> createState() => _RequestOtpState();
 }
@@ -17,8 +19,17 @@ class _RequestOtpState extends State<RequestOtp> {
   //to set default country code:
   Country country = CountryParser.parseCountryCode("IN");
   String phonenumber = "";
-  bool isLoading = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  Future<void> sendPhoneNumber() async{
+    ToastContext().init(context);
+    Toast.show("Please wait while we are sending OTP",
+        duration: Toast.lengthShort, gravity: Toast.top);
+    final AuthProvider authService =
+    Provider.of<AuthProvider>(context, listen: false);
+    String phoneNumber = phoneController.text.trim();
+    FirebaseAuth.instance.setSettings(appVerificationDisabledForTesting: false);
+    authService.signInWithPhone(context, "+${country.phoneCode}$phoneNumber");
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -185,34 +196,26 @@ class _RequestOtpState extends State<RequestOtp> {
                 ),
               ),
 
-              child:isLoading?Center(child: CircularProgressIndicator(color: Colors.black87,)): ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState?.validate() ?? false) {
-                    setState(() {
-                      isLoading=true;
-                    });
-                    await sendPhoneNumber();
-                    setState(() {
-                      isLoading=false;
-                    });
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(28),
-                  ),
-                  padding: EdgeInsets.zero,
-                  minimumSize: const Size(347, 56),
-                  backgroundColor: const Color(0xffB388FF),
-                ),
-                child: Text(
-                  'Request OTP',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              child: ElevatedButton(
+                      onPressed: () async {
+                          await sendPhoneNumber();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(28),
+                        ),
+                        padding: EdgeInsets.zero,
+                        minimumSize: const Size(347, 56),
+                        backgroundColor: const Color(0xffB388FF),
+                      ),
+                      child:Text(
+                        'Request OTP',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
             ),
           ],
         )),
@@ -220,12 +223,4 @@ class _RequestOtpState extends State<RequestOtp> {
     );
   }
 
-  sendPhoneNumber() {
-    final AuthProvider authService =
-        Provider.of<AuthProvider>(context, listen: false);
-    String phoneNumber = phoneController.text.trim();
-    FirebaseAuth.instance.setSettings(appVerificationDisabledForTesting: false);
-    authService.signInWithPhone(context, "+${country.phoneCode}$phoneNumber");
-
-  }
 }

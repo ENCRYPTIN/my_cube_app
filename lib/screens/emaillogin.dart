@@ -34,7 +34,7 @@ class _EmailLoginState extends State<EmailLogin> {
       _isLoading = true;
     });
     String res = await authService.loginUser(
-        email: _emailController.text, password: _passwordController.text);
+        email: _emailController.text.trim(), password: _passwordController.text);
     if (res == 'success') {
       //authService.getUserDetails().then((value) => authService.saveUserDataToSP());
       if (context.mounted) {
@@ -58,17 +58,17 @@ class _EmailLoginState extends State<EmailLogin> {
       }
     }
   }
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKEY = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              width: double.infinity,
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            width: double.infinity,
+            child: Form(
+              key: _formKEY,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -81,6 +81,7 @@ class _EmailLoginState extends State<EmailLogin> {
                     height: 64,
                   ),
               TextFormField(
+                controller: _emailController,
                 validator: (value) {
                   // add email validation
                   if (value == null || value.isEmpty) {
@@ -108,6 +109,7 @@ class _EmailLoginState extends State<EmailLogin> {
                     height: 24,
                   ),
                   TextFormField(
+                    controller: _passwordController,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter some text';
@@ -158,10 +160,12 @@ class _EmailLoginState extends State<EmailLogin> {
                     height: 20,
                   ),
                   InkWell(
-
-                    onTap:(){ if (_formKey.currentState?.validate() ?? false) {
-        loginUser();
-        }},
+                    onTap:() {
+                      if (_formKEY.currentState?.validate() ??
+                          false) {
+                        loginUser();
+                      }
+                    } ,
                     child: Container(
                       width: double.infinity,
                       alignment: Alignment.center,

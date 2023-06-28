@@ -78,6 +78,7 @@ class AuthProvider extends ChangeNotifier {
                 builder: (context) => Otp(verificationId: verificationId),
               ),
             );
+
           },
           codeAutoRetrievalTimeout: (verificationId) {});
     } on FirebaseAuthException catch (e) {

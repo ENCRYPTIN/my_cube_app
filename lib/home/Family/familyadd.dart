@@ -299,17 +299,6 @@ class _FamilyAddState extends State<FamilyAdd> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    // TextFormField(
-                    //   controller: _realtionshipController,
-                    //   decoration: InputDecoration(
-                    //     border: OutlineInputBorder(
-                    //       borderRadius: BorderRadius.circular(10),
-                    //     ),
-                    //     labelText: "RELATIONSHIP",
-                    //     hintText: "Relationship like father,mother,etc",
-                    //   ),
-                    //   validator: validateRelationship,
-                    // ),
                     AutocompleteTextField(
                       items: _relationships,
                       decoration: const InputDecoration(
