@@ -6,7 +6,7 @@
 
 
     <application
-        android:label="my_cube"
+        android:label="My Cube"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

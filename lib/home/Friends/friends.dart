@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_cube/Models/friendsusers.dart';
 import 'package:my_cube/home/Friends/friends_profile.dart';
@@ -74,23 +73,23 @@ class _FriendsState extends State<Friends> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => FriendsProfile(
-                                              friends: FriendsUserModel(
+                                                  friends: FriendsUserModel(
                                                 Friendsname:
-                                                singleUser.Friendsname,
+                                                    singleUser.Friendsname,
                                                 DOB: singleUser.DOB,
-                                                nickname:
-                                                singleUser.nickname,
+                                                nickname: singleUser.nickname,
                                                 sex: singleUser.sex,
                                                 habbits: singleUser.habbits,
                                                 achivements:
-                                                singleUser.achivements,
+                                                    singleUser.achivements,
                                                 description:
-                                                singleUser.description,
+                                                    singleUser.description,
                                                 phonenumber:
-                                                singleUser.phonenumber,
+                                                    singleUser.phonenumber,
                                                 id: singleUser.id,
                                                 fcmtoken: singleUser.fcmtoken,
-                                                friendprofilepic: singleUser.friendprofilepic,
+                                                friendprofilepic:
+                                                    singleUser.friendprofilepic,
                                               ))));
                                 },
                                 onLongPress: () {

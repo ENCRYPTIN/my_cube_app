@@ -54,6 +54,12 @@ dependencies:
   firebase_app_check_platform_interface: ^0.0.8+3
   uuid: ^3.0.7
   flutter_staggered_grid_view: ^0.6.2
+  flutter_launcher_icons: ^0.13.1
+  double_back_to_close_app: ^2.1.0
+  connectivity_plus: ^4.0.1
+  get: ^4.6.5
+  rive: ^0.11.4
+
 
 
 
@@ -64,6 +70,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/images/cubepinkish.png"
+  min_sdk_android: 21
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -91,6 +103,12 @@ flutter:
      - assets/images/family.png
      - assets/images/Friend.png
      - assets/images/cat.jpg
+     - assets/images/logo.svg
+     - assets/images/dogdark.png
+     - assets/images/familyblack.png
+     - assets/images/friendsblack.png
+     - assets/images/homepagebackground.jpg
+     - assets/rive/cubeshape.riv
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

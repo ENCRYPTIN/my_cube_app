@@ -42,7 +42,6 @@ class _FamilyAddState extends State<FamilyAdd> {
     _habbitsController.dispose();
     _phonenumberController.dispose();
     _achivementsController.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -387,57 +386,61 @@ class _FamilyAddState extends State<FamilyAdd> {
                     ),
                     Builder(builder: (context) {
                       return Container(
-                        child: isLoading
-                            ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                        )
-                            : ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState?.validate() ??
-                                false) {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              if (image != null) {
-                                firestorehelper
-                                    .createfam(
-                                    FamilyUserModel(
-                                      Familyname:
-                                      _familynameController.text,
-                                      DOB: _DOBController.text,
-                                      age: _ageController.text,
-                                      relationship:
-                                      selectedRelationship,
-                                      description:
-                                      _descriptionController.text,
-                                      phonenumber:
-                                      _phonenumberController.text,
-                                      achivements:
-                                      _achivementsController.text,
-                                      habbits: _habbitsController.text,
-                                      fcmtoken: fcmtoken,
-                                    ),
-                                    image!)
-                                    .then(
-                                        (value) => Navigator.pop(context));
-                              } else {
-                                showSnackBar(
-                                    context, "Please upload a image");
-                              }
-                            } else {
-                              showSnackBar(
-                                  context, "Please Enter Your Details");
-                            }
-                            setState(() {
-                              isLoading = false;
-                            });
-                          },
-                          child: Text('SAVE'),
-                        )
-                      );
+                          child: isLoading
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : ElevatedButton(
+                                  onPressed: () async {
+                                    if (_formKey.currentState?.validate() ??
+                                        false) {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      if (image != null) {
+                                        firestorehelper
+                                            .createfam(
+                                                FamilyUserModel(
+                                                  Familyname:
+                                                      _familynameController
+                                                          .text,
+                                                  DOB: _DOBController.text,
+                                                  age: _ageController.text,
+                                                  relationship:
+                                                      selectedRelationship,
+                                                  description:
+                                                      _descriptionController
+                                                          .text,
+                                                  phonenumber:
+                                                      _phonenumberController
+                                                          .text,
+                                                  achivements:
+                                                      _achivementsController
+                                                          .text,
+                                                  habbits:
+                                                      _habbitsController.text,
+                                                  fcmtoken: fcmtoken,
+                                                ),
+                                                image!)
+                                            .then((value) =>
+                                                Navigator.pop(context));
+                                      } else {
+                                        showSnackBar(
+                                            context, "Please upload a image");
+                                      }
+                                    } else {
+                                      showSnackBar(
+                                          context, "Please Enter Your Details");
+                                    }
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                  },
+                                  child: Text('SAVE'),
+                                ));
                     }),
                   ],
                 ),

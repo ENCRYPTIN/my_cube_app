@@ -56,7 +56,6 @@ class _PetsAddState extends State<PetsAdd> {
     _LicencenumberController.dispose();
     _SexController.dispose();
     _MedicalController.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -333,8 +332,7 @@ class _PetsAddState extends State<PetsAdd> {
                         labelText: "HEIGHT",
                         hintText: "height in ft or inch",
                       ),
-                      validator: (value) =>
-                          validateHNumber(value, "HEIGHT"),
+                      validator: (value) => validateHNumber(value, "HEIGHT"),
                       keyboardType: TextInputType.number,
                     ),
                     SizedBox(height: 16),
@@ -350,8 +348,7 @@ class _PetsAddState extends State<PetsAdd> {
                         labelText: "WEIGHT",
                         hintText: "weight in kg",
                       ),
-                      validator: (value) =>
-                          validateWNumber(value, "WEIGHT"),
+                      validator: (value) => validateWNumber(value, "WEIGHT"),
                       keyboardType: TextInputType.number,
                     ),
                     SizedBox(height: 16),
@@ -466,7 +463,7 @@ class _PetsAddState extends State<PetsAdd> {
                                     showSnackBar(
                                         context, "Please upload Pet photo");
                                   }
-                                }else {
+                                } else {
                                   showSnackBar(
                                       context, "Please Properly enter details");
                                 }

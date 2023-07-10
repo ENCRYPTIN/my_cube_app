@@ -14,14 +14,11 @@ class ThreeWrapper extends StatefulWidget {
 }
 
 class _ThreeWrapperState extends State<ThreeWrapper> {
+
   updatefcmtoken() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
     String? fcmtoken = await FirebaseMessaging.instance.getToken();
     String _uid = _auth.currentUser!.uid;
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
-    // Get the token from SharedPreferences with a key of 'fcmtoken'
-    //tring? spfcmToken = prefs.getString('spfcmtoken');
-    //print(spfcmToken);
     DocumentReference personalDataRef = FirebaseFirestore.instance
         .collection('Users')
         .doc(_uid)
@@ -74,7 +71,6 @@ class _ThreeWrapperState extends State<ThreeWrapper> {
       });
     }
   }
-
   @override
   Widget build(BuildContext context) {
     final FirebaseAuth auth = FirebaseAuth.instance;

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:my_cube/Widgets/postcard.dart';
+import 'package:my_cube/home/newpostcard.dart';
 
 
 class FeedScreen extends StatefulWidget {
@@ -44,7 +44,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 horizontal:0,
                 vertical:0,
               ),
-              child: PostCard(
+              child: NewPostCard(
                 snap: snapshot.data!.docs[index].data(),
               ),
             ),

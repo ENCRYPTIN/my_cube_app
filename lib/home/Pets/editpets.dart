@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_cube/Models/petsusermodel.dart';
@@ -12,7 +11,8 @@ class EditPets extends StatefulWidget {
   @override
   State<EditPets> createState() => _EditPetsState();
 }
-var firestorehelper=FirestoreHelper();
+
+var firestorehelper = FirestoreHelper();
 
 class _EditPetsState extends State<EditPets> {
   TextEditingController? _petsnameController;
@@ -28,15 +28,17 @@ class _EditPetsState extends State<EditPets> {
 
   @override
   void initState() {
-    _petsnameController=TextEditingController(text: widget.pet.Petsname);
-    _DOBController=TextEditingController(text: widget.pet.DOB);
-    _HeightController=TextEditingController(text: widget.pet.height);
-    _WeightController=TextEditingController(text: widget.pet.weight);
-    _DescriptionController=TextEditingController(text: widget.pet.description);
-    _LicencenumberController=TextEditingController(text: widget.pet.licencenumber);
-    _SexController=TextEditingController(text: widget.pet.sex);
-    _MedicalController=TextEditingController(text: widget.pet.medicalhistory);
-    _ImageController=TextEditingController(text: widget.pet.petprofilepic);
+    _petsnameController = TextEditingController(text: widget.pet.Petsname);
+    _DOBController = TextEditingController(text: widget.pet.DOB);
+    _HeightController = TextEditingController(text: widget.pet.height);
+    _WeightController = TextEditingController(text: widget.pet.weight);
+    _DescriptionController =
+        TextEditingController(text: widget.pet.description);
+    _LicencenumberController =
+        TextEditingController(text: widget.pet.licencenumber);
+    _SexController = TextEditingController(text: widget.pet.sex);
+    _MedicalController = TextEditingController(text: widget.pet.medicalhistory);
+    _ImageController = TextEditingController(text: widget.pet.petprofilepic);
     super.initState();
   }
 
@@ -51,9 +53,9 @@ class _EditPetsState extends State<EditPets> {
     _SexController!.dispose();
     _MedicalController!.dispose();
     _ImageController!.dispose();
-    // TODO: implement dispose
     super.dispose();
   }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -137,6 +139,7 @@ class _EditPetsState extends State<EditPets> {
 
     return null;
   }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -154,63 +157,57 @@ class _EditPetsState extends State<EditPets> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 15),
-
                   TextFormField(
                     controller: _petsnameController,
                     decoration: InputDecoration(
-                        fillColor:Colors.grey[300],
+                        fillColor: Colors.grey[300],
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         labelText: "Pet Name",
                         hintText: 'Enter pet name',
-                        labelStyle:TextStyle(
+                        labelStyle: TextStyle(
                           color: Colors.black87,
                           fontWeight: FontWeight.bold,
-                        )
-                    ),
+                        )),
                     validator: validatePetname,
                   ),
-
                   SizedBox(height: 16),
                   Container(
                     height: 150,
                     margin: EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1.0,
-                      ),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1.0,
+                        ),
                         image: DecorationImage(
                           fit: BoxFit.fill,
                           image: NetworkImage(widget.pet.petprofilepic!),
-                        )
-                    ),
+                        )),
                   ),
-
                   Container(
-                      margin: const EdgeInsets.only(left: 10,top: 30),
+                      margin: const EdgeInsets.only(left: 10, top: 30),
                       child: const Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
                           padding: EdgeInsets.only(left: 15),
-                          child: Text('Select Date of Birth, using calender icon',
+                          child: Text(
+                            'Select Date of Birth, using calender icon',
                             textAlign: TextAlign.left,
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 1.1,
-                                fontFamily: 'Inter'
-                            ),
+                                fontFamily: 'Inter'),
                           ),
                         ),
-                      )
-                  ),
+                      )),
                   Container(
                     width: 390,
                     height: 56,
                     padding: const EdgeInsets.only(left: 15),
-                    margin: const EdgeInsets.only(left: 10,right: 10, top: 10),
+                    margin: const EdgeInsets.only(left: 10, right: 10, top: 10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
@@ -218,23 +215,26 @@ class _EditPetsState extends State<EditPets> {
                         color: const Color(0xFFC2C2C2),
                       ),
                     ),
-                    child:Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Expanded(
-                          child: Text(_DOBController!.text,),
+                          child: Text(
+                            _DOBController!.text,
+                          ),
                           flex: 7,
                         ),
                         Expanded(
                             flex: 3,
-                            child: IconButton(onPressed: (){_selectDate(context);}, icon: Icon(Icons.calendar_month_outlined))),
-
+                            child: IconButton(
+                                onPressed: () {
+                                  _selectDate(context);
+                                },
+                                icon: Icon(Icons.calendar_month_outlined))),
                       ],
                     ),
                   ),
-
                   SizedBox(height: 16),
-
                   TextFormField(
                     controller: _HeightController,
                     decoration: InputDecoration(
@@ -244,13 +244,10 @@ class _EditPetsState extends State<EditPets> {
                       labelText: "HEIGHT",
                       hintText: "height in ft or inch",
                     ),
-                     validator: (value) =>
-                validateHNumber(value, "HEIGHT"),
-              keyboardType: TextInputType.number,
+                    validator: (value) => validateHNumber(value, "HEIGHT"),
+                    keyboardType: TextInputType.number,
                   ),
-
                   SizedBox(height: 16),
-
                   TextFormField(
                     controller: _WeightController,
                     decoration: InputDecoration(
@@ -260,13 +257,10 @@ class _EditPetsState extends State<EditPets> {
                       labelText: "WEIGHT",
                       hintText: "weight in kg",
                     ),
-                    validator: (value) =>
-                        validateWNumber(value, "WEIGHT"),
+                    validator: (value) => validateWNumber(value, "WEIGHT"),
                     keyboardType: TextInputType.number,
                   ),
-
                   SizedBox(height: 16),
-
                   TextFormField(
                     controller: _DescriptionController,
                     maxLines: 5,
@@ -279,9 +273,7 @@ class _EditPetsState extends State<EditPets> {
                       contentPadding: EdgeInsets.symmetric(vertical: 5),
                     ),
                   ),
-
                   SizedBox(height: 16),
-
                   TextFormField(
                     controller: _LicencenumberController,
                     maxLines: 2,
@@ -293,12 +285,10 @@ class _EditPetsState extends State<EditPets> {
                       hintText: "Licence Number of your Pet",
                     ),
                     validator: (value) =>
-                validateLNumber(value, "LICENCE NUMBER"),
-              keyboardType: TextInputType.number,
+                        validateLNumber(value, "LICENCE NUMBER"),
+                    keyboardType: TextInputType.number,
                   ),
-
                   SizedBox(height: 16),
-
                   TextFormField(
                     controller: _SexController,
                     maxLines: 2,
@@ -311,9 +301,7 @@ class _EditPetsState extends State<EditPets> {
                     ),
                     validator: validatesex,
                   ),
-
                   SizedBox(height: 16),
-
                   TextFormField(
                     controller: _MedicalController,
                     maxLines: 5,
@@ -327,29 +315,30 @@ class _EditPetsState extends State<EditPets> {
                     ),
                   ),
                   SizedBox(height: 16),
-
                   InkWell(
                     onTap: () {
-    if (_formKey.currentState?.validate() ??
-    false) {
-      firestorehelper.updatepet(PetsUserModel(
-          id: widget.pet.id,
-          Petsname: _petsnameController!.text,
-          DOB: _DOBController!.text,
-          height: _HeightController!.text,
-          weight: _WeightController!.text,
-          description: _DescriptionController!.text,
-          licencenumber: _LicencenumberController!.text,
-          sex: _SexController!.text,
-          fcmtoken:widget.pet.fcmtoken,
-          medicalhistory: _MedicalController!.text,
-          petprofilepic: _ImageController!.text),).then((value){
-        Navigator.pop(context);
-
-      });
-    } else{
-      showSnackBar(context, "Please Enter all fields");
-    }
+                      if (_formKey.currentState?.validate() ?? false) {
+                        firestorehelper
+                            .updatepet(
+                          PetsUserModel(
+                              id: widget.pet.id,
+                              Petsname: _petsnameController!.text,
+                              DOB: _DOBController!.text,
+                              height: _HeightController!.text,
+                              weight: _WeightController!.text,
+                              description: _DescriptionController!.text,
+                              licencenumber: _LicencenumberController!.text,
+                              sex: _SexController!.text,
+                              fcmtoken: widget.pet.fcmtoken,
+                              medicalhistory: _MedicalController!.text,
+                              petprofilepic: _ImageController!.text),
+                        )
+                            .then((value) {
+                          Navigator.pop(context);
+                        });
+                      } else {
+                        showSnackBar(context, "Please Enter all fields");
+                      }
                     },
                     child: Container(
                       width: 100,
@@ -363,17 +352,19 @@ class _EditPetsState extends State<EditPets> {
                         children: [
                           Icon(
                             Icons.add,
-                            color:Colors.white,
+                            color: Colors.white,
                           ),
                           SizedBox(
                             width: 5,
                           ),
-                          Text("Update",style: TextStyle(color:Colors.white),),
+                          Text(
+                            "Update",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -383,4 +374,3 @@ class _EditPetsState extends State<EditPets> {
     );
   }
 }
-

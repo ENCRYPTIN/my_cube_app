@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class AutocompleteTextField extends StatefulWidget {
   final List<String> items;
   final Function(String) onItemSelect;
@@ -6,10 +7,10 @@ class AutocompleteTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   const AutocompleteTextField(
       {Key? key,
-        required this.items,
-        required this.onItemSelect,
-        this.decoration,
-        this.validator})
+      required this.items,
+      required this.onItemSelect,
+      this.decoration,
+      this.validator})
       : super(key: key);
 
   @override
@@ -31,7 +32,7 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
         _overlayEntry = _createOverlayEntry();
-        Overlay.of(context)?.insert(_overlayEntry);
+        Overlay.of(context).insert(_overlayEntry);
       } else {
         _overlayEntry.remove();
       }
@@ -71,32 +72,32 @@ class _AutocompleteTextFieldState extends State<AutocompleteTextField> {
 
     return OverlayEntry(
         builder: (context) => Positioned(
-          width: size.width,
-          child: CompositedTransformFollower(
-            link: _layerLink,
-            showWhenUnlinked: false,
-            offset: Offset(0.0, size.height + 5.0),
-            child: Material(
-              elevation: 4.0,
-              child: Container(
-                constraints: const BoxConstraints(maxHeight: 200),
-                child: ListView.builder(
-                  itemCount: _filteredItems.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final item = _filteredItems[index];
-                    return ListTile(
-                      title: Text(item),
-                      onTap: () {
-                        _controller.text = item;
-                        _focusNode.unfocus();
-                        widget.onItemSelect(item);
+              width: size.width,
+              child: CompositedTransformFollower(
+                link: _layerLink,
+                showWhenUnlinked: false,
+                offset: Offset(0.0, size.height + 5.0),
+                child: Material(
+                  elevation: 4.0,
+                  child: Container(
+                    constraints: const BoxConstraints(maxHeight: 200),
+                    child: ListView.builder(
+                      itemCount: _filteredItems.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = _filteredItems[index];
+                        return ListTile(
+                          title: Text(item),
+                          onTap: () {
+                            _controller.text = item;
+                            _focusNode.unfocus();
+                            widget.onItemSelect(item);
+                          },
+                        );
                       },
-                    );
-                  },
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-        ));
+            ));
   }
 }

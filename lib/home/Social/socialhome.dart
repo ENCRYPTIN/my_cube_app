@@ -23,36 +23,40 @@ class _SocialHomeState extends State<SocialHome> {
   Widget build(BuildContext context) {
     var firestorehelper=FirestoreHelper();
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.00,
+        title: Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                Icons.people,
+                color: Colors.blue,
+              ),
+              SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  "Meet other Users of My Cube",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: SafeArea(
         child:Column(
-          children: [Container(
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.celebration,
-                  color: Colors.blue,
-                ),
-                SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    "Organize a Event",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: false,
-                  ),
-                ),
-              ],
-            ),
-          ),
+          children: [
             StreamBuilder<List<SocialUserModel>>(
                 stream: firestorehelper.readPersonalData(),
                 builder: (context, snapshot) {
