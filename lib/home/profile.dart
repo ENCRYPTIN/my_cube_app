@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_cube/home/updateprofile.dart';
 //import 'package:my_cube/Models/user_model.dart';
 import 'package:my_cube/screens/welcome_screen.dart';
 import 'package:provider/provider.dart';
@@ -101,19 +102,13 @@ class Profile extends StatelessWidget {
                                     // You can use color to choose a nice color for the icon
                                     color: Colors.blue,
                                   ),
-                                  // You can use a SizedBox widget to give some space between the icon and the text
                                   SizedBox(width: 8),
                                   // You can use an Expanded widget to make the text fill the remaining space in the row
                                   Expanded(
-                                    // You can use a Text widget to display the email
                                     child: Text(
-                                      // You can use ap.userModel.email as the data
                                       ap.userModel.email,
-                                      // You can use style to customize the appearance of the text
                                       style: TextStyle(
-                                        // You can use color to choose a nice color for the text
                                         color: Colors.black,
-                                        // You can use fontSize to adjust the size of the text
                                         fontSize: 18,
                                       ),
                                       // You can use overflow and softWrap to handle long texts gracefully
@@ -187,7 +182,12 @@ class Profile extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FloatingActionButton.extended(
-                              onPressed: () {},
+                              onPressed: () {
+                                if(context.mounted) {
+                                  Navigator.push(context, MaterialPageRoute(
+                                      builder: (context) => UpdateUser()));
+                                }
+                              },
                               heroTag: 'Update',
                               elevation: 0,
                               label: Text("Update"),

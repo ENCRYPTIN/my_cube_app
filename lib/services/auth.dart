@@ -261,7 +261,6 @@ class AuthProvider extends ChangeNotifier {
     return res;
   }
   // Signing Up User
-
   Future<String> signUpUser({
     required String email,
     required String password,
@@ -307,6 +306,46 @@ class AuthProvider extends ChangeNotifier {
             .collection("PersonalData")
             .doc(cred.user!.uid)
             .set(user.toMap());
+
+        res = "success";
+      } else {
+        res = "Please enter all the fields";
+      }
+    } catch (err) {
+      return err.toString();
+    }
+    return res;
+  }
+  //Updating User
+  Future<String> updateUser({
+    required String name,
+    required String bio,
+    Uint8List? file,
+    required String dateOfBirth,
+    required String profilepic
+  }) async {
+    String res = "Some error Occurred";
+    try {
+      if (
+          name.isNotEmpty ||
+          bio.isNotEmpty) {
+        String _uid = FirebaseAuth.instance.currentUser!.uid;
+        if(file!=null) {
+           profilepic = await StorageMethods()
+              .uploadImageToStorage('$_uid/ProfilePic', file, false);
+        }
+        // adding user in our database
+        await _firebaseFirestore
+            .collection("Users")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection("PersonalData")
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update(<String, dynamic>{
+          "name":name,
+          "profilepic":profilepic,
+          "dateOfBirth":dateOfBirth,
+          "bio":bio,
+        });
 
         res = "success";
       } else {
