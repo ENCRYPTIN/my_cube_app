@@ -174,37 +174,44 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     ? const LinearProgressIndicator()
                     : const Padding(padding: EdgeInsets.only(top: 0.0)),
                 const Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        authProvider.userModel.profilepic,
-                      ),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SizedBox(width: 10,),
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(
+                            authProvider.userModel.profilepic,
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          child: TextField(
+                            controller: _descriptionController,
+                            decoration: const InputDecoration(
+                                hintText: "Write a caption...",
+                                border: InputBorder.none),
+                            maxLines: 3,
+                          ),
+                        ),
+
+                      ],
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      child: TextField(
-                        controller: _descriptionController,
-                        decoration: const InputDecoration(
-                            hintText: "Write a caption...",
-                            border: InputBorder.none),
-                        maxLines: 3,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 45.0,
-                      width: 45.0,
+                      height: 300.0,
+                      width: MediaQuery.of(context).size.width,
                       child: AspectRatio(
                         aspectRatio: 487 / 451,
                         child: Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                            fit: BoxFit.fill,
-                            alignment: FractionalOffset.topCenter,
-                            image: MemoryImage(_file!),
-                          )),
+                                fit: BoxFit.fill,
+                                alignment: FractionalOffset.topCenter,
+                                image: MemoryImage(_file!),
+                              )),
                         ),
                       ),
                     ),

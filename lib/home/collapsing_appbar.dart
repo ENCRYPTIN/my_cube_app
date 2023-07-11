@@ -1,7 +1,5 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart' as rive;
 class CollapsingAppbarPage extends StatefulWidget {
   const CollapsingAppbarPage({Key? key}) : super(key: key);
 
@@ -19,7 +17,7 @@ class _CollapsingAppbarPageState extends State<CollapsingAppbarPage> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
-              backgroundColor: Colors.transparent,//Color(0xff99b0fc),
+              backgroundColor: Color(0xCCE7E7EF),
               elevation: 1,
               expandedHeight: 250.0,
               floating: false,
@@ -41,14 +39,7 @@ class _CollapsingAppbarPageState extends State<CollapsingAppbarPage> {
             ),
           ];
         },
-        body: Stack(
-          children: [
-            rive.RiveAnimation.asset("assets/rive/cubeshape.riv"),
-            Positioned.fill(child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 20,sigmaY: 10),
-              child: SizedBox(),
-            )),
-            ListView(
+        body: ListView(
             children: [Center(
                 child: Column(
               children: [
@@ -193,7 +184,6 @@ class _CollapsingAppbarPageState extends State<CollapsingAppbarPage> {
               ],
             )),
           ]),
-        ]),
       ),
     );
   }

@@ -41,10 +41,11 @@ class _OtpState extends State<Otp> {
       },
     );
   }
-
+  Timer? _timer;
   @override
   void dispose() {
     _pinController.dispose();
+    _timer?.cancel();
     super.dispose();
   }
 @override
@@ -258,16 +259,18 @@ class _OtpState extends State<Otp> {
   }
   void startTimer() {
     const onsec = Duration(seconds: 1);
-    Timer _timer = Timer.periodic(onsec, (timer) {
-      if (start == 0) {
-        setState(() {
-          timer.cancel();
-          wait = false;
-        });
-      } else {
-        setState(() {
-          start--;
-        });
+     _timer = Timer.periodic(onsec, (timer) {
+      if(context.mounted){
+        if (start == 0) {
+          setState(() {
+            timer.cancel();
+            wait = false;
+          });
+        } else {
+          setState(() {
+            start--;
+          });
+        }
       }
     });
   }

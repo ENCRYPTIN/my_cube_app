@@ -13,6 +13,11 @@ class _RiveTestState extends State<RiveTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("My Cube"),
+        backgroundColor: Colors.transparent,
+
+      ),
       body:  Stack(
           children: [
             rive.RiveAnimation.asset("assets/rive/cubeshape.riv"),

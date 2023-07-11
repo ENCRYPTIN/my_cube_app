@@ -7,7 +7,7 @@ import 'package:my_cube/home/profile.dart';
 import 'package:my_cube/home/rivetest.dart';
 
 List<Widget> homeScreenItems = [
-  const RiveTest(),
+  const CollapsingAppbarPage(),
   const SocialHome(),
   const AddPostScreen(),
   const FeedScreen(),
